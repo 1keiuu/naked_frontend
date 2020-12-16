@@ -20,7 +20,7 @@
     "@nuxtjs/pwa": "^3.0.2",
     "@types/nuxtjs__auth": "^4.8.5",
     "@typescript-eslint/parser": "^4.10.0",
-    "@vue/composition-api": "^1.0.0-beta.20",
+    "@vue/composition-api": "^1.0.0-beta.21",
     "core-js": "^3.6.5",
     "nuxt": "^2.14.6"
   },
