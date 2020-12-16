@@ -36,6 +36,7 @@ export default defineComponent({
   setup(_props, context) {
     const errorMessages = reactive<string[]>([])
     const LogInStore = inject(LogInStoreKey)
+
     if (!LogInStore) {
       throw new Error(`${LogInStoreKey} is not provided`)
     }
