@@ -1,4 +1,4 @@
-import { reactive } from '~/store/SignUp/node_modules/@vue/composition-api';
+import { reactive } from '@vue/composition-api';
 
 export default function LogInStore() {
   const state = reactive({
