@@ -6,7 +6,7 @@
 <script>
 import { defineComponent, provide } from '@vue/composition-api'
 import LogInStore from '~/store/LogIn/LogIn'
-import LogInStoreKey from '../../storeKeys/loginStoreKey.ts'
+import LogInStoreKey from '../../storeKeys/LoginStoreKey.ts'
 
 export default defineComponent({
   setup(_props, context) {
