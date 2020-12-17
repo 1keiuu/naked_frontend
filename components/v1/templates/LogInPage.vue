@@ -23,14 +23,11 @@ import { defineComponent, reactive, ref, inject } from '@vue/composition-api'
 import NkdLogInForm from '../organisms/NkdLogInForm/NkdLogInForm.vue'
 import LogInStore from '~/store/LogIn/LogIn'
 import LogInStoreKey from '../storeKeys/LogInStoreKey'
-import auth from '@/middleware/auth'
 
 export default defineComponent({
   components: {
     NkdLogInForm,
   },
-  middleware: [auth],
-
   setup(_props, context) {
     const errorMessages = reactive<string[]>([])
     const LogInStore = inject(LogInStoreKey)

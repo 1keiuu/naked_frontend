@@ -22,13 +22,11 @@
 import { defineComponent, reactive, inject } from '@vue/composition-api'
 import SignUpStoreKey from '../storeKeys/SignUpStoreKey'
 import NkSignUpForm from '../organisms/NkdSignUpForm/NkdSignUpForm.vue'
-import auth from '@/middleware/auth'
 
 export default defineComponent({
   components: {
     NkSignUpForm,
   },
-  middleware: [auth],
   setup(_props, context) {
     const errorMessages = reactive<string[]>([])
     const SignUpStore = inject(SignUpStoreKey)
