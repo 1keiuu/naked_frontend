@@ -3,6 +3,7 @@
     :class="{ '--active': loggedIn }"
     class="nkd-header fixed bg-white top-0 px-3 z-5 h-16 w-full items-center justify-end border-gray-300 border-b-2"
   >
+    <img :src="avatarUrl" class="" />
     <button @click="signOut"><p>ログアウト</p></button>
   </header>
 </template>
@@ -15,6 +16,10 @@ export default defineComponent({
     loggedIn: {
       type: Boolean,
       requied: true,
+    },
+    avatarUrl: {
+      type: String,
+      required: false,
     },
   },
   setup(_props, context) {
