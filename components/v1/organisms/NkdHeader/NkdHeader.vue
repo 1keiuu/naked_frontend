@@ -3,7 +3,7 @@
     :class="{ '--active': loggedIn }"
     class="nkd-header fixed bg-white top-0 px-3 z-5 h-16 w-full items-center justify-end border-gray-300 border-b-2"
   >
-    <img :src="avatarUrl" class="" />
+    <img :src="avatarUrl" class="rounded-full h-12 mr-2" />
     <button @click="signOut"><p>ログアウト</p></button>
   </header>
 </template>
