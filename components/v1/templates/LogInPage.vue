@@ -4,7 +4,7 @@
   >
     <NkdLogInForm @recieveClickEvent="onSubmitButtonClick" />
     <a
-      href="https://slack.com/oauth/v2/authorize?user_scope=identity.basic&client_id=1242468374582.1564775291025"
+      href="https://slack.com/oauth/v2/authorize?user_scope=identity.basic,identity.email,identity.avatar&client_id=1242468374582.1564775291025"
       ><img src="https://api.slack.com/img/sign_in_with_slack.png" />
     </a>
     <nuxt-link to="/signup">新規登録</nuxt-link>
@@ -23,16 +23,14 @@ import { defineComponent, reactive, ref, inject } from '@vue/composition-api'
 import NkdLogInForm from '../organisms/NkdLogInForm/NkdLogInForm.vue'
 import LogInStore from '~/store/LogIn/LogIn'
 import LogInStoreKey from '../storeKeys/LogInStoreKey'
+import auth from '@/middleware/auth'
 
 export default defineComponent({
   components: {
     NkdLogInForm,
   },
-  middleware({ store, redirect }) {
-    if (store.$auth.loggedIn) {
-      redirect('/')
-    }
-  },
+  middleware: [auth],
+
   setup(_props, context) {
     const errorMessages = reactive<string[]>([])
     const LogInStore = inject(LogInStoreKey)
