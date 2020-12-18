@@ -1,13 +1,26 @@
 <template>
-  <div class="task-page" />
+  <div class="task-page w-full h-full">
+    <TasksProvider>
+      <TasksPage />
+    </TasksProvider>
+  </div>
 </template>
-<script lang="ta">
-import {defineComponent} from "@vue/composition-api"
+<script lang="ts">
+import { defineComponent } from '@vue/composition-api'
+import TasksProvider from '@/components/v1/providers/Tasks/TasksProvider.vue'
+import TasksPage from '@/components/v1/templates/TasksPage.vue'
+
 export default defineComponent({
-  setup(_props,context) {
-    context.root.$axios.get('/api/v1/tasks').then((res)=>{
-      console.log(res)
-    }).catch(e=>{console.log(e)})
-  }
+  components: { TasksProvider, TasksPage },
+  setup(_props, context) {
+    context.root.$axios
+      .get('/api/v1/tasks')
+      .then((res) => {
+        console.log(res)
+      })
+      .catch((e) => {
+        console.log(e)
+      })
+  },
 })
 </script>
