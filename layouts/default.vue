@@ -24,7 +24,7 @@ export default defineComponent({
 
     watchEffect(() => {
       loggedIn.value = context.root.$auth.state.loggedIn
-      avatarUrl.value = context.root.$auth.state.user.avatar_url
+      avatarUrl.value = context.root.$auth.state.user?.avatar_url
     })
     return { loggedIn, avatarUrl }
   },
