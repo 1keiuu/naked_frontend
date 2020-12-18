@@ -1,8 +1,8 @@
 <template>
-  <button @click="onItemClick">
-    <span>
-      <p>{{ item.title }}</p>
-    </span>
+  <button @click="onItemClick" class="bg-white hover:bg-gray-200 py-2 px-16">
+    <div class="flex">
+      <p class="text-sm">{{ item.title }}</p>
+    </div>
   </button>
 </template>
 <script lang="ts">

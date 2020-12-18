@@ -3,13 +3,22 @@
     :class="{ '--active': loggedIn }"
     class="nkd-header fixed bg-white top-0 px-3 z-5 h-16 w-full items-center justify-end border-gray-300 border-b-2"
   >
-    <img v-if="avatarUrl" :src="avatarUrl" class="rounded-full h-12 mr-2" />
-    <HeaderItemList :items="items" @dispatchAction="onHeaderItemClick" />
+    <img
+      v-if="avatarUrl"
+      :src="avatarUrl"
+      @click="isItemListActive = !isItemListActive"
+      class="rounded-full h-12 mr-2 cursor-pointer"
+    />
+    <HeaderItemList
+      :isItemListActive="isItemListActive"
+      :items="items"
+      @dispatchAction="onHeaderItemClick"
+    />
   </header>
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, computed } from '@vue/composition-api'
+import { defineComponent, reactive, ref, computed } from '@vue/composition-api'
 import HeaderItemList from '@/components/v1/organisms/NkdHeaderItemList/NkdHeaderItemList.vue'
 export default defineComponent({
   name: 'NkdHeader',
@@ -33,6 +42,7 @@ export default defineComponent({
         type: 'signOut',
       },
     ])
+    const isItemListActive = ref(false)
     const signOut = () => {
       context.root.$auth.logout()
     }
@@ -44,7 +54,7 @@ export default defineComponent({
       }
     }
 
-    return { items, signOut, onHeaderItemClick }
+    return { items, isItemListActive, signOut, onHeaderItemClick }
   },
 })
 </script>

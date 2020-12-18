@@ -1,5 +1,9 @@
 <template>
-  <nav>
+  <nav
+    class="absolute right-0 flex-col border-gray-100 border-2 shadow-sm"
+    style="top: 100%"
+    :class="{ '--active': isItemListActive }"
+  >
     <NkdHeaderItem
       v-for="(item, i) in items"
       :key="'header-item' + i"
@@ -19,6 +23,9 @@ export default defineComponent({
     items: {
       type: Array as PropType<HeaderItem[]>,
     },
+    isItemListActive: {
+      type: Boolean,
+    },
   },
   setup(props, context) {
     const dispatchAction = (type: string) => {
@@ -30,3 +37,11 @@ export default defineComponent({
   },
 })
 </script>
+<style lang="scss" scoped>
+nav {
+  display: none;
+  &.--active {
+    display: flex;
+  }
+}
+</style>
