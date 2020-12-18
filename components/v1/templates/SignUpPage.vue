@@ -4,7 +4,7 @@
   >
     <NkSignUpForm @recieveClickEvent="onSubmitButtonClick" />
     <a
-      href="https://slack.com/oauth/v2/authorize?user_scope=identity.basic&client_id=1242468374582.1564775291025"
+      href="https://slack.com/oauth/v2/authorize?user_scope=identity.basic,identity.email,identity.avatar&client_id=1242468374582.1564775291025"
       ><img src="https://api.slack.com/img/sign_in_with_slack.png"
     /></a>
     <nuxt-link to="/login">アカウントをお持ちの方</nuxt-link>
@@ -38,7 +38,11 @@ export default defineComponent({
       errorMessages.splice(0, errorMessages.length)
       context.root.$axios
         .post('/api/v1/users/signup', {
-          user: { email: SignUpStore.email, password: SignUpStore.password },
+          user: {
+            email: SignUpStore.email,
+            password: SignUpStore.password,
+            name: '',
+          },
         })
         .then((response) => {
           context.root.$auth.setUser(response.data.user)

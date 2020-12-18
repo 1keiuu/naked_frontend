@@ -1,8 +1,10 @@
 <template>
   <div class="bg-gray-100 min-h-screen">
-    <NkdHeader :loggedIn="loggedIn" />
-    <NkdSideBar :loggedIn="loggedIn" />
-    <Nuxt />
+    <NkdHeader :loggedIn="loggedIn" :avatarUrl="avatarUrl" />
+    <div class="flex h-screen">
+      <NkdSideBar :loggedIn="loggedIn" />
+      <Nuxt />
+    </div>
   </div>
 </template>
 <script lang="ts">
@@ -18,10 +20,13 @@ export default defineComponent({
 
   setup(_props, context) {
     const loggedIn = ref(false)
+    const avatarUrl = ref('')
+
     watchEffect(() => {
       loggedIn.value = context.root.$auth.state.loggedIn
+      avatarUrl.value = context.root.$auth.state.user?.avatar_url
     })
-    return { loggedIn }
+    return { loggedIn, avatarUrl }
   },
 })
 </script>

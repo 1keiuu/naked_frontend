@@ -1,5 +1,5 @@
 <template>
-  <div class="sign-up__provider">
+  <div class="sign-up__provider w-full">
     <slot />
   </div>
 </template>

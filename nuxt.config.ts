@@ -53,9 +53,7 @@ export default {
   },
   proxy: { "/api": { target: 'http://localhost:3000' } },
   publicRuntimeConfig: {
-    axios: {
-      browserBaseURL: process.env.BROWSER_BASE_URL,
-    },
+
   },
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)

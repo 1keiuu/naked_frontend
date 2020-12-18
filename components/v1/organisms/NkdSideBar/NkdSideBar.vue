@@ -1,6 +1,6 @@
 <template>
   <nav
-    class="nkd-sidebar z-10 fixed left-0 h-full bg-gray-700 w-56"
+    class="nkd-sidebar z-10 h-full bg-gray-700 w-56"
     :class="{ '--active': loggedIn }"
   >
     <nuxt-link to="/">
@@ -8,7 +8,7 @@
         <h3 class="nkd-sidebar__title text-white text-xl">Naked</h3>
       </div>
     </nuxt-link>
-    <div class="nkd-sidebar__list-items">
+    <div class="nkd-sidebar__list-items w-56">
       <NkdSideBarItem
         v-for="(item, i) in listItems"
         :key="'item' + i"
