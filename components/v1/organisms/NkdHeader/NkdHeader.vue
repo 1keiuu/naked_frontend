@@ -1,7 +1,7 @@
 <template>
   <header
     :class="{ '--active': loggedIn }"
-    class="nkd-header fixed bg-white top-0 px-3 z-5 h-16 w-full items-center justify-end border-gray-300 border-b-2"
+    class="nkd-header fixed bg-white top-0 px-3 z-5 h-16 w-full items-center justify-end border-gray-300 border-b-2 z-10"
   >
     <img
       v-if="avatarUrl"

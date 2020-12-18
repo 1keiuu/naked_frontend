@@ -1,11 +1,15 @@
 <template>
-  <div
-    class="min-h-screen logIn-page px-8 sm:px-16 lg:px-32 xl:px-64 py-24 flex flex-col justify-center"
-  />
+  <div class="min-h-screen logIn-page pt-16 flex flex-col justify-center">
+    <NkdTaskSubHeader />
+  </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, reactive, inject } from '@vue/composition-api'
-
-export default defineComponent({})
+import NkdTaskSubHeader from '@/components/v1/organisms/NkdTasksSubHeader/NkdTasksSubHeader.vue'
+export default defineComponent({
+  components: {
+    NkdTaskSubHeader,
+  },
+})
 </script>
