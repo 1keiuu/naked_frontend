@@ -8,7 +8,7 @@
 <script lang="ts">
 import { defineComponent } from '@vue/composition-api'
 import TasksProvider from '@/components/v1/providers/Tasks/TasksProvider.vue'
-import TasksPage from '@/components/v1/templates/tasks/TasksPage.vue'
+import TasksPage from '@/components/v1/templates/Tasks/TasksPage.vue'
 
 export default defineComponent({
   components: { TasksProvider, TasksPage },
