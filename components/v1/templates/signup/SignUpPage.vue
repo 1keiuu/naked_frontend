@@ -20,8 +20,8 @@
 
 <script lang="ts">
 import { defineComponent, reactive, inject } from '@vue/composition-api'
-import SignUpStoreKey from '../storeKeys/SignUpStoreKey'
-import NkSignUpForm from '../organisms/NkdSignUpForm/NkdSignUpForm.vue'
+import SignUpStoreKey from '../../storeKeys/SignUpStoreKey'
+import NkSignUpForm from '../../organisms/NkdSignUpForm/NkdSignUpForm.vue'
 
 export default defineComponent({
   components: {
