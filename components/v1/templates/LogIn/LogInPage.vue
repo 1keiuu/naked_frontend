@@ -20,9 +20,9 @@
 
 <script lang="ts">
 import { defineComponent, reactive, ref, inject } from '@vue/composition-api'
-import NkdLogInForm from '../organisms/NkdLogInForm/NkdLogInForm.vue'
+import NkdLogInForm from '../../organisms/NkdLogInForm/NkdLogInForm.vue'
 import LogInStore from '~/store/LogIn/LogIn'
-import LogInStoreKey from '../storeKeys/LogInStoreKey'
+import LogInStoreKey from '../../storeKeys/LogInStoreKey'
 
 export default defineComponent({
   components: {
