@@ -1,6 +1,10 @@
 <template>
   <div class="task__sub-header w-full h-12 bg-white fixed">
-    <button @click="onTabClick(id)" v-for="tab in tabs" :key="'tab' + tab.id">
+    <button
+      v-for="tab in tabs"
+      :key="'tab' + tab.id"
+      @click="onTabClick(tab.id, tab.route)"
+    >
       <p>{{ tab.title }}</p>
     </button>
   </div>
@@ -16,8 +20,8 @@ export default defineComponent({
     },
   },
   setup(props, context) {
-    const onTabClick = (id: number) => {
-      context.emit('onTabClick', id)
+    const onTabClick = (id: number, route: string) => {
+      context.emit('onTabClick', id, route)
     }
     return { onTabClick }
   },
