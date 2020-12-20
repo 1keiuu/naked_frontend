@@ -1,7 +1,7 @@
 <template>
   <div class="task-page w-full h-full">
     <TasksProvider>
-      <TasksPage :epics="epics" />
+      <TasksPage :epicTasksArray="epicTasksArray" />
     </TasksProvider>
   </div>
 </template>
@@ -13,18 +13,18 @@ import TasksPage from '@/components/v1/templates/Tasks/TasksPage.vue'
 export default defineComponent({
   components: { TasksProvider, TasksPage },
   setup(_props, context) {
-    const epics = reactive<EpicTasks[]>([])
+    const epicTasksArray = reactive<EpicTasks[]>([])
     context.root.$axios
       .get('/api/v1/tasks/no_date_tasks')
       .then((res) => {
-        epics.values = res.data.epics
-        console.log(res.data)
+        res.data.epic_tasks.forEach((epicTasks: EpicTasks) => {
+          epicTasksArray.push(epicTasks)
+        })
       })
       .catch((e) => {
         console.log(e)
       })
-
-    return { epics }
+    return { epicTasksArray }
   },
 })
 </script>

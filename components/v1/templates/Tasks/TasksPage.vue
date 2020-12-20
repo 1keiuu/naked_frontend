@@ -1,20 +1,23 @@
 <template>
-  <div class="min-h-screen logIn-page pt-16 flex flex-col justify-center">
+  <div class="mt-16 pt-16">
     <NkdTaskSubHeader :tabs="contents" @onTabClick="changeContent" />
     <TasksIndex
       v-if="currentTabIndex == 1"
       :today="today"
       :tomorrow="tomorrow"
     />
-    <TasksList v-else-if="currentTabIndex == 2" :epics="epics" />
+    <TasksList
+      v-else-if="currentTabIndex == 2"
+      :epicTasksArray="epicTasksArray"
+    />
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, reactive, ref, PropType } from '@vue/composition-api'
 import NkdTaskSubHeader from '@/components/v1/organisms/NkdTasksSubHeader/NkdTasksSubHeader.vue'
-import TasksIndex from './Contents/index.vue'
-import TasksList from './Contents/list.vue'
+import TasksIndex from './Contents/TasksIndex.vue'
+import TasksList from './Contents/TasksList.vue'
 
 export default defineComponent({
   components: {
@@ -29,7 +32,7 @@ export default defineComponent({
       type: Array as PropType<EpicTasks[]>,
       required: false,
     },
-    epics: {
+    epicTasksArray: {
       type: Array as PropType<EpicTasks[]>,
       required: false,
     },
@@ -41,7 +44,7 @@ export default defineComponent({
     ])
     const currentTabIndex = ref(1)
     const currentPage = context.root.$route.path.replace('/tasks/', '')
-
+    console.log(props.epicTasksArray)
     switch (currentPage) {
       case 'list':
         currentTabIndex.value = 2
