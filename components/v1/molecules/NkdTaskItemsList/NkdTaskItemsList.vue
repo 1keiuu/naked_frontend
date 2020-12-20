@@ -15,7 +15,7 @@ export default defineComponent({
   props: {
     epic: Object as PropType<Epic>,
     tasks: {
-      type: Object as PropType<Task[]>,
+      type: Array as PropType<Task[]>,
     },
   },
   setup(props, context) {},

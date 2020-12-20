@@ -19,8 +19,12 @@ export default defineComponent({
     context.root.$axios
       .get('/api/v1/tasks')
       .then((res) => {
-        today.values = res.data.today
-        tomorrow.values = res.data.tomorrow
+        res.data.today.forEach((epicTasks: EpicTasks) => {
+          today.push(epicTasks)
+        })
+        res.data.tomorrow.forEach((epicTasks: EpicTasks) => {
+          tomorrow.push(epicTasks)
+        })
       })
       .catch((e) => {
         console.log(e)

@@ -44,7 +44,6 @@ export default defineComponent({
     ])
     const currentTabIndex = ref(1)
     const currentPage = context.root.$route.path.replace('/tasks/', '')
-    console.log(props.epicTasksArray)
     switch (currentPage) {
       case 'list':
         currentTabIndex.value = 2
@@ -54,11 +53,9 @@ export default defineComponent({
       currentTabIndex.value = id
       switch (route) {
         case 'index':
-          console.log(route)
           context.root.$router.push('/tasks')
           break
         case 'list':
-          console.log(route)
           context.root.$router.push('/tasks/list')
           break
       }
