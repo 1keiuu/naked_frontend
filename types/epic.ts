@@ -1,8 +1,7 @@
-declare type Task = {
+declare type Epic = {
     id: number,
     title: string,
     description: string,
-    status: string,
     starts_date: string,
     due_date: string
     completed_date: string,
