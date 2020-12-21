@@ -17,8 +17,10 @@ export default defineComponent({
   },
   setup(props, context) {
     const onCardClick = () => {
-      context.emit('onCardClick')
+      context.emit('onCardClick', props.epic, props.tasks)
     }
+
+    return { onCardClick }
   },
 })
 </script>

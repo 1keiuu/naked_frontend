@@ -18,6 +18,8 @@ export default defineComponent({
       type: Array as PropType<Task[]>,
     },
   },
-  setup(props, context) {},
+  setup(props, context) {
+    console.log(props)
+  },
 })
 </script>

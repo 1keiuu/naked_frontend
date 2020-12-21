@@ -10,23 +10,32 @@
       v-else-if="currentTabIndex == 2"
       :epicTasksArray="epicTasksArray"
     />
-    <div
-      class="h-full w-64 bg-gray-100 border-l-2 border-gray-300 fixed right-0 top-0"
-    >
-      <p />
-    </div>
+    <NkdDrawer>
+      <NkdTaskItemsList
+        :epic="taskPageStore.epic"
+        :tasks="taskPageStore.tasks"
+      />
+    </NkdDrawer>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, ref, PropType } from '@vue/composition-api'
+import {
+  defineComponent,
+  reactive,
+  ref,
+  PropType,
+  inject,
+  computed,
+} from '@vue/composition-api'
 import NkdTaskSubHeader from '@/components/v1/organisms/NkdTasksSubHeader/NkdTasksSubHeader.vue'
 import TasksIndex from './Contents/TasksIndex.vue'
-import TasksList from './Contents/TasksList.vue'
-
+import NkdDrawer from '@/components/v1/organisms/NkdDrawer/NkdDrawer.vue'
+import TaskPageStoreKey from '@/components/v1/storeKeys/TaskPageStoreKey.ts'
 export default defineComponent({
   components: {
     NkdTaskSubHeader,
+    NkdDrawer,
   },
   props: {
     today: {
@@ -49,6 +58,8 @@ export default defineComponent({
     ])
     const currentTabIndex = ref(1)
     const currentPage = context.root.$route.path.replace('/tasks/', '')
+    const taskPageStore = inject(TaskPageStoreKey)
+
     switch (currentPage) {
       case 'list':
         currentTabIndex.value = 2
@@ -66,7 +77,7 @@ export default defineComponent({
       }
     }
 
-    return { contents, currentTabIndex, changeContent }
+    return { contents, currentTabIndex, changeContent, taskPageStore }
   },
 })
 </script>
