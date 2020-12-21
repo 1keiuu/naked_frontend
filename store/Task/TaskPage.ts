@@ -3,17 +3,36 @@ import { reactive } from '@vue/composition-api'
 
 export default function TaskPageStore() {
     const state = reactive({
-      sideBarStatus: false
+        drawerStatus: false,
+        epic: <Epic>{},
+        tasks: <Task[]>[]
     })
     
-
     return {
-        get sideBarStatus() {
-            return state.sideBarStatus
-          },
-          setSideBarStatus(payload:boolean) {
-            state.sideBarStatus = payload
-          },      
+        get drawerStatus() {
+            return state.drawerStatus
+        },
+        get epic() {
+            return state.epic
+        },
+        get tasks() {
+            return state.tasks
+        },
+        setdrawerStatus(payload:boolean) {
+            state.drawerStatus = payload
+        },      
+        setEpic(payload:object) {
+            state.epic = payload
+        },      
+        setTasks(payload:Array<Task>) {
+            state.tasks = payload
+        },    
+        reSetEpic() {
+            state.epic = {}
+        },
+        reSetTasks() {
+            state.tasks = []
+        },    
   }
 }
 
