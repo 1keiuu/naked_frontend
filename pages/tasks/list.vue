@@ -1,7 +1,7 @@
 <template>
   <div class="task-page w-full h-full">
     <TasksProvider>
-      <TasksPage :today="today" :tomorrow="tomorrow" />
+      <TasksPage :epicTasksArray="epicTasksArray" />
     </TasksProvider>
   </div>
 </template>
@@ -13,24 +13,18 @@ import TasksPage from '@/components/v1/templates/Tasks/TasksPage.vue'
 export default defineComponent({
   components: { TasksProvider, TasksPage },
   setup(_props, context) {
-    const today = reactive<EpicTasks[]>([])
-    const tomorrow = reactive<EpicTasks[]>([])
-
+    const epicTasksArray = reactive<EpicTasks[]>([])
     context.root.$axios
-      .get('/api/v1/tasks')
+      .get('/api/v1/epics/epic_tasks')
       .then((res) => {
-        res.data.today.forEach((epicTasks: EpicTasks) => {
-          today.push(epicTasks)
-        })
-        res.data.tomorrow.forEach((epicTasks: EpicTasks) => {
-          tomorrow.push(epicTasks)
+        res.data.epic_tasks.forEach((epicTasks: EpicTasks) => {
+          epicTasksArray.push(epicTasks)
         })
       })
       .catch((e) => {
         console.log(e)
       })
-
-    return { today, tomorrow }
+    return { epicTasksArray }
   },
 })
 </script>
