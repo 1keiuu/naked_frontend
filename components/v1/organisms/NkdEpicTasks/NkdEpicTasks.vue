@@ -4,8 +4,10 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, PropType } from '@vue/composition-api'
+import { defineComponent, PropType, inject } from '@vue/composition-api'
 import NkdTaskItemsList from '@/components/v1/molecules/NkdTaskItemsList/NkdTaskItemsList.vue'
+import TaskPageStoreKey from '@/components/v1/storeKeys/TaskPageStoreKey'
+
 export default defineComponent({
   props: {
     epic: {
@@ -16,8 +18,11 @@ export default defineComponent({
     },
   },
   setup(props, context) {
+    const taskPageStore = inject(TaskPageStoreKey)
+
     const onCardClick = () => {
-      context.emit('onCardClick', props.epic, props.tasks)
+      taskPageStore.setEpic(props.epic)
+      taskPageStore.setTasks(props.tasks)
     }
 
     return { onCardClick }
