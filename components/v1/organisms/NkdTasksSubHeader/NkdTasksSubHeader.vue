@@ -2,14 +2,15 @@
   <div
     class="task__sub-header w-full h-12 bg-white fixed flex items-center justify-between"
   >
-    <div class="link__group">
+    <div class="link__group h-full">
       <button
         v-for="tab in tabs"
         :key="'tab' + tab.id"
         @click="onTabClick(tab.id, tab.route)"
-        class="ml-4 h-full"
+        class="ml-4 h-full tab"
+        :class="{ '--active': currentPage == tab.route }"
       >
-        <p>{{ tab.title }}</p>
+        <p :class="{ '--active': currentPage == tab.route }">{{ tab.title }}</p>
       </button>
     </div>
     <!-- <button>
@@ -26,6 +27,9 @@ export default defineComponent({
     tabs: {
       type: Array,
     },
+    currentPage: {
+      type: String,
+    },
   },
   setup(props, context) {
     const onTabClick = (id: number, route: string) => {
@@ -38,5 +42,16 @@ export default defineComponent({
 <style scoped lang="scss">
 .task__sub-header {
   top: 4em;
+}
+.tab {
+  outline: 0;
+  &.--active {
+    border-bottom: 2px solid black;
+  }
+}
+p {
+  &.--active {
+    font-weight: bold;
+  }
 }
 </style>

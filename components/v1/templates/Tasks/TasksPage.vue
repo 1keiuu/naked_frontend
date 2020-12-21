@@ -1,6 +1,10 @@
 <template>
   <div class="mt-16 pt-16">
-    <NkdTaskSubHeader :tabs="contents" @onTabClick="changeContent" />
+    <NkdTaskSubHeader
+      :tabs="contents"
+      @onTabClick="changeContent"
+      :currentPage="currentPage"
+    />
     <TasksIndex
       v-if="currentTabIndex == 1"
       :today="today"
@@ -53,31 +57,37 @@ export default defineComponent({
   },
   setup(props, context) {
     const contents = reactive([
-      { id: 1, title: '直近のタスク', route: 'index' },
-      { id: 2, title: 'リスト', route: 'list' },
+      { id: 1, title: '直近のタスク', route: '/tasks' },
+      { id: 2, title: 'リスト', route: '/tasks/list' },
     ])
     const currentTabIndex = ref(1)
-    const currentPage = context.root.$route.path.replace('/tasks/', '')
+    const currentPage = context.root.$route.path
     const taskPageStore = inject(TaskPageStoreKey)
 
     switch (currentPage) {
-      case 'list':
+      case '/tasks/list':
         currentTabIndex.value = 2
     }
 
     const changeContent = (id: number, route: string) => {
       currentTabIndex.value = id
       switch (route) {
-        case 'index':
+        case '/tasks':
           context.root.$router.push('/tasks')
           break
-        case 'list':
+        case '/tasks/list':
           context.root.$router.push('/tasks/list')
           break
       }
     }
 
-    return { contents, currentTabIndex, changeContent, taskPageStore }
+    return {
+      contents,
+      currentTabIndex,
+      currentPage,
+      changeContent,
+      taskPageStore,
+    }
   },
 })
 </script>
