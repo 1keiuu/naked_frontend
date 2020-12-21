@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <h3>{{ epic.title }}</h3>
+  <div class="epic-tasks__card">
+    <h3 class="text-xl">{{ epic.title }}</h3>
     <NkdTaskItemsList :epic="epic" :tasks="tasks" />
   </div>
 </template>

@@ -1,9 +1,10 @@
 <template>
-  <div class="task__sub-header w-full h-12 bg-white fixed">
+  <div class="task__sub-header w-full h-12 bg-white fixed flex items-center">
     <button
       v-for="tab in tabs"
       :key="'tab' + tab.id"
       @click="onTabClick(tab.id, tab.route)"
+      class="ml-4 h-full"
     >
       <p>{{ tab.title }}</p>
     </button>

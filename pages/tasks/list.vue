@@ -15,7 +15,7 @@ export default defineComponent({
   setup(_props, context) {
     const epicTasksArray = reactive<EpicTasks[]>([])
     context.root.$axios
-      .get('/api/v1/tasks/no_date_tasks')
+      .get('/api/v1/epics/epic_tasks')
       .then((res) => {
         res.data.epic_tasks.forEach((epicTasks: EpicTasks) => {
           epicTasksArray.push(epicTasks)

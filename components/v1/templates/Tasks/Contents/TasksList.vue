@@ -1,6 +1,6 @@
 <template>
   <div>
-    <NkdEpicAccordion
+    <NkdEpicTasks
       v-for="(epicTasks, i) in epicTasksArray"
       :key="'epic-accordion' + i"
       :epic="epicTasks.epic"
@@ -10,7 +10,7 @@
 </template>
 <script lang="ts">
 import { defineComponent, PropType } from '@vue/composition-api'
-import NkdEpicAccordion from '@/components/v1/organisms/NkdEpicAccordion/NkdEpicAccordion.vue'
+import NkdEpicTasks from '@/components/v1/organisms/NkdEpicTasks/NkdEpicTasks.vue'
 export default defineComponent({
   props: {
     epicTasksArray: {
