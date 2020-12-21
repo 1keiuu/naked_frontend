@@ -1,6 +1,6 @@
 <template>
   <div
-    class="task__sub-header w-1/2 h-12 bg-white fixed flex items-center justify-between"
+    class="task__sub-header w-full h-12 bg-white fixed flex items-center justify-between"
   >
     <div class="link__group">
       <button
@@ -12,9 +12,9 @@
         <p>{{ tab.title }}</p>
       </button>
     </div>
-    <button>
+    <!-- <button>
       <p>エピックを作成</p>
-    </button>
+    </button> -->
   </div>
 </template>
 

@@ -3,14 +3,14 @@ import { reactive } from '@vue/composition-api'
 
 export default function TaskPageStore() {
     const state = reactive({
-        drawerStatus: false,
+        isDrawerOpen: false,
         epic: <Epic>{},
         tasks: <Task[]>[]
     })
     
     return {
-        get drawerStatus() {
-            return state.drawerStatus
+        get isDrawerOpen() {
+            return state.isDrawerOpen
         },
         get epic() {
             return state.epic
@@ -18,8 +18,8 @@ export default function TaskPageStore() {
         get tasks() {
             return state.tasks
         },
-        setDrawerStatus(payload:boolean) {
-            state.drawerStatus = payload
+        setIsDrawerOpen(payload:boolean) {
+            state.isDrawerOpen = payload
         },      
         setEpic(payload:object) {
             state.epic = payload

@@ -21,9 +21,14 @@ export default defineComponent({
     const taskPageStore = inject(TaskPageStoreKey)
 
     const onCardClick = () => {
-      taskPageStore.setDrawerStatus(!taskPageStore.drawerStatus)
+      const isDrawerOpen = taskPageStore.isDrawerOpen
+      if (isDrawerOpen) {
+        taskPageStore.setIsDrawerOpen(false)
+        return
+      }
       taskPageStore.setEpic(props.epic)
       taskPageStore.setTasks(props.tasks)
+      taskPageStore.setIsDrawerOpen(true)
     }
 
     return { onCardClick }
