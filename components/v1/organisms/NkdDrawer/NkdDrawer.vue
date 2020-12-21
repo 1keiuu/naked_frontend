@@ -1,13 +1,13 @@
 <template>
   <div
-    class="nkd-drawer h-full bg-gray-100 border-l-2 border-gray-300 fixed right-0 top-0 pt-20"
+    class="nkd-drawer h-full bg-gray-100 border-l-2 border-gray-300 flex flex-col items-center fixed right-0 top-0 pt-20"
     :class="{ '--active': isActive }"
   >
     <slot />
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { defineComponent } from '@vue/composition-api'
 
 export default defineComponent({
