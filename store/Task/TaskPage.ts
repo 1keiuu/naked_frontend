@@ -18,7 +18,7 @@ export default function TaskPageStore() {
         get tasks() {
             return state.tasks
         },
-        setdrawerStatus(payload:boolean) {
+        setDrawerStatus(payload:boolean) {
             state.drawerStatus = payload
         },      
         setEpic(payload:object) {

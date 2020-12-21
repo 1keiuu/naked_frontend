@@ -1,6 +1,7 @@
 <template>
   <div
-    class="h-full w-64 bg-gray-100 border-l-2 border-gray-300 fixed right-0 top-0 pt-20"
+    class="nkd-drawer h-full bg-gray-100 border-l-2 border-gray-300 fixed right-0 top-0 pt-20"
+    :class="{ '--active': isActive }"
   >
     <slot />
   </div>
@@ -9,5 +10,22 @@
 <script>
 import { defineComponent } from '@vue/composition-api'
 
-export default defineComponent({})
+export default defineComponent({
+  props: {
+    isActive: {
+      type: Boolean,
+      required: true,
+    },
+  },
+})
 </script>
+<style scoped lang="scss">
+.nkd-drawer {
+  width: 0;
+  transition: 0.5s;
+  &.--active {
+    width: 300px;
+    transition: 0.5s;
+  }
+}
+</style>

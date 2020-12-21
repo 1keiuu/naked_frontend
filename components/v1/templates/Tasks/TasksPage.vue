@@ -10,7 +10,7 @@
       v-else-if="currentTabIndex == 2"
       :epicTasksArray="epicTasksArray"
     />
-    <NkdDrawer>
+    <NkdDrawer :isActive="taskPageStore.drawerStatus">
       <NkdTaskItemsList
         :epic="taskPageStore.epic"
         :tasks="taskPageStore.tasks"

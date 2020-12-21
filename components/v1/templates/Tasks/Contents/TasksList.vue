@@ -5,7 +5,6 @@
       :key="'epic-accordion' + i"
       :epic="epicTasks.epic"
       :tasks="epicTasks.tasks"
-      @onCardClick="onCardClick"
     />
   </div>
 </template>
