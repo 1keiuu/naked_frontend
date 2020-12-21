@@ -5,6 +5,7 @@
       :key="'epic-accordion' + i"
       :epic="epicTasks.epic"
       :tasks="epicTasks.tasks"
+      @onCardClick="onCardClick"
     />
   </div>
 </template>
@@ -17,6 +18,13 @@ export default defineComponent({
       type: Array as PropType<EpicTasks[]>,
       required: true,
     },
+  },
+  setup() {
+    const onCardClick = () => {}
+
+    return {
+      onCardClick,
+    }
   },
 })
 </script>

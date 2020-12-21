@@ -1,7 +1,6 @@
 <template>
-  <div class="epic-tasks__card">
+  <div class="epic-tasks__card" @click="onCardClick">
     <h3 class="text-xl">{{ epic.title }}</h3>
-    <NkdTaskItemsList :epic="epic" :tasks="tasks" />
   </div>
 </template>
 <script lang="ts">
@@ -16,6 +15,10 @@ export default defineComponent({
       type: Array as PropType<Task[]>,
     },
   },
-  setup(props, context) {},
+  setup(props, context) {
+    const onCardClick = () => {
+      context.emit('onCardClick')
+    }
+  },
 })
 </script>
