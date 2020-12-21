@@ -36,12 +36,13 @@ import NkdTaskSubHeader from '@/components/v1/organisms/NkdTasksSubHeader/NkdTas
 import TasksIndex from './Contents/TasksIndex.vue'
 import NkdDrawer from '@/components/v1/organisms/NkdDrawer/NkdDrawer.vue'
 import TaskPageStoreKey from '@/components/v1/storeKeys/TaskPageStoreKey.ts'
-import NkdTasksDrawerContent from '@/components/v1/orgnaisms/NkdTasksDrawerContent/NkdTasksDrawerContent.vue'
+import NkdTasksDrawerContent from '@/components/v1/organisms/NkdTasksDrawerContent/NkdTasksDrawerContent.vue'
 
 export default defineComponent({
   components: {
     NkdTaskSubHeader,
     NkdDrawer,
+    NkdTasksDrawerContent,
   },
   props: {
     today: {
