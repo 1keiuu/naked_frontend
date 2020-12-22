@@ -18,9 +18,12 @@ export default function TaskPageStore() {
         get tasks() {
             return state.tasks
         },
-        setIsDrawerOpen(payload:boolean) {
-            state.isDrawerOpen = payload
+        openDrawer() {
+            state.isDrawerOpen = true
         },      
+        closeDrawer() {
+            state.isDrawerOpen = false
+        },     
         setEpic(payload:object) {
             state.epic = payload
         },      
