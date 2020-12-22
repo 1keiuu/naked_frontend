@@ -1,13 +1,14 @@
 <template>
   <div class="w-full px-5">
-    <NkdTextField :isOutLined="true" :value="epic.title" />
-
+    <NkdTextField class="mt-5" :isOutLined="true" :value="epic.title" />
+    <NkdTextArea class="mt-8" :isOutLined="true" :value="epic.description" />
     <NkdTaskItemsList :epic="epic" :tasks="tasks" />
   </div>
 </template>
 <script lang="ts">
 import { defineComponent, PropType } from '@vue/composition-api'
 import NkdTextField from '@/components/v1/atoms/NkdTextField/NkdTextField.vue'
+import NkdTextArea from '@/components/v1/atoms/NkdTextArea/NkdTextArea.vue'
 import NkdTaskItemsList from '@/components/v1/molecules/NkdTaskItemsList/NkdTaskItemsList.vue'
 
 export default defineComponent({
@@ -17,6 +18,7 @@ export default defineComponent({
   },
   components: {
     NkdTextField,
+    NkdTextArea,
     NkdTaskItemsList,
   },
 })
