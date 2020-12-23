@@ -1,5 +1,5 @@
 <template>
-  <div class="mt-16 pt-16">
+  <div class="mt-16 pt-16" @click="onTasksPageClick">
     <NkdTaskSubHeader
       :tabs="contents"
       @onTabClick="changeContent"
@@ -14,7 +14,7 @@
       v-else-if="currentTabIndex == 2"
       :epicTasksArray="epicTasksArray"
     />
-    <NkdDrawer :isActive="taskPageStore.isDrawerOpen">
+    <NkdDrawer id="task-drawer" :isActive="taskPageStore.isDrawerOpen">
       <NkdTasksDrawerContent
         :epic="taskPageStore.epic"
         :tasks="taskPageStore.tasks"
@@ -67,6 +67,14 @@ export default defineComponent({
     const currentPage = context.root.$route.path
     const taskPageStore = inject(TaskPageStoreKey)
 
+    const onTasksPageClick = (e: Event) => {
+      if (
+        (e.target as HTMLInputElement).id !== 'task-drawer' &&
+        (e.target as HTMLInputElement).id !== 'epic-tasks__card'
+      ) {
+        taskPageStore.closeDrawer()
+      }
+    }
     switch (currentPage) {
       case '/tasks/list':
         currentTabIndex.value = 2
@@ -90,6 +98,7 @@ export default defineComponent({
       currentPage,
       changeContent,
       taskPageStore,
+      onTasksPageClick,
     }
   },
 })
