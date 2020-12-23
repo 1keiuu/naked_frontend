@@ -1,11 +1,11 @@
 <template>
-  <input
+  <textarea
     @input="emit"
     :placeholder="placeholder"
     :value="value"
     :type="type"
     :class="{ '--outlined': isOutLined }"
-    class="nkd__text-field w-full p-2 mb-5 rounded-sm border-2 border-opacity-30 border-gray-500 placeholder-opacity-50"
+    class="nkd__text-area resize-none w-full mb-5 rounded-sm border-2 border-opacity-30 border-gray-500 placeholder-opacity-50"
   />
 </template>
 <script lang="ts">
@@ -40,7 +40,7 @@ export default defineComponent({
 })
 </script>
 <style scoped lang="scss">
-.nkd__text-field {
+.nkd__text-area {
   &.--outlined {
     outline: 0;
     background: transparent;

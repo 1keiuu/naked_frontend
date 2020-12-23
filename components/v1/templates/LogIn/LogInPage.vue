@@ -2,12 +2,12 @@
   <div
     class="min-h-screen logIn-page px-8 sm:px-16 lg:px-32 xl:px-64 py-24 flex flex-col justify-center"
   >
-    <NkSignUpForm @recieveClickEvent="onSubmitButtonClick" />
+    <NkdLogInForm @recieveClickEvent="onSubmitButtonClick" />
     <a
       href="https://slack.com/oauth/v2/authorize?user_scope=identity.basic,identity.email,identity.avatar&client_id=1242468374582.1564775291025"
-      ><img src="https://api.slack.com/img/sign_in_with_slack.png"
-    /></a>
-    <nuxt-link to="/login">アカウントをお持ちの方</nuxt-link>
+      ><img src="https://api.slack.com/img/sign_in_with_slack.png" />
+    </a>
+    <nuxt-link to="/signup">新規登録</nuxt-link>
     <p
       class="text-red-500 text-center"
       v-for="(message, i) in errorMessages"
@@ -19,29 +19,29 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, inject } from '@vue/composition-api'
-import SignUpStoreKey from '../storeKeys/SignUpStoreKey'
-import NkSignUpForm from '../organisms/NkdSignUpForm/NkdSignUpForm.vue'
+import { defineComponent, reactive, ref, inject } from '@vue/composition-api'
+import NkdLogInForm from '../../organisms/NkdLogInForm/NkdLogInForm.vue'
+import LogInStore from '~/store/LogIn/LogIn'
+import LogInStoreKey from '../../storeKeys/LogInStoreKey'
 
 export default defineComponent({
   components: {
-    NkSignUpForm,
+    NkdLogInForm,
   },
   setup(_props, context) {
     const errorMessages = reactive<string[]>([])
-    const SignUpStore = inject(SignUpStoreKey)
-    if (!SignUpStore) {
-      throw new Error(`${SignUpStoreKey} is not provided`)
+    const LogInStore = inject(LogInStoreKey)
+
+    if (!LogInStore) {
+      throw new Error(`${LogInStoreKey} is not provided`)
     }
 
-    const onSubmitButtonClick = () => {
+    const onSubmitButtonClick = (e: Event) => {
       errorMessages.splice(0, errorMessages.length)
-      context.root.$axios
-        .post('/api/v1/users/signup', {
-          user: {
-            email: SignUpStore.email,
-            password: SignUpStore.password,
-            name: '',
+      context.root.$auth
+        .loginWith('local', {
+          data: {
+            user: { email: LogInStore.email, password: LogInStore.password },
           },
         })
         .then((response) => {
@@ -49,9 +49,9 @@ export default defineComponent({
           context.root.$auth.setUserToken(response.data.user.token)
         })
         .catch((error) => {
-          error.response.data.message.forEach((message: string) =>
+          error.response.data.message.forEach((message: string) => {
             errorMessages.push(message)
-          )
+          })
         })
     }
 

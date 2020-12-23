@@ -1,1 +1,13 @@
 // $color-bg: rgb(248, 255, 187);
+
+/* purgecss start ignore */
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+/* purgecss end ignore */
+@import 'tailwindcss/utilities';
+.epic-tasks__group {
+    @apply mt-5
+}
+.epic-tasks__card {
+  @apply bg-white mt-3 px-5 pt-3 pb-5 mx-5 cursor-pointer;
+}
