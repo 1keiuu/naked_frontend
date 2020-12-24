@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="min-h-screen">
     <NkdEpicTasks
       v-for="(epicTasks, i) in epicTasksArray"
       :key="'epic-accordion' + i"

@@ -1,6 +1,8 @@
 <template>
-  <div class="epic-tasks__card" @click="onCardClick">
-    <h3 class="text-xl">{{ epic.title }}</h3>
+  <div id="epic-tasks__card" class="epic-tasks__card" @click="onCardClick">
+    <div class="epic-tasks__inner">
+      <h3 class="text-xl">{{ epic.title }}</h3>
+    </div>
   </div>
 </template>
 <script lang="ts">
