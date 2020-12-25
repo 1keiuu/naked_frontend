@@ -1,6 +1,6 @@
 <template>
   <div
-    class="task__sub-header w-full h-12 bg-white fixed flex items-center justify-between"
+    class="task__sub-header w-full left-0 h-12 pl-56 bg-white fixed flex items-center justify-between"
   >
     <div class="link__group h-full">
       <button
@@ -13,9 +13,9 @@
         <p :class="{ '--active': currentPage == tab.route }">{{ tab.title }}</p>
       </button>
     </div>
-    <!-- <button>
+    <button class="mr-5">
       <p>エピックを作成</p>
-    </button> -->
+    </button>
   </div>
 </template>
 

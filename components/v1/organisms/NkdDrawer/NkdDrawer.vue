@@ -24,7 +24,7 @@ export default defineComponent({
   width: 0;
   transition: 0.5s;
   &.--active {
-    width: 300px;
+    width: 400px;
     transition: 0.5s;
   }
 }
