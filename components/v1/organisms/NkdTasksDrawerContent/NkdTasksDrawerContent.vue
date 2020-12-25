@@ -1,7 +1,13 @@
 <template>
-  <div class="w-full px-5" id="drawer-content">
-    <NkdTextField class="mt-5" :isOutLined="true" :value="epic.title" />
-    <NkdTextArea class="mt-8" :isOutLined="true" :value="epic.description" />
+  <div class="w-full h-full px-5 pt-8" id="drawer-content">
+    <NkdLabel name="epic-title" value="エピック名" />
+    <NkdTextField :isOutLined="true" :value="epic.title" name="epic-title" />
+    <NkdLabel name="epic-description" value="エピックの説明" class="mt-8" />
+    <NkdTextArea
+      :isOutLined="true"
+      :value="epic.description"
+      name="epic-description"
+    />
     <NkdTaskItemsList :epic="epic" :tasks="tasks" />
   </div>
 </template>
@@ -9,6 +15,7 @@
 import { defineComponent, PropType, inject } from '@vue/composition-api'
 import NkdTextField from '@/components/v1/atoms/NkdTextField/NkdTextField.vue'
 import NkdTextArea from '@/components/v1/atoms/NkdTextArea/NkdTextArea.vue'
+import NkdLabel from '@/components/v1/atoms/NkdLabel/NkdLabel.vue'
 import NkdTaskItemsList from '@/components/v1/molecules/NkdTaskItemsList/NkdTaskItemsList.vue'
 export default defineComponent({
   props: {
