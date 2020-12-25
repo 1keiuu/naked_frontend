@@ -1,6 +1,5 @@
 <template>
-  <div class="w-full px-5">
-    <button>閉じる</button>
+  <div class="w-full px-5" id="drawer-content">
     <NkdTextField class="mt-5" :isOutLined="true" :value="epic.title" />
     <NkdTextArea class="mt-8" :isOutLined="true" :value="epic.description" />
     <NkdTaskItemsList :epic="epic" :tasks="tasks" />

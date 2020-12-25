@@ -69,6 +69,7 @@ export default defineComponent({
 
     const onTasksPageClick = (e: Event) => {
       if (
+        e.target.parentElement.id !== 'drawer-content' &&
         (e.target as HTMLInputElement).id !== 'task-drawer' &&
         (e.target as HTMLInputElement).id !== 'epic-tasks__card'
       ) {
