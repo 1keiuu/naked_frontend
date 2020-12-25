@@ -14,6 +14,7 @@ import {
 } from '@vue/composition-api'
 import NkdTaskItemsList from '@/components/v1/molecules/NkdTaskItemsList/NkdTaskItemsList.vue'
 import TaskPageStoreKey from '@/components/v1/storeKeys/TaskPageStoreKey'
+import EpicTasksStoreKey from '@/components/v1/storeKeys/EpicTasksStoreKey'
 
 export default defineComponent({
   props: {},
@@ -21,22 +22,24 @@ export default defineComponent({
     const inputRef = ref<HTMLInputElement>()
 
     const taskPageStore = inject(TaskPageStoreKey)
+    const epicTasksStore = inject(EpicTasksStoreKey)
+
     watch(
       () => taskPageStore.isCreatingEpic,
       (newVal, oldVal) => {
-        console.log(inputRef)
         setTimeout(() => {
           if (inputRef.value) {
             inputRef.value.focus()
           }
         }, 100)
-
-        console.log(`${oldVal} -> ${newVal}`)
       }
     )
 
     const onBlur = () => {
-      // taskPageStore.stopCreateEpic()
+      const inputValue = inputRef.value?.value
+      taskPageStore.stopCreateEpic()
+      if (inputValue)
+        epicTasksStore.appendEpicTasks({ epic: { title: inputValue } })
     }
 
     return { inputRef, taskPageStore, onBlur }
