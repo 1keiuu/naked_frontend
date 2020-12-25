@@ -12,7 +12,7 @@
     />
     <TasksList
       v-else-if="currentTabIndex == 2"
-      :epicTasksArray="epicTasksArray"
+      :epicTasksArray="EpicTasksStore.epicTasks"
     />
     <NkdDrawer id="task-drawer" :isActive="taskPageStore.isDrawerOpen">
       <NkdTasksDrawerContent
@@ -37,6 +37,7 @@ import TasksIndex from './Contents/TasksIndex.vue'
 import NkdDrawer from '@/components/v1/organisms/NkdDrawer/NkdDrawer.vue'
 import TaskPageStoreKey from '@/components/v1/storeKeys/TaskPageStoreKey.ts'
 import NkdTasksDrawerContent from '@/components/v1/organisms/NkdTasksDrawerContent/NkdTasksDrawerContent.vue'
+import EpicTasksStoreKey from '@/components/v1/storeKeys/EpicTasksStoreKey'
 
 export default defineComponent({
   components: {
@@ -53,10 +54,6 @@ export default defineComponent({
       type: Array as PropType<EpicTasks[]>,
       required: false,
     },
-    epicTasksArray: {
-      type: Array as PropType<EpicTasks[]>,
-      required: false,
-    },
   },
   setup(props, context) {
     const contents = reactive([
@@ -66,6 +63,20 @@ export default defineComponent({
     const currentTabIndex = ref(1)
     const currentPage = context.root.$route.path
     const taskPageStore = inject(TaskPageStoreKey)
+
+    const EpicTasksStore = inject(EpicTasksStoreKey)
+
+    context.root.$axios
+      .get('/api/v1/epics/epic_tasks')
+      .then((res) => {
+        EpicTasksStore.setEpicTasks(res.data.epic_tasks)
+        // res.data.epic_tasks.forEach((epicTasks: EpicTasks) => {
+        //   epicTasksArray.push(epicTasks)
+        // })
+      })
+      .catch((e) => {
+        console.log(e)
+      })
 
     const onTasksPageClick = (e: Event) => {
       if (
@@ -101,6 +112,7 @@ export default defineComponent({
       changeContent,
       taskPageStore,
       onTasksPageClick,
+      EpicTasksStore,
     }
   },
 })
