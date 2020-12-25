@@ -1,5 +1,5 @@
 <template>
-  <div class="mt-16 pt-12" @click="onTasksPageClick">
+  <div class="mt-16 pt-12 h-full" @click="onTasksPageClick">
     <NkdTaskSubHeader
       :tabs="contents"
       @onTabClick="changeContent"

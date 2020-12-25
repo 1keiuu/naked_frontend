@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen">
+  <div class="min-h-full">
     <div class="epic-tasks__group">
       <h2 class="ml-5 text-xl">今日</h2>
       <NkdEpicTasks

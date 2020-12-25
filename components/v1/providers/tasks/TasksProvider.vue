@@ -1,5 +1,5 @@
 <template>
-  <div class="tasks__provider w-full">
+  <div class="tasks__provider w-full h-full">
     <slot />
   </div>
 </template>
