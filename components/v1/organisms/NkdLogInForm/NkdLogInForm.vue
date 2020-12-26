@@ -1,9 +1,15 @@
 <template>
   <form @submit.prevent="onNkdButtonClick()" class="flex flex-col w-full">
-    <NkdTextField type="email" placeholder="email" @input="onInputTextField" />
+    <NkdTextField
+      type="email"
+      name="email"
+      placeholder="email"
+      @input="onInputTextField"
+    />
     <NkdTextField
       type="password"
       placeholder="password"
+      name="password"
       @input="onInputTextField"
     />
     <NkdButton title="ログイン" type="submit" />
