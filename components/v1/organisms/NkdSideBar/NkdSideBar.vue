@@ -1,6 +1,6 @@
 <template>
   <nav
-    class="nkd-sidebar z-10 h-full bg-gray-700 w-56"
+    class="nkd-sidebar z-10 fixed left-0 bg-gray-700 w-56"
     :class="{ '--active': loggedIn }"
   >
     <nuxt-link to="/">
@@ -43,6 +43,7 @@ export default defineComponent({
 <style scoped lang="scss">
 .nkd-sidebar {
   display: none;
+  height: inherit;
   &.--active {
     display: block;
   }

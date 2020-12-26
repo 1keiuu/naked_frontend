@@ -1,7 +1,7 @@
 <template>
   <div class="bg-gray-100 min-h-screen">
     <NkdHeader :loggedIn="loggedIn" :avatarUrl="avatarUrl" />
-    <div class="flex h-screen">
+    <div class="flex h-full">
       <NkdSideBar :loggedIn="loggedIn" />
       <Nuxt />
     </div>

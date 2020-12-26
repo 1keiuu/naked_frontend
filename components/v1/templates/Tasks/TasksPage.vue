@@ -1,5 +1,8 @@
 <template>
-  <div class="mt-16 pt-12 h-full" @click="onTasksPageClick">
+  <div
+    class="mt-16 pt-12 pl-56 h-screen overflow-scroll"
+    @click="onTasksPageClick"
+  >
     <NkdTaskSubHeader
       :tabs="contents"
       @onTabClick="changeContent"
@@ -71,13 +74,15 @@ export default defineComponent({
       .get('/api/v1/epics/epic_tasks')
       .then((res) => {
         epicTasksStore.setEpicTasks(res.data.epic_tasks)
-        // res.data.epic_tasks.forEach((epicTasks: EpicTasks) => {
-        //   epicTasksArray.push(epicTasks)
-        // })
       })
       .catch((e) => {
         console.log(e)
       })
+
+    switch (currentPage) {
+      case '/tasks/list':
+        currentTabIndex.value = 2
+    }
 
     const onTasksPageClick = (e: Event) => {
       if (
@@ -88,10 +93,6 @@ export default defineComponent({
       ) {
         taskPageStore.closeDrawer()
       }
-    }
-    switch (currentPage) {
-      case '/tasks/list':
-        currentTabIndex.value = 2
     }
 
     const changeContent = (id: number, route: string) => {
