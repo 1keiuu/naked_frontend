@@ -1,6 +1,6 @@
 <template>
   <div
-    class="task__sub-header w-full h-12 bg-white fixed flex items-center justify-between"
+    class="task__sub-header w-full left-0 h-12 pl-56 bg-white fixed flex items-center justify-between"
   >
     <div class="link__group h-full">
       <button
@@ -13,14 +13,15 @@
         <p :class="{ '--active': currentPage == tab.route }">{{ tab.title }}</p>
       </button>
     </div>
-    <!-- <button>
+    <button class="mr-5" @click="onCreateEpicBtnClick">
       <p>エピックを作成</p>
-    </button> -->
+    </button>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@vue/composition-api'
+import { defineComponent, inject } from '@vue/composition-api'
+import TaskPageStoreKey from '@/components/v1/storeKeys/TaskPageStoreKey.ts'
 
 export default defineComponent({
   props: {
@@ -32,10 +33,16 @@ export default defineComponent({
     },
   },
   setup(props, context) {
+    const taskPageStore = inject(TaskPageStoreKey)
+
     const onTabClick = (id: number, route: string) => {
       context.emit('onTabClick', id, route)
     }
-    return { onTabClick }
+    const onCreateEpicBtnClick = () => {
+      taskPageStore.startCreateEpic()
+    }
+
+    return { onTabClick, onCreateEpicBtnClick }
   },
 })
 </script>

@@ -1,5 +1,8 @@
 <template>
-  <div class="mt-16 pt-16" @click="onTasksPageClick">
+  <div
+    class="mt-16 pt-12 pl-56 h-screen overflow-scroll"
+    @click="onTasksPageClick"
+  >
     <NkdTaskSubHeader
       :tabs="contents"
       @onTabClick="changeContent"
@@ -7,17 +10,20 @@
     />
     <TasksIndex
       v-if="currentTabIndex == 1"
-      :today="today"
-      :tomorrow="tomorrow"
+      :today="epicTasksStore.todayEpicTasks"
+      :tomorrow="epicTasksStore.tomorrowEpicTasks"
+      @onInputBlur="createEpic"
     />
     <TasksList
       v-else-if="currentTabIndex == 2"
-      :epicTasksArray="epicTasksArray"
+      :epicTasksArray="epicTasksStore.epicTasks"
+      @onInputBlur="createEpic"
     />
     <NkdDrawer id="task-drawer" :isActive="taskPageStore.isDrawerOpen">
       <NkdTasksDrawerContent
-        :epic="taskPageStore.epic"
-        :tasks="taskPageStore.tasks"
+        :epic="taskPageStore.selectedEpic"
+        :tasks="taskPageStore.selectedTasks"
+        @onClickEpicDeleteButton="deleteEpic"
       />
     </NkdDrawer>
   </div>
@@ -37,26 +43,13 @@ import TasksIndex from './Contents/TasksIndex.vue'
 import NkdDrawer from '@/components/v1/organisms/NkdDrawer/NkdDrawer.vue'
 import TaskPageStoreKey from '@/components/v1/storeKeys/TaskPageStoreKey.ts'
 import NkdTasksDrawerContent from '@/components/v1/organisms/NkdTasksDrawerContent/NkdTasksDrawerContent.vue'
+import EpicTasksStoreKey from '@/components/v1/storeKeys/EpicTasksStoreKey'
 
 export default defineComponent({
   components: {
     NkdTaskSubHeader,
     NkdDrawer,
     NkdTasksDrawerContent,
-  },
-  props: {
-    today: {
-      type: Array as PropType<EpicTasks[]>,
-      required: false,
-    },
-    tomorrow: {
-      type: Array as PropType<EpicTasks[]>,
-      required: false,
-    },
-    epicTasksArray: {
-      type: Array as PropType<EpicTasks[]>,
-      required: false,
-    },
   },
   setup(props, context) {
     const contents = reactive([
@@ -66,18 +59,22 @@ export default defineComponent({
     const currentTabIndex = ref(1)
     const currentPage = context.root.$route.path
     const taskPageStore = inject(TaskPageStoreKey)
+    const epicTasksStore = inject(EpicTasksStoreKey)
+
+    switch (currentPage) {
+      case '/tasks/list':
+        currentTabIndex.value = 2
+    }
 
     const onTasksPageClick = (e: Event) => {
       if (
-        (e.target as HTMLInputElement).id !== 'task-drawer' &&
+        ((e.target as HTMLInputElement).parentElement as HTMLInputElement)
+          .id !== 'drawer-content' &&
+        (e.target as HTMLInputElement).id !== 'drawer-content' &&
         (e.target as HTMLInputElement).id !== 'epic-tasks__card'
       ) {
         taskPageStore.closeDrawer()
       }
-    }
-    switch (currentPage) {
-      case '/tasks/list':
-        currentTabIndex.value = 2
     }
 
     const changeContent = (id: number, route: string) => {
@@ -92,6 +89,37 @@ export default defineComponent({
       }
     }
 
+    const createEpic = (inputValue: string) => {
+      taskPageStore.stopCreateEpic()
+      if (inputValue) {
+        context.root.$axios
+          .post('/api/v1/epics', {
+            title: inputValue,
+            user_id: context.root.$auth.user.id,
+          })
+          .then((res) => {
+            const epic = res.data.epic
+            epicTasksStore.appendEpicTasks({
+              epic: { id: epic.id, title: epic.title },
+            })
+          })
+          .catch((e) => {})
+      }
+    }
+
+    const deleteEpic = () => {
+      const targetId = taskPageStore.selectedEpic.id
+      context.root.$axios
+        .delete(`/api/v1/epics/${targetId}`)
+        .then((res) => {
+          taskPageStore.closeDrawer()
+          epicTasksStore.deleteEpicTasks(targetId)
+          epicTasksStore.deleteTodayEpicTasks(targetId)
+          epicTasksStore.deleteTomorrowEpicTasks(targetId)
+        })
+        .catch((e) => {})
+    }
+
     return {
       contents,
       currentTabIndex,
@@ -99,6 +127,9 @@ export default defineComponent({
       changeContent,
       taskPageStore,
       onTasksPageClick,
+      epicTasksStore,
+      createEpic,
+      deleteEpic,
     }
   },
 })

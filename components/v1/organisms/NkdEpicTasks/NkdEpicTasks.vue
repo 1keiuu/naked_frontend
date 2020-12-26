@@ -1,7 +1,7 @@
 <template>
   <div id="epic-tasks__card" class="epic-tasks__card" @click="onCardClick">
     <div class="epic-tasks__inner">
-      <h3 class="text-xl">{{ epic.title }}</h3>
+      <h3 class="text-lg">{{ epic.title }}</h3>
     </div>
   </div>
 </template>
@@ -28,8 +28,8 @@ export default defineComponent({
         taskPageStore.closeDrawer()
         return
       }
-      taskPageStore.setEpic(props.epic)
-      taskPageStore.setTasks(props.tasks)
+      taskPageStore.selectEpic(props.epic)
+      taskPageStore.selectTasks(props.tasks)
       taskPageStore.openDrawer()
     }
 

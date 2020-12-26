@@ -1,2 +1,36 @@
 // Variables
 @import 'variables';
+/* purgecss start ignore */
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+/* purgecss end ignore */
+@import 'tailwindcss/utilities';
+
+.epic-tasks__group {
+    @apply mt-5
+}
+.epic-tasks__card {
+  @apply  px-5 bg-white  cursor-pointer
+}
+.epic-tasks__inner {
+  @apply  pt-3 pb-3 border-gray-200 border-b-2  pointer-events-none;
+}
+.epic-tasks__card {
+  &:last-child {
+    .epic-tasks__inner {
+    @apply border-b-0
+    }
+  }
+}
+.epic-tasks__input {
+    outline: rgb(100, 166, 168);
+    outline-width: 1px;
+    outline-style: solid;
+    @apply bg-white
+}
+
+.epic-tasks__input {
+  input {
+     @apply my-3 mx-5 w-64 outline-none
+    }
+}

@@ -4,6 +4,7 @@
     :placeholder="placeholder"
     :value="value"
     :type="type"
+    :name="name"
     :class="{ '--outlined': isOutLined }"
     class="nkd__text-field w-full p-2 mb-5 rounded-sm border-2 border-opacity-30 border-gray-500 placeholder-opacity-50"
   />
@@ -28,6 +29,10 @@ export default defineComponent({
     },
     value: {
       type: String,
+    },
+    name: {
+      type: String,
+      required: true,
     },
   },
   setup(props, context) {

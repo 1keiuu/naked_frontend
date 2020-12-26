@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen">
+  <div class="min-h-full">
     <div class="epic-tasks__group">
       <h2 class="ml-5 text-xl">今日</h2>
       <NkdEpicTasks
@@ -26,6 +26,7 @@
         :epic="epicTasks.epic"
         :tasks="epicTasks.tasks"
       /> -->
+      <NkdEpicTasksInput @onInputBlur="dispatchEvent" />
     </div>
   </div>
 </template>
@@ -46,6 +47,12 @@ export default defineComponent({
   },
   components: {
     NkdEpicTasks,
+  },
+  setup(props, context) {
+    const dispatchEvent = (inputValue: string) => {
+      context.emit('onInputBlur', inputValue)
+    }
+    return { dispatchEvent }
   },
 })
 </script>
