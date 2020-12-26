@@ -1,67 +1,136 @@
 <template>
-  <div class="mt-16 pt-16">
-    <NkdTaskSubHeader :tabs="contents" @onTabClick="changeContent" />
+  <div
+    class="mt-16 pt-12 pl-56 h-screen overflow-scroll"
+    @click="onTasksPageClick"
+  >
+    <NkdTaskSubHeader
+      :tabs="contents"
+      @onTabClick="changeContent"
+      :currentPage="currentPage"
+    />
     <TasksIndex
       v-if="currentTabIndex == 1"
-      :today="today"
-      :tomorrow="tomorrow"
+      :today="epicTasksStore.todayEpicTasks"
+      :tomorrow="epicTasksStore.tomorrowEpicTasks"
+      @onInputBlur="createEpic"
     />
     <TasksList
       v-else-if="currentTabIndex == 2"
-      :epicTasksArray="epicTasksArray"
+      :epicTasksArray="epicTasksStore.epicTasks"
+      @onInputBlur="createEpic"
     />
+    <NkdDrawer id="task-drawer" :isActive="taskPageStore.isDrawerOpen">
+      <NkdTasksDrawerContent
+        :epic="taskPageStore.selectedEpic"
+        :tasks="taskPageStore.selectedTasks"
+        @onClickEpicDeleteButton="deleteEpic"
+      />
+    </NkdDrawer>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, ref, PropType } from '@vue/composition-api'
+import {
+  defineComponent,
+  reactive,
+  ref,
+  PropType,
+  inject,
+  computed,
+} from '@vue/composition-api'
 import NkdTaskSubHeader from '@/components/v1/organisms/NkdTasksSubHeader/NkdTasksSubHeader.vue'
 import TasksIndex from './Contents/TasksIndex.vue'
-import TasksList from './Contents/TasksList.vue'
+import NkdDrawer from '@/components/v1/organisms/NkdDrawer/NkdDrawer.vue'
+import TaskPageStoreKey from '@/components/v1/storeKeys/TaskPageStoreKey.ts'
+import NkdTasksDrawerContent from '@/components/v1/organisms/NkdTasksDrawerContent/NkdTasksDrawerContent.vue'
+import EpicTasksStoreKey from '@/components/v1/storeKeys/EpicTasksStoreKey'
 
 export default defineComponent({
   components: {
     NkdTaskSubHeader,
-  },
-  props: {
-    today: {
-      type: Array as PropType<EpicTasks[]>,
-      required: false,
-    },
-    tomorrow: {
-      type: Array as PropType<EpicTasks[]>,
-      required: false,
-    },
-    epicTasksArray: {
-      type: Array as PropType<EpicTasks[]>,
-      required: false,
-    },
+    NkdDrawer,
+    NkdTasksDrawerContent,
   },
   setup(props, context) {
     const contents = reactive([
-      { id: 1, title: '直近のタスク', route: 'index' },
-      { id: 2, title: 'リスト', route: 'list' },
+      { id: 1, title: '直近のタスク', route: '/tasks' },
+      { id: 2, title: 'リスト', route: '/tasks/list' },
     ])
     const currentTabIndex = ref(1)
-    const currentPage = context.root.$route.path.replace('/tasks/', '')
+    const currentPage = context.root.$route.path
+    const taskPageStore = inject(TaskPageStoreKey)
+    const epicTasksStore = inject(EpicTasksStoreKey)
+
     switch (currentPage) {
-      case 'list':
+      case '/tasks/list':
         currentTabIndex.value = 2
+    }
+
+    const onTasksPageClick = (e: Event) => {
+      if (
+        ((e.target as HTMLInputElement).parentElement as HTMLInputElement)
+          .id !== 'drawer-content' &&
+        (e.target as HTMLInputElement).id !== 'drawer-content' &&
+        (e.target as HTMLInputElement).id !== 'epic-tasks__card'
+      ) {
+        taskPageStore.closeDrawer()
+      }
     }
 
     const changeContent = (id: number, route: string) => {
       currentTabIndex.value = id
       switch (route) {
-        case 'index':
+        case '/tasks':
           context.root.$router.push('/tasks')
           break
-        case 'list':
+        case '/tasks/list':
           context.root.$router.push('/tasks/list')
           break
       }
     }
 
-    return { contents, currentTabIndex, changeContent }
+    const createEpic = (inputValue: string) => {
+      taskPageStore.stopCreateEpic()
+      if (inputValue) {
+        context.root.$axios
+          .post('/api/v1/epics', {
+            title: inputValue,
+            user_id: context.root.$auth.user.id,
+          })
+          .then((res) => {
+            const epic = res.data.epic
+            epicTasksStore.appendEpicTasks({
+              epic: { id: epic.id, title: epic.title },
+            })
+          })
+          .catch((e) => {})
+      }
+    }
+
+    const deleteEpic = () => {
+      const targetId = taskPageStore.selectedEpic.id
+      context.root.$axios
+        .delete(`/api/v1/epics/${targetId}`)
+        .then((res) => {
+          taskPageStore.closeDrawer()
+          epicTasksStore.deleteEpicTasks(targetId)
+          epicTasksStore.deleteTodayEpicTasks(targetId)
+          epicTasksStore.deleteTomorrowEpicTasks(targetId)
+        })
+        .catch((e) => {})
+    }
+
+    return {
+      contents,
+      currentTabIndex,
+      currentPage,
+      changeContent,
+      taskPageStore,
+      onTasksPageClick,
+      epicTasksStore,
+      createEpic,
+      deleteEpic,
+    }
   },
 })
 </script>

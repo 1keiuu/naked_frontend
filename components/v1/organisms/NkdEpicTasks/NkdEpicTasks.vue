@@ -1,12 +1,15 @@
 <template>
-  <div class="epic-tasks__card">
-    <h3 class="text-xl">{{ epic.title }}</h3>
-    <NkdTaskItemsList :epic="epic" :tasks="tasks" />
+  <div id="epic-tasks__card" class="epic-tasks__card" @click="onCardClick">
+    <div class="epic-tasks__inner">
+      <h3 class="text-lg">{{ epic.title }}</h3>
+    </div>
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, PropType } from '@vue/composition-api'
+import { defineComponent, PropType, inject } from '@vue/composition-api'
 import NkdTaskItemsList from '@/components/v1/molecules/NkdTaskItemsList/NkdTaskItemsList.vue'
+import TaskPageStoreKey from '@/components/v1/storeKeys/TaskPageStoreKey'
+
 export default defineComponent({
   props: {
     epic: {
@@ -16,6 +19,21 @@ export default defineComponent({
       type: Array as PropType<Task[]>,
     },
   },
-  setup(props, context) {},
+  setup(props, context) {
+    const taskPageStore = inject(TaskPageStoreKey)
+
+    const onCardClick = () => {
+      const isDrawerOpen = taskPageStore.isDrawerOpen
+      if (isDrawerOpen) {
+        taskPageStore.closeDrawer()
+        return
+      }
+      taskPageStore.selectEpic(props.epic)
+      taskPageStore.selectTasks(props.tasks)
+      taskPageStore.openDrawer()
+    }
+
+    return { onCardClick }
+  },
 })
 </script>

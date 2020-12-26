@@ -6,6 +6,7 @@
     <img
       v-if="avatarUrl"
       :src="avatarUrl"
+      id="avatar"
       @click="isItemListActive = !isItemListActive"
       class="rounded-full h-12 mr-2 cursor-pointer"
     />
@@ -42,10 +43,18 @@ export default defineComponent({
         type: 'signOut',
       },
     ])
+
     const isItemListActive = ref(false)
     const signOut = () => {
       context.root.$auth.logout()
     }
+
+    window.addEventListener('click', (e) => {
+      const arr = ['avatar', 'header-item']
+      if (!arr.includes((e.target as HTMLElement).id)) {
+        isItemListActive.value = false
+      }
+    })
 
     const onHeaderItemClick = (type: string) => {
       switch (type) {
