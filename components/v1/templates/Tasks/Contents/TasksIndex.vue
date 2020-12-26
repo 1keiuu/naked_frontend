@@ -20,12 +20,12 @@
     </div>
     <div class="epic-tasks__group">
       <h2 class="ml-5 text-xl">期日未設定</h2>
-      <!-- <NkdEpicTasks
-        v-for="(epicTasks, i) in tomorrow"
+      <NkdEpicTasks
+        v-for="(epicTasks, i) in noDate"
         :key="'tomorrow-epic-accordion' + i"
         :epic="epicTasks.epic"
         :tasks="epicTasks.tasks"
-      /> -->
+      />
       <NkdEpicTasksInput @onInputBlur="dispatchEvent" />
     </div>
   </div>
@@ -41,6 +41,10 @@ export default defineComponent({
       required: false,
     },
     tomorrow: {
+      type: Array as PropType<EpicTasks[]>,
+      required: false,
+    },
+    noDate: {
       type: Array as PropType<EpicTasks[]>,
       required: false,
     },
