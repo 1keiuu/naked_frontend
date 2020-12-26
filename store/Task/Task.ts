@@ -2,7 +2,9 @@ import { reactive } from '@vue/composition-api'
 
 export default function TaskStore() {
   const state = reactive({
-    tasks:<Task[]>[]
+    tasks: <Task[]>[],
+    todayTasks: <Task[]>[],
+    tomorrowTasks: <Task[]>[],
   })
 
   return {

@@ -10,8 +10,8 @@
     />
     <TasksIndex
       v-if="currentTabIndex == 1"
-      :today="today"
-      :tomorrow="tomorrow"
+      :today="epicTasksStore.todayEpicTasks"
+      :tomorrow="epicTasksStore.tomorrowEpicTasks"
       @onInputBlur="createEpic"
     />
     <TasksList
@@ -51,16 +51,6 @@ export default defineComponent({
     NkdDrawer,
     NkdTasksDrawerContent,
   },
-  props: {
-    today: {
-      type: Array as PropType<EpicTasks[]>,
-      required: false,
-    },
-    tomorrow: {
-      type: Array as PropType<EpicTasks[]>,
-      required: false,
-    },
-  },
   setup(props, context) {
     const contents = reactive([
       { id: 1, title: '直近のタスク', route: '/tasks' },
@@ -70,15 +60,6 @@ export default defineComponent({
     const currentPage = context.root.$route.path
     const taskPageStore = inject(TaskPageStoreKey)
     const epicTasksStore = inject(EpicTasksStoreKey)
-
-    context.root.$axios
-      .get('/api/v1/epics/epic_tasks')
-      .then((res) => {
-        epicTasksStore.setEpicTasks(res.data.epic_tasks)
-      })
-      .catch((e) => {
-        console.log(e)
-      })
 
     switch (currentPage) {
       case '/tasks/list':
@@ -131,8 +112,10 @@ export default defineComponent({
       context.root.$axios
         .delete(`/api/v1/epics/${targetId}`)
         .then((res) => {
-          epicTasksStore.deleteEpicTasks(targetId)
           taskPageStore.closeDrawer()
+          epicTasksStore.deleteEpicTasks(targetId)
+          epicTasksStore.deleteTodayEpicTasks(targetId)
+          epicTasksStore.deleteTomorrowEpicTasks(targetId)
         })
         .catch((e) => {})
     }
