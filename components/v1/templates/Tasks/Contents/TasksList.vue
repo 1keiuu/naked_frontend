@@ -6,7 +6,7 @@
       :epic="epicTasks.epic"
       :tasks="epicTasks.tasks"
     />
-    <NkdEpicTasksInput @onInputBlur="createEpic" />
+    <NkdEpicTasksInput @onInputBlur="dispatchEvent" />
   </div>
 </template>
 <script lang="ts">
@@ -28,26 +28,10 @@ export default defineComponent({
     NkdEpicTasks,
   },
   setup(props, context) {
-    const taskPageStore = inject(TaskPageStoreKey)
-    const epicTasksStore = inject(EpicTasksStoreKey)
-
-    const createEpic = (inputValue: string) => {
-      taskPageStore.stopCreateEpic()
-      if (inputValue) {
-        context.root.$axios
-          .post('/api/v1/epics', { title: inputValue })
-          .then((res) => {
-            const epic = res.data.epic
-            epicTasksStore.appendEpicTasks({
-              epic: { id: epic.id, title: epic.title },
-            })
-          })
-          .catch((e) => {})
-      }
+    const dispatchEvent = (inputValue: string) => {
+      context.emit('onInputBlur', inputValue)
     }
-    return {
-      createEpic,
-    }
+    return { dispatchEvent }
   },
 })
 </script>

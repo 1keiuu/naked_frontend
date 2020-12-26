@@ -26,6 +26,7 @@
         :epic="epicTasks.epic"
         :tasks="epicTasks.tasks"
       /> -->
+      <NkdEpicTasksInput @onInputBlur="createEpic" />
     </div>
   </div>
 </template>

@@ -12,7 +12,8 @@
     />
     <TasksList
       v-else-if="currentTabIndex == 2"
-      :epicTasksArray="EpicTasksStore.epicTasks"
+      :epicTasksArray="epicTasksStore.epicTasks"
+      @onInputBlur="createEpic"
     />
     <NkdDrawer id="task-drawer" :isActive="taskPageStore.isDrawerOpen">
       <NkdTasksDrawerContent
@@ -63,13 +64,12 @@ export default defineComponent({
     const currentTabIndex = ref(1)
     const currentPage = context.root.$route.path
     const taskPageStore = inject(TaskPageStoreKey)
-
-    const EpicTasksStore = inject(EpicTasksStoreKey)
+    const epicTasksStore = inject(EpicTasksStoreKey)
 
     context.root.$axios
       .get('/api/v1/epics/epic_tasks')
       .then((res) => {
-        EpicTasksStore.setEpicTasks(res.data.epic_tasks)
+        epicTasksStore.setEpicTasks(res.data.epic_tasks)
         // res.data.epic_tasks.forEach((epicTasks: EpicTasks) => {
         //   epicTasksArray.push(epicTasks)
         // })
@@ -105,6 +105,24 @@ export default defineComponent({
       }
     }
 
+    const createEpic = (inputValue: string) => {
+      taskPageStore.stopCreateEpic()
+      if (inputValue) {
+        context.root.$axios
+          .post('/api/v1/epics', {
+            title: inputValue,
+            user_id: context.root.$auth.user.id,
+          })
+          .then((res) => {
+            const epic = res.data.epic
+            epicTasksStore.appendEpicTasks({
+              epic: { id: epic.id, title: epic.title },
+            })
+          })
+          .catch((e) => {})
+      }
+    }
+
     return {
       contents,
       currentTabIndex,
@@ -112,7 +130,8 @@ export default defineComponent({
       changeContent,
       taskPageStore,
       onTasksPageClick,
-      EpicTasksStore,
+      epicTasksStore,
+      createEpic,
     }
   },
 })
