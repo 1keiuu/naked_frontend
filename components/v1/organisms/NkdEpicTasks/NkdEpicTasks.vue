@@ -28,8 +28,8 @@ export default defineComponent({
         taskPageStore.closeDrawer()
         return
       }
-      taskPageStore.setEpic(props.epic)
-      taskPageStore.setTasks(props.tasks)
+      taskPageStore.selectEpic(props.epic)
+      taskPageStore.selectTasks(props.tasks)
       taskPageStore.openDrawer()
     }
 

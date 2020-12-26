@@ -14,6 +14,15 @@ export default function EpicTasksStore() {
     },
     appendEpicTasks(task: EpicTasks) {
       state.epicTasks.push(task)
+    },
+    deleteEpicTasks(id: Number) {
+      const target = state.epicTasks.find((item:EpicTasks) => {
+        item.epic.id == id
+      })
+      if (target) {
+        const targetIndex = state.epicTasks.indexOf(target)
+        state.epicTasks.splice(targetIndex, 1)
+      }
     }
   }
 }

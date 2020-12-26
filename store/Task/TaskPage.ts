@@ -16,10 +16,10 @@ export default function TaskPageStore() {
         get isCreatingEpic() {
             return state.isCreatingEpic
         },
-        get epic() {
+        get selectedEpic() {
             return state.epic
         },
-        get tasks() {
+        get selectedTasks() {
             return state.tasks
         },
         openDrawer() {
@@ -34,16 +34,16 @@ export default function TaskPageStore() {
         stopCreateEpic() {
             state.isCreatingEpic = false
         },
-        setEpic(payload:object) {
+        selectEpic(payload:object) {
             state.epic = payload
         },      
-        setTasks(payload:Array<Task>) {
+        selectTasks(payload:Array<Task>) {
             state.tasks = payload
-        },    
-        reSetEpic() {
+        },
+        reSetSelectedEpic() {
             state.epic = {}
         },
-        reSetTasks() {
+        reSetSelectedTasks() {
             state.tasks = []
         },    
   }
