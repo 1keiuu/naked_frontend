@@ -26,7 +26,7 @@
         :epic="epicTasks.epic"
         :tasks="epicTasks.tasks"
       /> -->
-      <NkdEpicTasksInput @onInputBlur="createEpic" />
+      <NkdEpicTasksInput @onInputBlur="dispatchEvent" />
     </div>
   </div>
 </template>
@@ -47,6 +47,12 @@ export default defineComponent({
   },
   components: {
     NkdEpicTasks,
+  },
+  setup(props, context) {
+    const dispatchEvent = (inputValue: string) => {
+      context.emit('onInputBlur', inputValue)
+    }
+    return { dispatchEvent }
   },
 })
 </script>

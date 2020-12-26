@@ -9,6 +9,7 @@
       v-if="currentTabIndex == 1"
       :today="today"
       :tomorrow="tomorrow"
+      @onInputBlur="createEpic"
     />
     <TasksList
       v-else-if="currentTabIndex == 2"
