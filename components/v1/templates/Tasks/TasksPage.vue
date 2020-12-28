@@ -1,4 +1,3 @@
-<!-- TODO: PageはwrapperにしてTasksIndex/TasksListをslotで挿入したい -->
 <template>
   <div
     class="mt-16 pt-12 pl-56 h-screen overflow-scroll"

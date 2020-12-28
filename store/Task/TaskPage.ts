@@ -5,6 +5,7 @@ export default function TaskPageStore() {
     const state = reactive({
         isDrawerOpen: false,
         isCreatingEpic: false,
+        isCreatingTask:false,
         epic: <Epic>{},
         tasks: <Task[]>[]
     })
@@ -15,6 +16,9 @@ export default function TaskPageStore() {
         },
         get isCreatingEpic() {
             return state.isCreatingEpic
+        },
+        get isCreatingTask() {
+            return state.isCreatingTask
         },
         get selectedEpic() {
             return state.epic
@@ -33,6 +37,12 @@ export default function TaskPageStore() {
         }, 
         stopCreateEpic() {
             state.isCreatingEpic = false
+        },
+        startCreateTask() {
+            state.isCreatingTask = true
+        }, 
+        stopCreateTask() {
+            state.isCreatingTask = false
         },
         selectEpic(payload:object) {
             state.epic = payload

@@ -11,6 +11,8 @@
         name="epic-description"
       />
       <NkdTaskItemsList :epic="epic" :tasks="tasks" />
+      <button @click="onCreateTaskBtnClick">タスクを追加</button>
+      <NkdDrawerTasksInput @onInputBlur="dispatchEvent" />
     </div>
   </div>
 </template>
@@ -21,6 +23,8 @@ import NkdTextArea from '@/components/v1/atoms/NkdTextArea/NkdTextArea.vue'
 import NkdLabel from '@/components/v1/atoms/NkdLabel/NkdLabel.vue'
 import NkdTaskItemsList from '@/components/v1/molecules/NkdTaskItemsList/NkdTaskItemsList.vue'
 import NkdTasksDrawerHeader from '@/components/v1/organisms/NkdTasksDrawerHeader/NkdTasksDrawerHeader.vue'
+import NkdDrawerTasksInput from '@/components/v1/organisms/NkdDrawerTasksInput/NkdDrawerTasksInput.vue'
+import TaskPageStoreKey from '@/components/v1/storeKeys/TaskPageStoreKey'
 export default defineComponent({
   props: {
     epic: { type: Object as PropType<Epic> },
@@ -33,10 +37,15 @@ export default defineComponent({
     NkdTasksDrawerHeader,
   },
   setup(props, context) {
+    const taskPageStore = inject(TaskPageStoreKey)
     const onClickEpicDeleteButton = () => {
       context.emit('onClickEpicDeleteButton')
     }
-    return { onClickEpicDeleteButton }
+    const onCreateTaskBtnClick = () => {
+      taskPageStore.startCreateTask()
+    }
+    const dispatchEvent = () => {}
+    return { onClickEpicDeleteButton, onCreateTaskBtnClick, dispatchEvent }
   },
 })
 </script>
