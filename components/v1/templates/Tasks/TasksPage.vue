@@ -1,3 +1,4 @@
+<!-- TODO: PageはwrapperにしてTasksIndex/TasksListをslotで挿入したい -->
 <template>
   <div
     class="mt-16 pt-12 pl-56 h-screen overflow-scroll"
@@ -12,6 +13,7 @@
       v-if="currentTabIndex == 1"
       :today="epicTasksStore.todayEpicTasks"
       :tomorrow="epicTasksStore.tomorrowEpicTasks"
+      :noDate="epicTasksStore.noDateEpicTasks"
       @onInputBlur="createEpic"
     />
     <TasksList
@@ -113,9 +115,11 @@ export default defineComponent({
         .delete(`/api/v1/epics/${targetId}`)
         .then((res) => {
           taskPageStore.closeDrawer()
+          // TODO: storeの削除系まとめたい
           epicTasksStore.deleteEpicTasks(targetId)
           epicTasksStore.deleteTodayEpicTasks(targetId)
           epicTasksStore.deleteTomorrowEpicTasks(targetId)
+          epicTasksStore.deleteNoDateEpicTasks(targetId)
         })
         .catch((e) => {})
     }

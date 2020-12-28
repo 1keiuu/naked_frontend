@@ -16,12 +16,12 @@ export default defineComponent({
     context.root.$axios
       .get('/api/v1/tasks')
       .then((res) => {
-        console.log(res.data)
         epicTasksStore.setTodayEpicTasks(res.data.today)
         epicTasksStore.setTomorrowEpicTasks(res.data.tomorrow)
+        epicTasksStore.setNoDateEpicTasks(res.data.no_date)
       })
       .catch((e) => {
-        console.log(e)
+        console.error(e)
       })
   },
 })
