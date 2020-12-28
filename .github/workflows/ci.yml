@@ -9,7 +9,8 @@ on:
     branches:
       - main
       - master
-
+env:
+  SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
 jobs:
   ci:
     runs-on: ${{ matrix.os }}
@@ -44,3 +45,21 @@ jobs:
 
       - name: Run tests 🧪
         run: npm run test
+
+      # テスト成功時はこちらのステップが実行される
+      - name: Slack Notification on Success
+        if: success()
+        uses: rtCamp/action-slack-notify@v2.0.2
+        env:
+          SLACK_CHANNEL: 1001_harashima
+          SLACK_TITLE: Test Success
+          SLACK_COLOR: good
+
+      # テスト失敗時はこちらのステップが実行される
+      - name: Slack Notification on Failure
+        if: failure()
+        uses: rtCamp/action-slack-notify@v2.0.2
+        env:
+          SLACK_CHANNEL: 1001_harashima
+          SLACK_TITLE: Test Failure
+          SLACK_COLOR: danger
