@@ -9,18 +9,7 @@
       @onTabClick="changeContent"
       :currentPage="currentPage"
     />
-    <TasksIndex
-      v-if="currentTabIndex == 1"
-      :today="epicTasksStore.todayEpicTasks"
-      :tomorrow="epicTasksStore.tomorrowEpicTasks"
-      :noDate="epicTasksStore.noDateEpicTasks"
-      @onInputBlur="createEpic"
-    />
-    <TasksList
-      v-else-if="currentTabIndex == 2"
-      :epicTasksArray="epicTasksStore.epicTasks"
-      @onInputBlur="createEpic"
-    />
+    <slot />
     <NkdDrawer id="task-drawer" :isActive="taskPageStore.isDrawerOpen">
       <NkdTasksDrawerContent
         :epic="taskPageStore.selectedEpic"
@@ -41,7 +30,6 @@ import {
   computed,
 } from '@vue/composition-api'
 import NkdTaskSubHeader from '@/components/v1/organisms/NkdTasksSubHeader/NkdTasksSubHeader.vue'
-import TasksIndex from './Contents/TasksIndex.vue'
 import NkdDrawer from '@/components/v1/organisms/NkdDrawer/NkdDrawer.vue'
 import TaskPageStoreKey from '@/components/v1/storeKeys/TaskPageStoreKey.ts'
 import NkdTasksDrawerContent from '@/components/v1/organisms/NkdTasksDrawerContent/NkdTasksDrawerContent.vue'
@@ -58,15 +46,9 @@ export default defineComponent({
       { id: 1, title: '直近のタスク', route: '/tasks' },
       { id: 2, title: 'リスト', route: '/tasks/list' },
     ])
-    const currentTabIndex = ref(1)
     const currentPage = context.root.$route.path
     const taskPageStore = inject(TaskPageStoreKey)
     const epicTasksStore = inject(EpicTasksStoreKey)
-
-    switch (currentPage) {
-      case '/tasks/list':
-        currentTabIndex.value = 2
-    }
 
     const onTasksPageClick = (e: Event) => {
       if (
@@ -80,7 +62,6 @@ export default defineComponent({
     }
 
     const changeContent = (id: number, route: string) => {
-      currentTabIndex.value = id
       switch (route) {
         case '/tasks':
           context.root.$router.push('/tasks')
@@ -88,24 +69,6 @@ export default defineComponent({
         case '/tasks/list':
           context.root.$router.push('/tasks/list')
           break
-      }
-    }
-
-    const createEpic = (inputValue: string) => {
-      taskPageStore.stopCreateEpic()
-      if (inputValue) {
-        context.root.$axios
-          .post('/api/v1/epics', {
-            title: inputValue,
-            user_id: context.root.$auth.user.id,
-          })
-          .then((res) => {
-            const epic = res.data.epic
-            epicTasksStore.appendEpicTasks({
-              epic: { id: epic.id, title: epic.title },
-            })
-          })
-          .catch((e) => {})
       }
     }
 
@@ -126,13 +89,11 @@ export default defineComponent({
 
     return {
       contents,
-      currentTabIndex,
       currentPage,
       changeContent,
       taskPageStore,
       onTasksPageClick,
       epicTasksStore,
-      createEpic,
       deleteEpic,
     }
   },
