@@ -49,6 +49,10 @@ export default defineComponent({
           context.root.$auth.setUserToken(response.data.user.token)
         })
         .catch((error) => {
+          if (!error.response.data.message) {
+            errorMessages.push('ログインに失敗しました')
+            return
+          }
           error.response.data.message.forEach((message: string) => {
             errorMessages.push(message)
           })
