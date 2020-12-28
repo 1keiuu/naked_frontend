@@ -5,6 +5,7 @@
     :value="value"
     :type="type"
     :name="name"
+    autocomplete
     :class="{ '--outlined': isOutLined }"
     class="nkd__text-field w-full p-2 mb-5 rounded-sm border-2 border-opacity-30 border-gray-500 placeholder-opacity-50"
   />

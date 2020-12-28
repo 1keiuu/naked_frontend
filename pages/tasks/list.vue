@@ -19,7 +19,7 @@ export default defineComponent({
         epicTasksStore.setEpicTasks(res.data.epic_tasks)
       })
       .catch((e) => {
-        console.log(e)
+        console.error(e)
       })
   },
 })
