@@ -5,8 +5,10 @@ export default function TaskPageStore() {
     const state = reactive({
         isDrawerOpen: false,
         isCreatingEpic: false,
-        epic: <Epic>{},
-        tasks: <Task[]>[]
+        isUpdatingEpic: false,
+        isCreatingTask:false,
+        selectedEpic: <Epic>{},
+        selectedTasks: <Task[]>[]
     })
     
     return {
@@ -16,11 +18,17 @@ export default function TaskPageStore() {
         get isCreatingEpic() {
             return state.isCreatingEpic
         },
+        get isUpdatingEpic() {
+            return state.isUpdatingEpic
+        },
+        get isCreatingTask() {
+            return state.isCreatingTask
+        },
         get selectedEpic() {
-            return state.epic
+            return state.selectedEpic
         },
         get selectedTasks() {
-            return state.tasks
+            return state.selectedTasks
         },
         openDrawer() {
             state.isDrawerOpen = true
@@ -34,18 +42,33 @@ export default function TaskPageStore() {
         stopCreateEpic() {
             state.isCreatingEpic = false
         },
+        startUpdateEpic() {
+            state.isUpdatingEpic = true
+        }, 
+        stopUpdateEpic() {
+            state.isUpdatingEpic = false
+        },
+        startCreateTask() {
+            state.isCreatingTask = true
+        }, 
+        stopCreateTask() {
+            state.isCreatingTask = false
+        },
         selectEpic(payload:object) {
-            state.epic = payload
+            state.selectedEpic = payload
         },      
         selectTasks(payload:Array<Task>) {
-            state.tasks = payload
+            state.selectedTasks = payload
         },
         reSetSelectedEpic() {
-            state.epic = {}
+            state.selectedEpic = {}
         },
         reSetSelectedTasks() {
-            state.tasks = []
-        },    
+            state.selectedTasks = []
+        },
+        appendSelectedTask(payload: Task) {
+            state.selectedTasks.push(payload)
+        },
   }
 }
 

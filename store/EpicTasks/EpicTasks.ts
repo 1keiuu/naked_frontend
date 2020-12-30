@@ -24,8 +24,16 @@ export default function EpicTasksStore() {
     setEpicTasks(array:EpicTasks[]) {
       state.epicTasks = array
     },
-    appendEpicTasks(task: EpicTasks) {
-      state.epicTasks.push(task)
+    appendEpicTasks(epicTasks: EpicTasks) {
+      state.epicTasks.push(epicTasks)
+    },
+    updateEpic(epic: Epic) {
+      const target = state.epicTasks.find(epictasks => {return epictasks.epic.id == epic.id })
+      if(target) target.epic = epic
+    },
+    appendTask(task: Task, epic_id: number) {
+      const target = state.epicTasks.find(epictasks => {return epictasks.epic.id == epic_id })
+      target?.tasks.push(task)
     },
     deleteEpicTasks(id: Number) {
       const target = state.epicTasks.find((item:EpicTasks) => {

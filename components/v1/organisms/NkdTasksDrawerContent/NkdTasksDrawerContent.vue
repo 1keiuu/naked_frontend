@@ -1,16 +1,27 @@
 <template>
-  <div class="w-full h-full pt-12" id="drawer-content">
+  <div class="w-full h-full pt-12 overflow-y-scroll">
     <NkdTasksDrawerHeader @onClickEpicDeleteButton="onClickEpicDeleteButton" />
-    <div class="px-5 pt-2" id="drawer-content">
+    <div class="px-5 pt-2">
       <NkdLabel name="epic-title" value="エピック名" />
-      <NkdTextField :isOutLined="true" :value="epic.title" name="epic-title" />
+      <NkdTextField
+        :isOutLined="true"
+        :value="epic.title"
+        name="epic-title"
+        @onTextFieldInput="onTextFieldInput"
+        @onTextFieldBlur="onTextFieldBlur"
+      />
       <NkdLabel name="epic-description" value="エピックの説明" class="mt-8" />
       <NkdTextArea
         :isOutLined="true"
         :value="epic.description"
         name="epic-description"
+        @onTextAreaInput="onTextAreaInput"
+        @onTextAreaBlur="onTextAreaBlur"
       />
+      <h2>タスク一覧</h2>
       <NkdTaskItemsList :epic="epic" :tasks="tasks" />
+      <button @click="onCreateTaskBtnClick">タスクを追加</button>
+      <NkdDrawerTasksInput @onInputBlur="createTask" />
     </div>
   </div>
 </template>
@@ -21,6 +32,10 @@ import NkdTextArea from '@/components/v1/atoms/NkdTextArea/NkdTextArea.vue'
 import NkdLabel from '@/components/v1/atoms/NkdLabel/NkdLabel.vue'
 import NkdTaskItemsList from '@/components/v1/molecules/NkdTaskItemsList/NkdTaskItemsList.vue'
 import NkdTasksDrawerHeader from '@/components/v1/organisms/NkdTasksDrawerHeader/NkdTasksDrawerHeader.vue'
+import NkdDrawerTasksInput from '@/components/v1/organisms/NkdDrawerTasksInput/NkdDrawerTasksInput.vue'
+import TaskPageStoreKey from '@/components/v1/storeKeys/TaskPageStoreKey'
+import EpicTasksStoreKey from '@/components/v1/storeKeys/EpicTasksStoreKey'
+
 export default defineComponent({
   props: {
     epic: { type: Object as PropType<Epic> },
@@ -33,10 +48,77 @@ export default defineComponent({
     NkdTasksDrawerHeader,
   },
   setup(props, context) {
+    const taskPageStore = inject(TaskPageStoreKey)
+    const epicTasksStore = inject(EpicTasksStoreKey)
     const onClickEpicDeleteButton = () => {
       context.emit('onClickEpicDeleteButton')
     }
-    return { onClickEpicDeleteButton }
+    const onCreateTaskBtnClick = () => {
+      taskPageStore.startCreateTask()
+    }
+    const createTask = (inputValue: string) => {
+      taskPageStore.stopCreateTask()
+      if (inputValue && props.epic) {
+        context.root.$axios
+          .post('/api/v1/tasks', {
+            title: inputValue,
+            epic_id: props.epic.id,
+          })
+          .then((res) => {
+            if (!props.epic) return
+            const task = res.data.task
+            taskPageStore.appendSelectedTask(task)
+          })
+          .catch((e) => {})
+      }
+    }
+    const updateEpic = (obj: Object) => {
+      taskPageStore.stopCreateTask()
+      if (props.epic) {
+        context.root.$axios
+          .patch(`/api/v1/epics/${props.epic.id}`, obj)
+          .then((res) => {
+            if (!props.epic) return
+            const epic = res.data.epic
+            epicTasksStore.updateEpic({
+              id: epic.id,
+              title: epic.title,
+              description: epic.description,
+            })
+          })
+          .catch((e) => {})
+      }
+    }
+    const onTextFieldBlur = (inputValue: string) => {
+      taskPageStore.stopUpdateEpic()
+      if (inputValue)
+        updateEpic({
+          title: inputValue,
+        })
+    }
+    const onTextAreaBlur = (inputValue: string) => {
+      taskPageStore.stopUpdateEpic()
+      if (inputValue)
+        updateEpic({
+          description: inputValue,
+        })
+    }
+    const onTextFieldInput = () => {
+      taskPageStore.startUpdateEpic()
+    }
+    const onTextAreaInput = () => {
+      taskPageStore.startUpdateEpic()
+    }
+    return {
+      onClickEpicDeleteButton,
+      onCreateTaskBtnClick,
+      dispatchEvent,
+      createTask,
+      onTextFieldInput,
+      onTextAreaInput,
+      onTextFieldBlur,
+      onTextAreaBlur,
+    }
   },
 })
 </script>
