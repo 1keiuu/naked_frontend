@@ -1,7 +1,7 @@
 <template>
-  <div class="w-full h-full pt-12" id="drawer-content">
+  <div class="w-full h-full pt-12 overflow-y-scroll">
     <NkdTasksDrawerHeader @onClickEpicDeleteButton="onClickEpicDeleteButton" />
-    <div class="px-5 pt-2" id="drawer-content">
+    <div class="px-5 pt-2">
       <NkdLabel name="epic-title" value="エピック名" />
       <NkdTextField
         :isOutLined="true"
@@ -67,7 +67,7 @@ export default defineComponent({
           .then((res) => {
             if (!props.epic) return
             const task = res.data.task
-            epicTasksStore.appendTask(task, props.epic.id)
+            taskPageStore.appendSelectedTask(task)
           })
           .catch((e) => {})
       }
@@ -90,22 +90,24 @@ export default defineComponent({
       }
     }
     const onTextFieldBlur = (inputValue: string) => {
+      taskPageStore.stopUpdateEpic()
       if (inputValue)
         updateEpic({
           title: inputValue,
         })
     }
     const onTextAreaBlur = (inputValue: string) => {
+      taskPageStore.stopUpdateEpic()
       if (inputValue)
         updateEpic({
           description: inputValue,
         })
     }
     const onTextFieldInput = () => {
-      console.log('qa')
+      taskPageStore.startUpdateEpic()
     }
     const onTextAreaInput = () => {
-      console.log('qa')
+      taskPageStore.startUpdateEpic()
     }
     return {
       onClickEpicDeleteButton,
