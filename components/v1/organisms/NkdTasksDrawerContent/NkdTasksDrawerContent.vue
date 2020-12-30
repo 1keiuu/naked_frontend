@@ -85,20 +85,25 @@ export default defineComponent({
               title: epic.title,
               description: epic.description,
             })
+            taskPageStore.selectEpic({
+              id: epic.id,
+              title: epic.title,
+              description: epic.description,
+            })
           })
           .catch((e) => {})
       }
     }
     const onTextFieldBlur = (inputValue: string) => {
       taskPageStore.stopUpdateEpic()
-      if (inputValue)
+      if (taskPageStore.selectedEpic.title !== inputValue)
         updateEpic({
           title: inputValue,
         })
     }
     const onTextAreaBlur = (inputValue: string) => {
       taskPageStore.stopUpdateEpic()
-      if (inputValue)
+      if (taskPageStore.selectedEpic.description !== inputValue)
         updateEpic({
           description: inputValue,
         })
