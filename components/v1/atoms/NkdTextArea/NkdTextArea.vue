@@ -38,7 +38,11 @@ export default defineComponent({
   },
   setup(props, context) {
     const onInput = (e: KeyboardEvent) => {
-      context.emit('input', props.type, (e.target as HTMLInputElement).value)
+      context.emit(
+        'onTextAreaInput',
+        props.type,
+        (e.target as HTMLInputElement).value
+      )
     }
     const onBlur = (e: Event) => {
       context.emit('onTextAreaBlur', (e.target as HTMLInputElement).value)

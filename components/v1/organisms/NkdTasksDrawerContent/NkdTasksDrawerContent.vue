@@ -7,6 +7,7 @@
         :isOutLined="true"
         :value="epic.title"
         name="epic-title"
+        @onTextFieldInput="onTextFieldInput"
         @onTextFieldBlur="onTextFieldBlur"
       />
       <NkdLabel name="epic-description" value="エピックの説明" class="mt-8" />
@@ -14,6 +15,7 @@
         :isOutLined="true"
         :value="epic.description"
         name="epic-description"
+        @onTextAreaInput="onTextAreaInput"
         @onTextAreaBlur="onTextAreaBlur"
       />
       <h2>タスク一覧</h2>
@@ -99,12 +101,19 @@ export default defineComponent({
           description: inputValue,
         })
     }
-
+    const onTextFieldInput = () => {
+      console.log('qa')
+    }
+    const onTextAreaInput = () => {
+      console.log('qa')
+    }
     return {
       onClickEpicDeleteButton,
       onCreateTaskBtnClick,
       dispatchEvent,
       createTask,
+      onTextFieldInput,
+      onTextAreaInput,
       onTextFieldBlur,
       onTextAreaBlur,
     }
