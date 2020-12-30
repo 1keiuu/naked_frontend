@@ -1,10 +1,16 @@
 <template>
-  <div>
-    <NkdTaskItem
-      v-for="task in tasks"
-      :key="'task' + epic.id + '-' + task.id"
-      :task="task"
-    />
+  <div class="mb-1">
+    <div class="flex justify-between w-full">
+      <h2>タスク一覧</h2>
+      <button @click="onCreateTaskBtnClick" class="">タスクを追加</button>
+    </div>
+    <div class="task-item__list overflow-y-scroll">
+      <NkdTaskItem
+        v-for="task in tasks"
+        :key="'task' + epic.id + '-' + task.id"
+        :task="task"
+      />
+    </div>
   </div>
 </template>
 <script lang="ts">
@@ -18,5 +24,18 @@ export default defineComponent({
       type: Array as PropType<Task[]>,
     },
   },
+  setup(_props, context) {
+    const onCreateTaskBtnClick = () => {
+      context.emit('onCreateTaskBtnClick')
+    }
+    return {
+      onCreateTaskBtnClick,
+    }
+  },
 })
 </script>
+<style scoped>
+.task-item__list {
+  max-height: 45vh;
+}
+</style>

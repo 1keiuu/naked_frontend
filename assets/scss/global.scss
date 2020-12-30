@@ -5,7 +5,9 @@
 @import 'tailwindcss/components';
 /* purgecss end ignore */
 @import 'tailwindcss/utilities';
-
+body {
+  overflow-y: hidden
+}
 .epic-tasks__group {
     @apply mt-5
 }

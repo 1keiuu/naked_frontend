@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="py-1 pl-2 mb-1 bg-white">
     <p>{{ task.title }}</p>
   </div>
 </template>

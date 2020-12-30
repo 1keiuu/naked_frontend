@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full h-full pt-12 overflow-y-scroll">
+  <div class="w-full h-full pt-12 overflow-y-hidden">
     <NkdTasksDrawerHeader @onClickEpicDeleteButton="onClickEpicDeleteButton" />
     <div class="px-5 pt-2">
       <NkdLabel name="epic-title" value="エピック名" />
@@ -18,9 +18,11 @@
         @onTextAreaInput="onTextAreaInput"
         @onTextAreaBlur="onTextAreaBlur"
       />
-      <h2>タスク一覧</h2>
-      <NkdTaskItemsList :epic="epic" :tasks="tasks" />
-      <button @click="onCreateTaskBtnClick">タスクを追加</button>
+      <NkdTaskItemsList
+        :epic="epic"
+        :tasks="tasks"
+        @onCreateTaskBtnClick="onCreateTaskBtnClick"
+      />
       <NkdDrawerTasksInput @onInputBlur="createTask" />
     </div>
   </div>

@@ -1,6 +1,11 @@
 <template>
-  <div class="drawer-tasks__input" v-if="taskPageStore.isCreatingTask">
-    <input class="text-lg" @blur="onBlur" ref="inputRef" type="text" />
+  <div class="drawer-tasks__input w-full" v-if="taskPageStore.isCreatingTask">
+    <input
+      class="text-lg w-full pl-2"
+      @blur="onBlur"
+      ref="inputRef"
+      type="text"
+    />
   </div>
 </template>
 <script lang="ts">
