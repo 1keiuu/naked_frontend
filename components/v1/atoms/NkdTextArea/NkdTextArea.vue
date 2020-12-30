@@ -1,6 +1,7 @@
 <template>
   <textarea
-    @input="emit"
+    @input="onInput"
+    @blur="onBlur"
     :placeholder="placeholder"
     :value="value"
     :type="type"
@@ -36,11 +37,13 @@ export default defineComponent({
     },
   },
   setup(props, context) {
-    const emit = (e: KeyboardEvent) => {
+    const onInput = (e: KeyboardEvent) => {
       context.emit('input', props.type, (e.target as HTMLInputElement).value)
     }
-
-    return { emit }
+    const onBlur = (e: Event) => {
+      context.emit('onTextAreaBlur', (e.target as HTMLInputElement).value)
+    }
+    return { onInput, onBlur }
   },
 })
 </script>

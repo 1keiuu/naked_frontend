@@ -84,6 +84,13 @@ export default defineComponent({
         .catch((e) => {})
     }
 
+    window.addEventListener('beforeunload', (event) => {
+      if (!taskPageStore.isCreatingEpic && !taskPageStore.isCreatingTask) return
+      //Chromeではデフォルトの文言が表示される.
+      event.preventDefault()
+      event.returnValue = '編集中です。本当に他のページに移動しますか?'
+    })
+
     return {
       contents,
       currentPage,

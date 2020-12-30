@@ -27,6 +27,10 @@ export default function EpicTasksStore() {
     appendEpicTasks(epicTasks: EpicTasks) {
       state.epicTasks.push(epicTasks)
     },
+    updateEpic(epic: Epic) {
+      const target = state.epicTasks.find(epictasks => {return epictasks.epic.id == epic.id })
+      if(target) target.epic = epic
+    },
     appendTask(task: Task, epic_id: number) {
       const target = state.epicTasks.find(epictasks => {return epictasks.epic.id == epic_id })
       target?.tasks.push(task)

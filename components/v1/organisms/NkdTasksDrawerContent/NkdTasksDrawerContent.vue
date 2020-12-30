@@ -3,12 +3,18 @@
     <NkdTasksDrawerHeader @onClickEpicDeleteButton="onClickEpicDeleteButton" />
     <div class="px-5 pt-2" id="drawer-content">
       <NkdLabel name="epic-title" value="エピック名" />
-      <NkdTextField :isOutLined="true" :value="epic.title" name="epic-title" />
+      <NkdTextField
+        :isOutLined="true"
+        :value="epic.title"
+        name="epic-title"
+        @onTextFieldBlur="onTextFieldBlur"
+      />
       <NkdLabel name="epic-description" value="エピックの説明" class="mt-8" />
       <NkdTextArea
         :isOutLined="true"
         :value="epic.description"
         name="epic-description"
+        @onTextAreaBlur="onTextAreaBlur"
       />
       <h2>タスク一覧</h2>
       <NkdTaskItemsList :epic="epic" :tasks="tasks" />
@@ -64,11 +70,43 @@ export default defineComponent({
           .catch((e) => {})
       }
     }
+    const updateEpic = (obj: Object) => {
+      taskPageStore.stopCreateTask()
+      if (props.epic) {
+        context.root.$axios
+          .patch(`/api/v1/epics/${props.epic.id}`, obj)
+          .then((res) => {
+            if (!props.epic) return
+            const epic = res.data.epic
+            epicTasksStore.updateEpic({
+              id: epic.id,
+              title: epic.title,
+              description: epic.description,
+            })
+          })
+          .catch((e) => {})
+      }
+    }
+    const onTextFieldBlur = (inputValue: string) => {
+      if (inputValue)
+        updateEpic({
+          title: inputValue,
+        })
+    }
+    const onTextAreaBlur = (inputValue: string) => {
+      if (inputValue)
+        updateEpic({
+          description: inputValue,
+        })
+    }
+
     return {
       onClickEpicDeleteButton,
       onCreateTaskBtnClick,
       dispatchEvent,
       createTask,
+      onTextFieldBlur,
+      onTextAreaBlur,
     }
   },
 })
