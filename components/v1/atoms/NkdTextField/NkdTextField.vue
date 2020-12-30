@@ -1,10 +1,12 @@
 <template>
   <input
-    @input="emit"
+    @input="onInput"
+    @blur="onBlur"
     :placeholder="placeholder"
     :value="value"
     :type="type"
     :name="name"
+    autocomplete
     :class="{ '--outlined': isOutLined }"
     class="nkd__text-field w-full p-2 mb-5 rounded-sm border-2 border-opacity-30 border-gray-500 placeholder-opacity-50"
   />
@@ -36,11 +38,17 @@ export default defineComponent({
     },
   },
   setup(props, context) {
-    const emit = (e: KeyboardEvent) => {
-      context.emit('input', props.type, (e.target as HTMLInputElement).value)
+    const onInput = (e: KeyboardEvent) => {
+      context.emit(
+        'onTextFieldInput',
+        props.type,
+        (e.target as HTMLInputElement).value
+      )
     }
-
-    return { emit }
+    const onBlur = (e: Event) => {
+      context.emit('onTextFieldBlur', (e.target as HTMLInputElement).value)
+    }
+    return { onInput, onBlur }
   },
 })
 </script>
