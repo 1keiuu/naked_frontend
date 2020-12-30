@@ -1,6 +1,6 @@
 <template>
   <div class="mb-1">
-    <div class="flex justify-between w-full">
+    <div class="flex justify-between w-full mb-2">
       <h2>タスク一覧</h2>
       <button @click="onCreateTaskBtnClick" class="">タスクを追加</button>
     </div>

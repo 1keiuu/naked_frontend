@@ -1,7 +1,7 @@
 <template>
   <div class="drawer-tasks__input w-full" v-if="taskPageStore.isCreatingTask">
     <input
-      class="text-lg w-full pl-2"
+      class="text-lg w-full pl-2 py-2"
       @blur="onBlur"
       @keydown="onKeyDown"
       ref="inputRef"
