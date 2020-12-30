@@ -24,7 +24,7 @@ export default defineComponent({
     context.root.$axios
       .get('/api/v1/epics/epic_tasks')
       .then((res) => {
-        epicTasksStore.setEpicTasks(res.data.epic_tasks)
+        epicTasksStore.setEpicTasks(res.data.epics)
       })
       .catch((e) => {
         console.error(e)
