@@ -1,6 +1,12 @@
 <template>
   <div class="epic-tasks__input" v-if="taskPageStore.isCreatingEpic">
-    <input class="text-lg" @blur="onBlur" ref="inputRef" type="text" />
+    <input
+      class="text-lg"
+      @blur="onBlur"
+      @keydown="onKeyDown"
+      ref="inputRef"
+      type="text"
+    />
   </div>
 </template>
 <script lang="ts">
@@ -38,7 +44,13 @@ export default defineComponent({
       context.emit('onInputBlur', inputValue)
     }
 
-    return { inputRef, taskPageStore, onBlur }
+    const onKeyDown = (e: KeyboardEvent) => {
+      const inputValue = inputRef.value?.value
+      if (e.keyCode == 13) {
+        inputRef.value?.blur()
+      }
+    }
+    return { inputRef, taskPageStore, onBlur, onKeyDown }
   },
 })
 </script>

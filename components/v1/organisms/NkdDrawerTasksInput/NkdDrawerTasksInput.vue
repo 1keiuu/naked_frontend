@@ -3,7 +3,7 @@
     <input
       class="text-lg w-full pl-2"
       @blur="onBlur"
-      @keydown="onKeyPress"
+      @keydown="onKeyDown"
       ref="inputRef"
       type="text"
     />
@@ -44,14 +44,14 @@ export default defineComponent({
       context.emit('onInputBlur', inputValue)
     }
 
-    const onKeyPress = (e: KeyboardEvent) => {
+    const onKeyDown = (e: KeyboardEvent) => {
       const inputValue = inputRef.value?.value
       if (e.keyCode == 13) {
         inputRef.value?.blur()
       }
     }
 
-    return { inputRef, taskPageStore, onBlur, onKeyPress }
+    return { inputRef, taskPageStore, onBlur, onKeyDown }
   },
 })
 </script>
