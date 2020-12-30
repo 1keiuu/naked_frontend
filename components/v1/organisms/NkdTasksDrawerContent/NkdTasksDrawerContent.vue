@@ -10,6 +10,7 @@
         :value="epic.description"
         name="epic-description"
       />
+      <h2>タスク一覧</h2>
       <NkdTaskItemsList :epic="epic" :tasks="tasks" />
       <button @click="onCreateTaskBtnClick">タスクを追加</button>
       <NkdDrawerTasksInput @onInputBlur="createTask" />
@@ -48,7 +49,7 @@ export default defineComponent({
       taskPageStore.startCreateTask()
     }
     const createTask = (inputValue: string) => {
-      taskPageStore.stopCreateEpic()
+      taskPageStore.stopCreateTask()
       if (inputValue && props.epic) {
         context.root.$axios
           .post('/api/v1/tasks', {

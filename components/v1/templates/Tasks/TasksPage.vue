@@ -51,9 +51,7 @@ export default defineComponent({
 
     const onTasksPageClick = (e: Event) => {
       if (
-        ((e.target as HTMLInputElement).parentElement as HTMLInputElement)
-          .id !== 'drawer-content' &&
-        (e.target as HTMLInputElement).id !== 'drawer-content' &&
+        !(e.target as HTMLInputElement).closest('.nkd-drawer') &&
         (e.target as HTMLInputElement).id !== 'epic-tasks__card'
       ) {
         taskPageStore.closeDrawer()
