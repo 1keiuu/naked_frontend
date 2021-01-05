@@ -2,7 +2,7 @@
   <div
     class="min-h-screen logIn-page px-8 sm:px-16 lg:px-32 xl:px-64 py-24 flex flex-col justify-center"
   >
-    <NkSignUpForm @recieveClickEvent="onSubmitButtonClick" />
+    <NkdSignUpForm @recieveClickEvent="onSubmitButtonClick" />
     <a
       href="https://slack.com/oauth/v2/authorize?user_scope=identity.basic,identity.email,identity.avatar&client_id=1242468374582.1564775291025"
       ><img src="https://api.slack.com/img/sign_in_with_slack.png"
@@ -21,11 +21,11 @@
 <script lang="ts">
 import { defineComponent, reactive, inject } from '@vue/composition-api'
 import SignUpStoreKey from '../../storeKeys/SignUpStoreKey'
-import NkSignUpForm from '../../organisms/NkdSignUpForm/NkdSignUpForm.vue'
+import NkdSignUpForm from '../../organisms/NkdSignUpForm/NkdSignUpForm.vue'
 
 export default defineComponent({
   components: {
-    NkSignUpForm,
+    NkdSignUpForm,
   },
   setup(_props, context) {
     const errorMessages = reactive<string[]>([])
@@ -41,7 +41,7 @@ export default defineComponent({
           user: {
             email: SignUpStore.email,
             password: SignUpStore.password,
-            name: '',
+            name: SignUpStore.email,
           },
         })
         .then((response) => {

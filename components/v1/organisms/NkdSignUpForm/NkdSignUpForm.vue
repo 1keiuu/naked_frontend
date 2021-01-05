@@ -4,13 +4,13 @@
       type="email"
       name="email"
       placeholder="email"
-      @input="onInputTextField"
+      @onTextFieldInput="onInputTextField"
     />
     <NkdTextField
       type="password"
       name="password"
       placeholder="password"
-      @input="onInputTextField"
+      @onTextFieldInput="onInputTextField"
     />
     <NkdButton title="新規登録" type="submit" />
   </form>
@@ -44,6 +44,7 @@ export default defineComponent({
 
     const onInputTextField = (type: string, val: string) => {
       if (type == 'email') {
+        console.log(val)
         SignUpStore.setEmail(val)
       } else if (type == 'password') {
         SignUpStore.setPassword(val)
