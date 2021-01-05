@@ -4,13 +4,13 @@
       type="email"
       name="email"
       placeholder="email"
-      @input="onInputTextField"
+      @onTextFieldInput="onInputTextField"
     />
     <NkdTextField
       type="password"
       placeholder="password"
       name="password"
-      @input="onInputTextField"
+      @onTextFieldInput="onInputTextField"
     />
     <NkdButton title="ログイン" type="submit" />
   </form>
