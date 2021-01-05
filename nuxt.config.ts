@@ -1,5 +1,5 @@
 const envPath = `.env.${process.env.NODE_ENV}`
-require('dotenv').config({ path:  envPath})
+require('dotenv').config({ path: envPath})
 
 export default {
   // Disable server-side rendering (https://go.nuxtjs.dev/ssr-mode)
