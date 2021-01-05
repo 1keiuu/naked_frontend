@@ -29,8 +29,8 @@ export default defineComponent({
     NkdLogInForm,
   },
   setup(_props, context) {
-    const env = process.env.NODE_ENV
-    console.log(env)
+    const baseURL = process.env.API_BASE_URL
+    console.log(baseURL)
     const errorMessages = reactive<string[]>([])
     const LogInStore = inject(LogInStoreKey)
 

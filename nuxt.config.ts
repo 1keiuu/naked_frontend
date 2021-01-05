@@ -1,5 +1,5 @@
-const envPath = `.env.${process.env.NODE_ENV}`
-require('dotenv').config({ path: envPath})
+// const envPath = `.env.${process.env.NODE_ENV}`
+// require('dotenv').config({ path: envPath})
 
 export default {
   // Disable server-side rendering (https://go.nuxtjs.dev/ssr-mode)
@@ -52,14 +52,11 @@ export default {
     '@nuxtjs/pwa',
     '@nuxtjs/auth-next',
   ],
-  dotenv: {
-    filename: envPath
-  },
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
   axios: {
     proxy: true,
   },
-  proxy: { "/api": { target: process.env.API_BASE_URL } },
+  proxy: { "/api": { target: process.env.API_BASE_URL || 'http://localhost:3000' } },
   publicRuntimeConfig: {
 
   },
