@@ -44,7 +44,6 @@ export default defineComponent({
 
     const onInputTextField = (type: string, val: string) => {
       if (type == 'email') {
-        console.log(val)
         SignUpStore.setEmail(val)
       } else if (type == 'password') {
         SignUpStore.setPassword(val)
