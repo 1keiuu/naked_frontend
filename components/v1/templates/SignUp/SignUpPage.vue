@@ -41,7 +41,7 @@ export default defineComponent({
           user: {
             email: SignUpStore.email,
             password: SignUpStore.password,
-            name: SignUpStore.email,
+            name: 'user',
           },
         })
         .then((response) => {
