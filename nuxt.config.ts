@@ -60,11 +60,11 @@ export default {
     proxy: true,
   },
   proxy: { "/api": process.env.API_BASE_URL},
-  publicRuntimeConfig: {
-    axios: {
-      browserBaseURL: process.env.BROWSER_BASE_URL
-    }
-  },
+  // publicRuntimeConfig: {
+  //   axios: {
+  //     browserBaseURL: process.env.BROWSER_BASE_URL
+  //   }
+  // },
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {
     extend(config:any, isDev:boolean, isClient:boolean ) {
