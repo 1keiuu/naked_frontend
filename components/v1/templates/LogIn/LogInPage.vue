@@ -30,6 +30,7 @@ export default defineComponent({
   },
   setup(_props, context) {
     const baseURL = process.env.API_BASE_URL
+    console.log(baseURL)
     const errorMessages = reactive<string[]>([])
     const LogInStore = inject(LogInStoreKey)
     if (!LogInStore) {

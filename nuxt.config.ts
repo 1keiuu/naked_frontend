@@ -59,7 +59,14 @@ export default {
   axios: {
     proxy: true,
   },
-  proxy: { "/api": "https://naked-api.herokuapp.com"},
+  proxy: {
+    "/api": {
+      target: "https://naked-api.herokuapp.com",
+      pathRewrite: {
+        '^/api': '/api'
+      }
+    }
+  },
   // publicRuntimeConfig: {
   //   axios: {
   //     browserBaseURL: process.env.BROWSER_BASE_URL
