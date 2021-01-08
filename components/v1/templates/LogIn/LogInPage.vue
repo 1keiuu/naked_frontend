@@ -32,7 +32,6 @@ export default defineComponent({
     const baseURL = process.env.API_BASE_URL
     const errorMessages = reactive<string[]>([])
     const LogInStore = inject(LogInStoreKey)
-
     if (!LogInStore) {
       throw new Error(`${LogInStoreKey} is not provided`)
     }

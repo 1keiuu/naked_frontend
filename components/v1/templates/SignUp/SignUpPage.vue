@@ -36,6 +36,7 @@ export default defineComponent({
 
     const onSubmitButtonClick = () => {
       errorMessages.splice(0, errorMessages.length)
+
       context.root.$axios
         .post('/api/v1/users/signup', {
           user: {
@@ -49,6 +50,7 @@ export default defineComponent({
           context.root.$auth.setUserToken(response.data.user.token)
         })
         .catch((error) => {
+          console.log(error)
           if (!error.response.data.message) {
             errorMessages.push('新規登録に失敗しました')
             return
