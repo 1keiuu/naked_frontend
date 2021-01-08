@@ -53,15 +53,23 @@ export default {
     '@nuxtjs/auth-next',
   ],
   env: {
-    API_BASE_URL: process.env.API_BASE_URL
+    API_BASE_URL: process.env.API_BASE_URL,
+    BROWSER_BASE_URL: process.env.BROWSER_BASE_URL
   },
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
   axios: {
     proxy: true,
   },
-  proxy: { "/api": { target: process.env.API_BASE_URL } },
+  proxy: { "/api": process.env.API_BASE_URL},
   publicRuntimeConfig: {
-
+    axios: {
+      browserBaseURL: process.env.BROWSER_BASE_URL
+    }
+  },
+  privateRuntimeConfig: {
+    axios: {
+      baseURL: process.env.API_BASE_URL
+    }
   },
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {
