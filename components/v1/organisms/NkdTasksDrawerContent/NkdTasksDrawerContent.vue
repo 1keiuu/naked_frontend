@@ -22,6 +22,7 @@
         :epic="epic"
         :tasks="tasks"
         @onCreateTaskBtnClick="onCreateTaskBtnClick"
+        @onTaskInputBlur="updateTaskTitle"
       />
       <NkdDrawerTasksInput @onInputBlur="createTask" />
     </div>
@@ -96,6 +97,27 @@ export default defineComponent({
           .catch((e) => {})
       }
     }
+    const updateTaskTitle = (obj: Task) => {
+      updateTask({ id: obj.id, title: obj.title })
+    }
+    const updateTask = (obj: Task) => {
+      context.root.$axios
+        .patch(`/api/v1/tasks/${obj.id}`, obj)
+        .then((res) => {
+          const task = res.data.task
+          // epicTasksStore.updateEpic({
+          //   id: epic.id,
+          //   title: epic.title,
+          //   description: epic.description,
+          // })
+          // taskPageStore.selectEpic({
+          //   id: epic.id,
+          //   title: epic.title,
+          //   description: epic.description,
+          // })
+        })
+        .catch((e) => {})
+    }
     const onTextFieldBlur = (inputValue: string) => {
       taskPageStore.stopUpdateEpic()
       if (taskPageStore.selectedEpic.title !== inputValue)
@@ -125,6 +147,7 @@ export default defineComponent({
       onTextAreaInput,
       onTextFieldBlur,
       onTextAreaBlur,
+      updateTaskTitle,
     }
   },
 })

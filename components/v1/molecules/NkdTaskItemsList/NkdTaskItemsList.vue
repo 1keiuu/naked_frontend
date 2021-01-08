@@ -9,6 +9,7 @@
         v-for="task in tasks"
         :key="'task' + epic.id + '-' + task.id"
         :task="task"
+        @onInputBlur="dispatchEvent"
       />
     </div>
   </div>
@@ -28,8 +29,12 @@ export default defineComponent({
     const onCreateTaskBtnClick = () => {
       context.emit('onCreateTaskBtnClick')
     }
+    const dispatchEvent = (obj: Task) => {
+      context.emit('onTaskInputBlur', obj)
+    }
     return {
       onCreateTaskBtnClick,
+      dispatchEvent,
     }
   },
 })

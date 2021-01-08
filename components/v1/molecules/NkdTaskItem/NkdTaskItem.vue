@@ -19,8 +19,13 @@ export default defineComponent({
       inputRef.value.value = props.task?.title
     })
     const onBlur = () => {
+      if (!props.task) return
       const inputValue = inputRef.value?.value
-      context.emit('onInputBlur', inputValue)
+      let obj = {
+        id: props.task.id,
+        title: inputValue,
+      }
+      context.emit('onInputBlur', obj)
     }
 
     const onKeyDown = (e: KeyboardEvent) => {
