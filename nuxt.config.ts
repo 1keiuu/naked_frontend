@@ -52,6 +52,9 @@ export default {
     '@nuxtjs/pwa',
     '@nuxtjs/auth-next',
   ],
+  env: {
+    API_BASE_URL: process.env.API_BASE_URL
+  },
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
   axios: {
     proxy: true,
