@@ -50,7 +50,7 @@ export default defineComponent({
           context.root.$auth.setUserToken(response.data.user.token)
         })
         .catch((error) => {
-          console.log(error)
+          console.log(error.response)
           if (!error.response.data.message) {
             errorMessages.push('新規登録に失敗しました')
             return
