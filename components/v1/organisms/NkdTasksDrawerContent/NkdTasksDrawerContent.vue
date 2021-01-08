@@ -75,6 +75,28 @@ export default defineComponent({
           .catch((e) => {})
       }
     }
+    const updateTaskTitle = (obj: Task) => {
+      if (!props.tasks || !obj.title) return
+      if (obj.title.length > 20)
+        return alert('タイトルは20文字以内で入力してください')
+      const target = taskPageStore.selectedTasks.find((task: Task) => {
+        return obj.id == task.id
+      })
+      // 変更ない場合は弾く
+      if (!target || obj.title == target.title) return
+      updateTask({ id: obj.id, title: obj.title })
+    }
+    const updateTask = (obj: Task) => {
+      context.root.$axios
+        .patch(`/api/v1/tasks/${obj.id}`, obj)
+        .then((res) => {
+          const task = res.data.task
+          taskPageStore.updateSelectedTask(task)
+        })
+        .catch((e) => {
+          console.log(e.response.message)
+        })
+    }
     const updateEpic = (obj: Object) => {
       taskPageStore.stopCreateTask()
       if (props.epic) {
@@ -97,27 +119,7 @@ export default defineComponent({
           .catch((e) => {})
       }
     }
-    const updateTaskTitle = (obj: Task) => {
-      updateTask({ id: obj.id, title: obj.title })
-    }
-    const updateTask = (obj: Task) => {
-      context.root.$axios
-        .patch(`/api/v1/tasks/${obj.id}`, obj)
-        .then((res) => {
-          const task = res.data.task
-          // epicTasksStore.updateEpic({
-          //   id: epic.id,
-          //   title: epic.title,
-          //   description: epic.description,
-          // })
-          // taskPageStore.selectEpic({
-          //   id: epic.id,
-          //   title: epic.title,
-          //   description: epic.description,
-          // })
-        })
-        .catch((e) => {})
-    }
+
     const onTextFieldBlur = (inputValue: string) => {
       taskPageStore.stopUpdateEpic()
       if (taskPageStore.selectedEpic.title !== inputValue)

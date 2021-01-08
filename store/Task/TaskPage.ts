@@ -69,6 +69,10 @@ export default function TaskPageStore() {
         appendSelectedTask(payload: Task) {
             state.selectedTasks.push(payload)
         },
+        updateSelectedTask(payload: Task) {
+            let target = state.selectedTasks.find(task => { return task.id == payload.id })
+            target = payload
+        },
   }
 }
 

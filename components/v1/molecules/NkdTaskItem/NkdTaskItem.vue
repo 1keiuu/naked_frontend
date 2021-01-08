@@ -15,8 +15,8 @@ export default defineComponent({
   setup(props, context) {
     const inputRef = ref<HTMLInputElement>()
     onMounted(() => {
-      if (!inputRef.value || !props.task) return
-      inputRef.value.value = props.task?.title
+      if (!inputRef.value || !props.task?.title) return
+      inputRef.value.value = props.task.title
     })
     const onBlur = () => {
       if (!props.task) return
@@ -42,6 +42,6 @@ export default defineComponent({
 <style scoped>
 .input {
   padding-left: 4px;
-  max-width: 70%;
+  width: 70%;
 }
 </style>

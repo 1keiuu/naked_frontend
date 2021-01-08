@@ -35,6 +35,11 @@ export default function EpicTasksStore() {
       const target = state.epicTasks.find(epictasks => {return epictasks.epic.id == epic_id })
       target?.tasks.push(task)
     },
+    updateTask(payload: Task, epic_id: number) {
+      const targetEpic = state.epicTasks.find(epictasks => {return epictasks.epic.id == epic_id })
+      let target = targetEpic?.tasks.find(task=>{return task.id == payload.id})
+      target = payload
+    },
     deleteEpicTasks(id: Number) {
       const target = state.epicTasks.find((item:EpicTasks) => {
         return item.epic.id == id
