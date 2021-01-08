@@ -59,7 +59,7 @@ export default {
   axios: {
     proxy: true,
   },
-  proxy: { "/api": { target: process.env.API_BASE_URL || 'http://localhost:3000' } },
+  proxy: { "/api": { target: process.env.API_BASE_URL } },
   publicRuntimeConfig: {
 
   },
