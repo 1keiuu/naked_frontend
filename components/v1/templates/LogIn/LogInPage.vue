@@ -30,7 +30,6 @@ export default defineComponent({
   },
   setup(_props, context) {
     const baseURL = process.env.API_BASE_URL
-    console.log(baseURL)
     const errorMessages = reactive<string[]>([])
     const LogInStore = inject(LogInStoreKey)
 
@@ -51,6 +50,7 @@ export default defineComponent({
           context.root.$auth.setUserToken(response.data.user.token)
         })
         .catch((error) => {
+          console.log(error.response)
           if (!error.response.data.message) {
             errorMessages.push('ログインに失敗しました')
             return
