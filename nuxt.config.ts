@@ -51,6 +51,7 @@ export default {
     // https://go.nuxtjs.dev/pwa
     '@nuxtjs/pwa',
     '@nuxtjs/auth-next',
+    "@nuxtjs/proxy"
   ],
   env: {
     API_BASE_URL: process.env.API_BASE_URL
