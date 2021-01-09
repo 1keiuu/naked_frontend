@@ -58,13 +58,14 @@ export default {
   },
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
   axios: {
-    proxy: true,
+    // proxy: true,
+    baseURL :"https://naked-api.herokuapp.com"
   },
-  proxy: {
-    "/api": {
-      target: "https://naked-api.herokuapp.com",
-    }
-  },
+  // proxy: {
+  //   "/api": {
+  //     target: "https://naked-api.herokuapp.com",
+  //   }
+  // },
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {
     extend(config:any, isDev:boolean, isClient:boolean ) {
