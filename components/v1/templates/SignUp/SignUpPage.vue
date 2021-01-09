@@ -46,7 +46,6 @@ export default defineComponent({
           },
         })
         .then((response) => {
-          console.log(response)
           context.root.$auth.setUser(response.data.user)
           context.root.$auth.setUserToken(response.data.user.token)
         })
