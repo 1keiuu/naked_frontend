@@ -37,9 +37,9 @@ export default defineComponent({
       throw new Error(`${LogInStoreKey} is not provided`)
     }
 
-    const onSubmitButtonClick = (e: Event) => {
+    const onSubmitButtonClick = async (e: Event) => {
       errorMessages.splice(0, errorMessages.length)
-      context.root.$auth
+      await context.root.$auth
         .loginWith('local', {
           data: {
             user: { email: LogInStore.email, password: LogInStore.password },

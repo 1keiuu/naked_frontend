@@ -34,10 +34,10 @@ export default defineComponent({
       throw new Error(`${SignUpStoreKey} is not provided`)
     }
 
-    const onSubmitButtonClick = () => {
+    const onSubmitButtonClick = async () => {
       errorMessages.splice(0, errorMessages.length)
 
-      context.root.$axios
+      await context.root.$axios
         .post('/api/v1/users/signup', {
           user: {
             email: SignUpStore.email,
