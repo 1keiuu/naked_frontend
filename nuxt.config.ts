@@ -63,9 +63,6 @@ export default {
   proxy: {
     "/api": {
       target: "https://naked-api.herokuapp.com",
-      pathRewrite: {
-        '^/api': '/api'
-      }
     }
   },
   // publicRuntimeConfig: {
