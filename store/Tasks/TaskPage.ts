@@ -4,10 +4,10 @@ import { reactive } from '@vue/composition-api'
 export default function TaskPageStore() {
     const state = reactive({
         isDrawerOpen: false,
-        isCreatingEpic: false,
-        isUpdatingEpic: false,
-        isCreatingTask:false,
-        selectedEpic: <Epic>{},
+        isCreatingTask: false,
+        isUpdatingTask: false,
+        isCreatingSubTask:false,
+        selectedTask: <Task>{},
         selectedTasks: <Task[]>[]
     })
     
@@ -15,17 +15,17 @@ export default function TaskPageStore() {
         get isDrawerOpen() {
             return state.isDrawerOpen
         },
-        get isCreatingEpic() {
-            return state.isCreatingEpic
-        },
-        get isUpdatingEpic() {
-            return state.isUpdatingEpic
-        },
         get isCreatingTask() {
             return state.isCreatingTask
         },
-        get selectedEpic() {
-            return state.selectedEpic
+        get isUpdatingTask() {
+            return state.isUpdatingTask
+        },
+        get isCreatingSubTask() {
+            return state.isCreatingTask
+        },
+        get selectedTask() {
+            return state.selectedTask
         },
         get selectedTasks() {
             return state.selectedTasks
@@ -36,32 +36,32 @@ export default function TaskPageStore() {
         closeDrawer() {
             state.isDrawerOpen = false
         },         
-        startCreateEpic() {
-            state.isCreatingEpic = true
-        }, 
-        stopCreateEpic() {
-            state.isCreatingEpic = false
-        },
-        startUpdateEpic() {
-            state.isUpdatingEpic = true
-        }, 
-        stopUpdateEpic() {
-            state.isUpdatingEpic = false
-        },
         startCreateTask() {
             state.isCreatingTask = true
         }, 
         stopCreateTask() {
             state.isCreatingTask = false
         },
-        selectEpic(payload:object) {
-            state.selectedEpic = payload
+        startUpdateTask() {
+            state.isUpdatingTask = true
+        }, 
+        stopUpdateTask() {
+            state.isUpdatingTask = false
+        },
+        startCreateSubTask() {
+            state.isCreatingTask = true
+        }, 
+        stopCreateSubTask() {
+            state.isCreatingTask = false
+        },
+        selectTask(payload:object) {
+            state.selectedTask = payload
         },      
         selectTasks(payload:Array<Task>) {
             state.selectedTasks = payload
         },
-        reSetSelectedEpic() {
-            state.selectedEpic = {}
+        reSetSelectedTask() {
+            state.selectedTask = {}
         },
         reSetSelectedTasks() {
             state.selectedTasks = []

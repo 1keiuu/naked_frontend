@@ -9,12 +9,12 @@ import TaskStore from '~/store/Task/Task'
 import TaskPageStore from '~/store/Task/TaskPage'
 import EpicTasksStore from '~/store/EpicTasks/EpicTasks'
 import TaskPageStoreKey from '../../storeKeys/TaskPageStoreKey'
-import TaskStoreKey from '../../storeKeys/TaskStoreKey'
+import TasksStoreKey from '../../storeKeys/TasksStoreKey'
 import EpicTasksStoreKey from '../../storeKeys/EpicTasksStoreKey'
 
 export default defineComponent({
   setup(_props, context) {
-    provide(TaskStoreKey, TaskStore())
+    provide(TasksStoreKey, TaskStore())
     provide(TaskPageStoreKey, TaskPageStore())
     provide(EpicTasksStoreKey, EpicTasksStore())
 
