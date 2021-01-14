@@ -4,7 +4,13 @@
   >
     <NkdLogInForm @recieveClickEvent="onSubmitButtonClick" />
     <a
-      href="https://slack.com/oauth/v2/authorize?user_scope=identity.basic,identity.email,identity.avatar&client_id=1242468374582.1564775291025"
+      v-if="env == 'production'"
+      href="https://slack.com/oauth/v2/authorize?user_scope=identity.basic,identity.email,identity.avatar&client_id=1242468374582.1564775291025&request_uri=https://naked-api.herokuapp.com/api/v1/slack/auth"
+      ><img src="https://api.slack.com/img/sign_in_with_slack.png" />
+    </a>
+    <a
+      v-else-if="env == 'development'"
+      href="https://slack.com/oauth/v2/authorize?user_scope=identity.basic,identity.email,identity.avatar&client_id=1242468374582.1564775291025&request_uri=http://localhost:3000/api/v1/slack/auth"
       ><img src="https://api.slack.com/img/sign_in_with_slack.png" />
     </a>
     <nuxt-link to="/signup">新規登録</nuxt-link>
@@ -59,7 +65,9 @@ export default defineComponent({
         })
     }
 
-    return { errorMessages, onSubmitButtonClick }
+    const env = process.env.NODE_ENV
+    console.log(env)
+    return { errorMessages, onSubmitButtonClick, env }
   },
 })
 </script>
