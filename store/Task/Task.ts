@@ -5,6 +5,7 @@ export default function TaskStore() {
     tasks: <Task[]>[],
     todayTasks: <Task[]>[],
     tomorrowTasks: <Task[]>[],
+    noDateTasks: <Task[]>[],
   })
 
   return {

@@ -22,8 +22,9 @@ export default defineComponent({
     const taskPageStore = inject(TaskPageStoreKey)
 
     context.root.$axios
-      .get('/api/v1/epics/epic_tasks')
+      .get('/api/v1/tasks')
       .then((res) => {
+        console.log(res)
         epicTasksStore.setEpicTasks(res.data.epics)
       })
       .catch((e) => {

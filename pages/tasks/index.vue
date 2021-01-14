@@ -26,6 +26,7 @@ export default defineComponent({
     context.root.$axios
       .get('/api/v1/tasks')
       .then((res) => {
+        console.log(res)
         epicTasksStore.setTodayEpicTasks(res.data.today)
         epicTasksStore.setTomorrowEpicTasks(res.data.tomorrow)
         epicTasksStore.setNoDateEpicTasks(res.data.no_date)
@@ -38,7 +39,7 @@ export default defineComponent({
       taskPageStore.stopCreateEpic()
       if (inputValue) {
         context.root.$axios
-          .post('/api/v1/epics', {
+          .post('/api/v1/tasks', {
             title: inputValue,
             user_id: context.root.$auth.user.id,
           })

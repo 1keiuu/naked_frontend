@@ -63,7 +63,7 @@ export default defineComponent({
       taskPageStore.stopCreateTask()
       if (inputValue && props.epic) {
         context.root.$axios
-          .post('/api/v1/tasks', {
+          .post('/api/v1/sub_tasks', {
             title: inputValue,
             epic_id: props.epic.id,
           })
@@ -88,7 +88,7 @@ export default defineComponent({
     }
     const updateTask = (obj: Task) => {
       context.root.$axios
-        .patch(`/api/v1/tasks/${obj.id}`, obj)
+        .patch(`/api/v1/sub_tasks/${obj.id}`, obj)
         .then((res) => {
           const task = res.data.task
           taskPageStore.updateSelectedTask(task)
@@ -101,7 +101,7 @@ export default defineComponent({
       taskPageStore.stopCreateTask()
       if (props.epic) {
         context.root.$axios
-          .patch(`/api/v1/epics/${props.epic.id}`, obj)
+          .patch(`/api/v1/sub_tasks/${props.epic.id}`, obj)
           .then((res) => {
             if (!props.epic) return
             const epic = res.data.epic

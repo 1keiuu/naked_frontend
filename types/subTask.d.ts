@@ -1,6 +1,6 @@
-declare type Task = {
+declare type SubTask = {
     id: number,
-    user_id:number,
+    task_id: number,
     title?: string,
     description?: string,
     status?: string,
@@ -9,5 +9,4 @@ declare type Task = {
     completed_date?: string,
     created_at?: Date,
     updated_at?: Date,
-    sub_tasks: SubTask[]
 }
