@@ -42,9 +42,6 @@ export default defineComponent({
     task: {
       type: Object as PropType<Task>,
     },
-    subTasks: {
-      type: Array as PropType<SubTask[]>,
-    },
   },
   setup(props, context) {
     const taskPageStore = inject(TaskPageStoreKey)
@@ -57,6 +54,7 @@ export default defineComponent({
         return
       }
       taskPageStore.selectTask(props.task)
+      taskPageStore.selectSubTasks(props.task?.sub_tasks)
       taskPageStore.openDrawer()
     }
     watch(selectedDate, (date) => {

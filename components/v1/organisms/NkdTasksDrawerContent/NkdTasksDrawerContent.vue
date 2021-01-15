@@ -20,10 +20,10 @@
       />
       <NkdSubTaskItemsList
         :subTasks="subTasks"
-        @onCreateTaskBtnClick="onCreateTaskBtnClick"
-        @onTaskInputBlur="updateTaskTitle"
+        @onCreateSubTaskBtnClick="onCreateSubTaskBtnClick"
+        @onSubTaskInputBlur="updateTaskTitle"
       />
-      <NkdDrawerTasksInput @onInputBlur="createTask" />
+      <NkdDrawerTasksInput @onInputBlur="createSubTask" />
     </div>
   </div>
 </template>
@@ -55,11 +55,11 @@ export default defineComponent({
     const onClickEpicDeleteButton = () => {
       context.emit('onClickEpicDeleteButton')
     }
-    const onCreateTaskBtnClick = () => {
-      taskPageStore.startCreateTask()
+    const onCreateSubTaskBtnClick = () => {
+      taskPageStore.startCreateSubTask()
     }
-    const createTask = (inputValue: string) => {
-      taskPageStore.stopCreateTask()
+    const createSubTask = (inputValue: string) => {
+      taskPageStore.startCreateSubTask()
       if (inputValue && props.task) {
         context.root.$axios
           .post('/api/v1/sub_tasks', {
@@ -87,7 +87,7 @@ export default defineComponent({
     }
     const updateTask = (obj: Task) => {
       context.root.$axios
-        .patch(`/api/v1/sub_tasks/${obj.id}`, obj)
+        .patch(`/api/v1/tasks/${obj.id}`, obj)
         .then((res) => {
           const task = res.data.task
           taskPageStore.updateSelectedTask(task)
@@ -141,9 +141,9 @@ export default defineComponent({
     }
     return {
       onClickEpicDeleteButton,
-      onCreateTaskBtnClick,
+      onCreateSubTaskBtnClick,
       dispatchEvent,
-      createTask,
+      createSubTask,
       onTextFieldInput,
       onTextAreaInput,
       onTextFieldBlur,

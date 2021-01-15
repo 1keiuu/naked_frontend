@@ -70,13 +70,13 @@ export default function TaskPageStore() {
         },
         // サブタスクの作成/更新中のフラグ
         get isCreatingSubTask() {
-            return state.isCreatingTask
+            return state.isCreatingSubTask
         },
         startCreateSubTask() {
-            state.isCreatingTask = true
+            state.isCreatingSubTask = true
         }, 
         stopCreateSubTask() {
-            state.isCreatingTask = false
+            state.isCreatingSubTask = false
         },
   }
 }

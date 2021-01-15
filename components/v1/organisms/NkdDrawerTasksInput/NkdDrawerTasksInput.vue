@@ -1,5 +1,8 @@
 <template>
-  <div class="drawer-tasks__input w-full" v-if="taskPageStore.isCreatingTask">
+  <div
+    class="drawer-tasks__input w-full"
+    v-if="taskPageStore.isCreatingSubTask"
+  >
     <input
       class="text-lg w-full pl-2 py-2"
       @blur="onBlur"
@@ -29,7 +32,7 @@ export default defineComponent({
     const taskPageStore = inject(TaskPageStoreKey)
 
     watch(
-      () => taskPageStore.isCreatingTask,
+      () => taskPageStore.isCreatingSubTask,
       (newVal, oldVal) => {
         setTimeout(() => {
           if (inputRef.value) {

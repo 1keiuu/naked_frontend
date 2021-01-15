@@ -24,7 +24,7 @@ export default defineComponent({
       type: Array as PropType<SubTask[]>,
     },
   },
-  setup(_props, context) {
+  setup(props, context) {
     const onCreateSubTaskBtnClick = () => {
       context.emit('onCreateSubTaskBtnClick')
     }

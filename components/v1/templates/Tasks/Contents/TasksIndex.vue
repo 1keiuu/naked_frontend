@@ -8,7 +8,6 @@
         v-for="(data, i) in today"
         :key="'today-epic-accordion' + i"
         :task="data"
-        :subTasks="data.sub_task"
         @updateTaskDate="updateTaskDate"
       />
     </div>
@@ -20,7 +19,6 @@
         v-for="(data, i) in tomorrow"
         :key="'tomorrow-epic-accordion' + i"
         :task="data"
-        :subTasks="data.sub_task"
         @updateTaskDate="updateTaskDate"
       />
     </div>
@@ -37,7 +35,6 @@
         v-for="(data, i) in noDate"
         :key="'tomorrow-epic-accordion' + i"
         :task="data"
-        :subTasks="data.sub_task"
         @updateTaskDate="updateTaskDate"
       />
       <NkdEpicTasksInput @onInputBlur="dispatchEvent" />
