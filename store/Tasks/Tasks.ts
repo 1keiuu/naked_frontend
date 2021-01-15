@@ -9,7 +9,7 @@ export default function TasksStore() {
   })
 
   const replaceTask = (tasks: Task[], task: Task) => {
-      let target = tasks.find(item => { return item.id == task.id })
+      let target = tasks.find(item => { return item.id === task.id })
       if (target) {
         let i = tasks.indexOf(target)
         tasks.splice(i,1,task)

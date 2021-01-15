@@ -1,5 +1,5 @@
 <template>
-  <div class="epic-tasks__input" v-if="taskPageStore.isCreatingEpic">
+  <div class="epic-tasks__input" v-if="taskPageStore.isCreatingTask">
     <input
       class="text-lg"
       @blur="onBlur"
@@ -29,7 +29,7 @@ export default defineComponent({
     const taskPageStore = inject(TaskPageStoreKey)
 
     watch(
-      () => taskPageStore.isCreatingEpic,
+      () => taskPageStore.isCreatingTask,
       (newVal, oldVal) => {
         setTimeout(() => {
           if (inputRef.value) {

@@ -68,8 +68,8 @@ export default defineComponent({
           })
           .then((res) => {
             if (!props.task) return
-            const subTasks = res.data.sub_tasks
-            taskPageStore.appendSelectedTask(task)
+            const subTask = res.data.sub_task
+            taskPageStore.appendToSelectedSubTasks(subTask)
           })
           .catch((e) => {})
       }
@@ -120,24 +120,24 @@ export default defineComponent({
     }
 
     const onTextFieldBlur = (inputValue: string) => {
-      taskPageStore.stopUpdateEpic()
-      if (taskPageStore.selectedEpic.title !== inputValue)
+      taskPageStore.stopUpdateTask()
+      if (taskPageStore.selectedTask.title !== inputValue)
         updateEpic({
           title: inputValue,
         })
     }
     const onTextAreaBlur = (inputValue: string) => {
-      taskPageStore.stopUpdateEpic()
-      if (taskPageStore.selectedEpic.description !== inputValue)
+      taskPageStore.stopUpdateTask()
+      if (taskPageStore.selectedTask.description !== inputValue)
         updateEpic({
           description: inputValue,
         })
     }
     const onTextFieldInput = () => {
-      taskPageStore.startUpdateEpic()
+      taskPageStore.startUpdateTask()
     }
     const onTextAreaInput = () => {
-      taskPageStore.startUpdateEpic()
+      taskPageStore.startUpdateTask()
     }
     return {
       onClickEpicDeleteButton,
