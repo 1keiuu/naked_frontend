@@ -7,7 +7,7 @@
         v-else-if="today.length >= 1"
         v-for="(data, i) in today"
         :key="'today-epic-accordion' + i"
-        :task="data.task"
+        :task="data"
         :subTasks="data.sub_task"
         @updateTaskDate="updateTaskDate"
       />
@@ -19,7 +19,7 @@
         v-else-if="tomorrow.length >= 1"
         v-for="(data, i) in tomorrow"
         :key="'tomorrow-epic-accordion' + i"
-        :task="data.task"
+        :task="data"
         :subTasks="data.sub_task"
         @updateTaskDate="updateTaskDate"
       />
@@ -36,7 +36,7 @@
         v-else-if="noDate.length >= 1"
         v-for="(data, i) in noDate"
         :key="'tomorrow-epic-accordion' + i"
-        :task="data.task"
+        :task="data"
         :subTasks="data.sub_task"
         @updateTaskDate="updateTaskDate"
       />

@@ -12,33 +12,33 @@ export default function TaskPageStore() {
     })
     
     return {
-            // SelectedTask 選択中のタスク
-            get selectedTask() {
-                return state.selectedTask
-            },
-            selectTask(payload:object) {
-                state.selectedTask = payload
-            },    
-            reSetSelectedTask() {
-                state.selectedTask = {}
-            },
-            // SelectedSubTask 選択中のサブタスク
-            get selectedSubTasks() {
-                return state.selectedSubTasks
-            },
-            selectSubTasks(payload:Array<SubTask>) {
-                state.selectedSubTasks = payload
-            },
-            reSetSelectedTasks() {
-                state.selectedSubTasks = []
-            },
-            appendToSelectedSubTasks(payload: SubTask) {
-                state.selectedSubTasks.push(payload)
-            },
-            updateSelectedSubTask(payload: SubTask) {
-                let target = state.selectedSubTasks.find(task => { return task.id == payload.id })
-                target = payload
-            },
+        // SelectedTask 選択中のタスク
+        get selectedTask() {
+            return state.selectedTask
+        },
+        selectTask(payload:object) {
+            state.selectedTask = payload
+        },    
+        reSetSelectedTask() {
+            state.selectedTask = {}
+        },
+        // SelectedSubTask 選択中のサブタスク
+        get selectedSubTasks() {
+            return state.selectedSubTasks
+        },
+        selectSubTasks(payload:Array<SubTask>) {
+            state.selectedSubTasks = payload
+        },
+        reSetSelectedTasks() {
+            state.selectedSubTasks = []
+        },
+        appendToSelectedSubTasks(payload: SubTask) {
+            state.selectedSubTasks.push(payload)
+        },
+        updateSelectedSubTask(payload: SubTask) {
+            let target = state.selectedSubTasks.find(task => { return task.id == payload.id })
+            target = payload
+        },
         // Drawerの状態
         get isDrawerOpen() {
             return state.isDrawerOpen

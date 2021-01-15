@@ -27,9 +27,21 @@ export default defineComponent({
     context.root.$axios
       .get('/api/v1/tasks')
       .then((res) => {
-        tasksStore.setTodayTasks(res.data.today)
-        tasksStore.setTomorrowTasks(res.data.tomorrow)
-        tasksStore.setNoDateTasks(res.data.no_date)
+        tasksStore.setTodayTasks(
+          res.data.today.map((t: any) => {
+            return t.task
+          })
+        )
+        tasksStore.setTomorrowTasks(
+          res.data.tomorrow.map((t: any) => {
+            return t.task
+          })
+        )
+        tasksStore.setNoDateTasks(
+          res.data.no_date.map((n: any) => {
+            return n.task
+          })
+        )
       })
       .catch((e) => {
         console.error(e)
@@ -60,8 +72,7 @@ export default defineComponent({
         context.root.$axios
           .patch(`/api/v1/tasks/${inputValue.id}`, data)
           .then((res) => {
-            taskPageStore.updateTask()
-            console.log(res)
+            tasksStore.updateTask(res.data.task)
           })
           .catch((e) => {})
       }

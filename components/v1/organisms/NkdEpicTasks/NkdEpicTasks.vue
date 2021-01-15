@@ -114,6 +114,7 @@ export default defineComponent({
     position: absolute;
     top: 100%;
     right: 0;
+    z-index: 5;
   }
 }
 </style>

@@ -8,6 +8,14 @@ export default function TasksStore() {
     noDateTasks: <Task[]>[],
   })
 
+  const replaceTask = (tasks: Task[], task: Task) => {
+      let target = tasks.find(item => { return item.id == task.id })
+      if (target) {
+        let i = tasks.indexOf(target)
+        tasks.splice(i,1,task)
+      }
+  }
+
   return {
     get tasks() {
       return state.tasks
@@ -26,6 +34,11 @@ export default function TasksStore() {
     },
     appendTask(task: Task) {
       state.tasks.push(task)
+    },
+    updateTask(task: Task) {
+      replaceTask(state.todayTasks,task)
+      replaceTask(state.tomorrowTasks,task)
+      replaceTask(state.noDateTasks,task)
     },
     // today
     setTodayTasks(array:Task[]) {
