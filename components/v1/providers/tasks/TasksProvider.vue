@@ -5,8 +5,8 @@
 </template>
 <script lang="ts">
 import { defineComponent, provide } from '@vue/composition-api'
-import TaskStore from '~/store/Task/Task'
-import TaskPageStore from '~/store/Task/TaskPage'
+import TaskStore from '~/store/Tasks/Tasks'
+import TaskPageStore from '~/store/Tasks/TaskPage'
 import EpicTasksStore from '~/store/EpicTasks/EpicTasks'
 import TaskPageStoreKey from '../../storeKeys/TaskPageStoreKey'
 import TasksStoreKey from '../../storeKeys/TasksStoreKey'

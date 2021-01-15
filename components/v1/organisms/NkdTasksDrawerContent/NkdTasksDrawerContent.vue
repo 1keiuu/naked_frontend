@@ -2,25 +2,24 @@
   <div class="w-full h-full pt-12 overflow-y-hidden">
     <NkdTasksDrawerHeader @onClickEpicDeleteButton="onClickEpicDeleteButton" />
     <div class="px-5 pt-2">
-      <NkdLabel name="epic-title" value="エピック名" />
+      <NkdLabel name="task-title" value="エピック名" />
       <NkdTextField
         :isOutLined="true"
-        :value="epic.title"
-        name="epic-title"
+        :value="task.title"
+        name="task-title"
         @onTextFieldInput="onTextFieldInput"
         @onTextFieldBlur="onTextFieldBlur"
       />
-      <NkdLabel name="epic-description" value="エピックの説明" class="mt-8" />
+      <NkdLabel name="task-description" value="エピックの説明" class="mt-8" />
       <NkdTextArea
         :isOutLined="true"
-        :value="epic.description"
-        name="epic-description"
+        :value="task.description"
+        name="task-description"
         @onTextAreaInput="onTextAreaInput"
         @onTextAreaBlur="onTextAreaBlur"
       />
-      <NkdTaskItemsList
-        :epic="epic"
-        :tasks="tasks"
+      <NkdSubTaskItemsList
+        :subTasks="subTasks"
         @onCreateTaskBtnClick="onCreateTaskBtnClick"
         @onTaskInputBlur="updateTaskTitle"
       />
@@ -33,7 +32,7 @@ import { defineComponent, PropType, inject } from '@vue/composition-api'
 import NkdTextField from '@/components/v1/atoms/NkdTextField/NkdTextField.vue'
 import NkdTextArea from '@/components/v1/atoms/NkdTextArea/NkdTextArea.vue'
 import NkdLabel from '@/components/v1/atoms/NkdLabel/NkdLabel.vue'
-import NkdTaskItemsList from '@/components/v1/molecules/NkdTaskItemsList/NkdTaskItemsList.vue'
+import NkdSubTaskItemsList from '@/components/v1/molecules/NkdSubTaskItemsList/NkdSubTaskItemsList.vue'
 import NkdTasksDrawerHeader from '@/components/v1/organisms/NkdTasksDrawerHeader/NkdTasksDrawerHeader.vue'
 import NkdDrawerTasksInput from '@/components/v1/organisms/NkdDrawerTasksInput/NkdDrawerTasksInput.vue'
 import TaskPageStoreKey from '@/components/v1/storeKeys/TaskPageStoreKey'
@@ -41,18 +40,18 @@ import EpicTasksStoreKey from '@/components/v1/storeKeys/EpicTasksStoreKey'
 
 export default defineComponent({
   props: {
-    epic: { type: Object as PropType<Epic> },
-    tasks: { type: Array as PropType<Task[]> },
+    task: { type: Object as PropType<Task> },
+    subTasks: { type: Array as PropType<SubTask[]> },
   },
   components: {
     NkdTextField,
     NkdTextArea,
-    NkdTaskItemsList,
+    NkdSubTaskItemsList,
     NkdTasksDrawerHeader,
   },
   setup(props, context) {
     const taskPageStore = inject(TaskPageStoreKey)
-    const epicTasksStore = inject(EpicTasksStoreKey)
+    const taskTasksStore = inject(EpicTasksStoreKey)
     const onClickEpicDeleteButton = () => {
       context.emit('onClickEpicDeleteButton')
     }
@@ -61,22 +60,22 @@ export default defineComponent({
     }
     const createTask = (inputValue: string) => {
       taskPageStore.stopCreateTask()
-      if (inputValue && props.epic) {
+      if (inputValue && props.task) {
         context.root.$axios
           .post('/api/v1/sub_tasks', {
             title: inputValue,
-            epic_id: props.epic.id,
+            task_id: props.task.id,
           })
           .then((res) => {
-            if (!props.epic) return
-            const task = res.data.task
+            if (!props.task) return
+            const subTasks = res.data.sub_tasks
             taskPageStore.appendSelectedTask(task)
           })
           .catch((e) => {})
       }
     }
     const updateTaskTitle = (obj: Task) => {
-      if (!props.tasks || !obj.title) return
+      if (!props.task || !obj.title) return
       if (obj.title.length > 20)
         return alert('タイトルは20文字以内で入力してください')
       const target = taskPageStore.selectedTasks.find((task: Task) => {
@@ -99,21 +98,21 @@ export default defineComponent({
     }
     const updateEpic = (obj: Object) => {
       taskPageStore.stopCreateTask()
-      if (props.epic) {
+      if (props.task) {
         context.root.$axios
-          .patch(`/api/v1/sub_tasks/${props.epic.id}`, obj)
+          .patch(`/api/v1/sub_tasks/${props.task.id}`, obj)
           .then((res) => {
-            if (!props.epic) return
-            const epic = res.data.epic
-            epicTasksStore.updateEpic({
-              id: epic.id,
-              title: epic.title,
-              description: epic.description,
+            if (!props.task) return
+            const task = res.data.task
+            taskTasksStore.updateEpic({
+              id: task.id,
+              title: task.title,
+              description: task.description,
             })
             taskPageStore.selectEpic({
-              id: epic.id,
-              title: epic.title,
-              description: epic.description,
+              id: task.id,
+              title: task.title,
+              description: task.description,
             })
           })
           .catch((e) => {})

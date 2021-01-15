@@ -1,7 +1,7 @@
 <template>
   <div id="epic-tasks__card" class="epic-tasks__card" @click="onCardClick">
     <div class="epic-tasks__inner">
-      <h3 class="text-lg">{{ epic.title }}</h3>
+      <h3 class="text-lg">{{ task.title }}</h3>
     </div>
   </div>
 </template>
@@ -12,11 +12,11 @@ import TaskPageStoreKey from '@/components/v1/storeKeys/TaskPageStoreKey'
 
 export default defineComponent({
   props: {
-    epic: {
-      type: Object as PropType<Epic>,
+    task: {
+      type: Object as PropType<Task>,
     },
-    tasks: {
-      type: Array as PropType<Task[]>,
+    subTasks: {
+      type: Array as PropType<SubTask[]>,
     },
   },
   setup(props, context) {
@@ -28,8 +28,7 @@ export default defineComponent({
         taskPageStore.closeDrawer()
         return
       }
-      taskPageStore.selectEpic(props.epic)
-      taskPageStore.selectTasks(props.tasks)
+      taskPageStore.selectTask(props.task)
       taskPageStore.openDrawer()
     }
 

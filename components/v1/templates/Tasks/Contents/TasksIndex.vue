@@ -5,10 +5,10 @@
       <p v-if="today.length <= 0" class="pl-10">タスクはありません</p>
       <NkdEpicTasks
         v-else-if="today.length >= 1"
-        v-for="(epicTasks, i) in today"
+        v-for="(data, i) in today"
         :key="'today-epic-accordion' + i"
-        :epic="epicTasks.epic"
-        :tasks="epicTasks.tasks"
+        :task="data.task"
+        :subTasks="data.sub_task"
       />
     </div>
     <div class="epic-tasks__group">
@@ -16,10 +16,10 @@
       <p v-if="tomorrow.length <= 0" class="pl-10">タスクはありません</p>
       <NkdEpicTasks
         v-else-if="tomorrow.length >= 1"
-        v-for="(epicTasks, i) in tomorrow"
+        v-for="(data, i) in tomorrow"
         :key="'tomorrow-epic-accordion' + i"
-        :epic="epicTasks.epic"
-        :tasks="epicTasks.tasks"
+        :task="data.task"
+        :subTasks="data.sub_task"
       />
     </div>
     <div class="epic-tasks__group">
@@ -32,10 +32,10 @@
       </p>
       <NkdEpicTasks
         v-else-if="noDate.length >= 1"
-        v-for="(epicTasks, i) in noDate"
+        v-for="(data, i) in noDate"
         :key="'tomorrow-epic-accordion' + i"
-        :epic="epicTasks.epic"
-        :tasks="epicTasks.tasks"
+        :task="data.task"
+        :subTasks="data.sub_task"
       />
       <NkdEpicTasksInput @onInputBlur="dispatchEvent" />
     </div>
@@ -48,15 +48,15 @@ import taskPageStoreKey from '@/components/v1/storeKeys/TaskPageStoreKey'
 export default defineComponent({
   props: {
     today: {
-      type: Array as PropType<EpicTasks[]>,
+      type: Array as PropType<Task[]>,
       required: false,
     },
     tomorrow: {
-      type: Array as PropType<EpicTasks[]>,
+      type: Array as PropType<Task[]>,
       required: false,
     },
     noDate: {
-      type: Array as PropType<EpicTasks[]>,
+      type: Array as PropType<Task[]>,
       required: false,
     },
   },

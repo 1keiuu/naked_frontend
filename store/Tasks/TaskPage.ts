@@ -8,7 +8,7 @@ export default function TaskPageStore() {
         isUpdatingTask: false,
         isCreatingSubTask:false,
         selectedTask: <Task>{},
-        selectedTasks: <Task[]>[]
+        selectedSubTasks: <SubTask[]>[]
     })
     
     return {
@@ -27,8 +27,8 @@ export default function TaskPageStore() {
         get selectedTask() {
             return state.selectedTask
         },
-        get selectedTasks() {
-            return state.selectedTasks
+        get selectedSubTasks() {
+            return state.selectedSubTasks
         },
         openDrawer() {
             state.isDrawerOpen = true
@@ -57,20 +57,20 @@ export default function TaskPageStore() {
         selectTask(payload:object) {
             state.selectedTask = payload
         },      
-        selectTasks(payload:Array<Task>) {
-            state.selectedTasks = payload
+        selectTasks(payload:Array<SubTask>) {
+            state.selectedSubTasks = payload
         },
         reSetSelectedTask() {
             state.selectedTask = {}
         },
         reSetSelectedTasks() {
-            state.selectedTasks = []
+            state.selectedSubTasks = []
         },
-        appendSelectedTask(payload: Task) {
-            state.selectedTasks.push(payload)
+        appendSelectedTask(payload: SubTask) {
+            state.selectedSubTasks.push(payload)
         },
-        updateSelectedTask(payload: Task) {
-            let target = state.selectedTasks.find(task => { return task.id == payload.id })
+        updateSelectedTask(payload: SubTask) {
+            let target = state.selectedSubTasks.find(task => { return task.id == payload.id })
             target = payload
         },
   }

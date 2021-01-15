@@ -11,8 +11,8 @@
     <slot />
     <NkdDrawer id="task-drawer" :isActive="taskPageStore.isDrawerOpen">
       <NkdTasksDrawerContent
-        :epic="taskPageStore.selectedEpic"
-        :tasks="taskPageStore.selectedTasks"
+        :task="taskPageStore.selectedTask"
+        :subTasks="taskPageStore.selectedSubTasks"
         @onClickEpicDeleteButton="deleteEpic"
       />
     </NkdDrawer>
@@ -70,7 +70,7 @@ export default defineComponent({
     }
 
     const deleteEpic = () => {
-      const targetId = taskPageStore.selectedEpic.id
+      const targetId = taskPageStore.selectedTask.id
       context.root.$axios
         .delete(`/api/v1/epics/${targetId}`)
         .then((res) => {
