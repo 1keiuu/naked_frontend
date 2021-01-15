@@ -12,23 +12,36 @@ export default function TaskPageStore() {
     })
     
     return {
+            // SelectedTask 選択中のタスク
+            get selectedTask() {
+                return state.selectedTask
+            },
+            selectTask(payload:object) {
+                state.selectedTask = payload
+            },    
+            reSetSelectedTask() {
+                state.selectedTask = {}
+            },
+            // SelectedSubTask 選択中のサブタスク
+            get selectedSubTasks() {
+                return state.selectedSubTasks
+            },
+            selectSubTasks(payload:Array<SubTask>) {
+                state.selectedSubTasks = payload
+            },
+            reSetSelectedTasks() {
+                state.selectedSubTasks = []
+            },
+            appendToSelectedSubTasks(payload: SubTask) {
+                state.selectedSubTasks.push(payload)
+            },
+            updateSelectedSubTask(payload: SubTask) {
+                let target = state.selectedSubTasks.find(task => { return task.id == payload.id })
+                target = payload
+            },
+        // Drawerの状態
         get isDrawerOpen() {
             return state.isDrawerOpen
-        },
-        get isCreatingTask() {
-            return state.isCreatingTask
-        },
-        get isUpdatingTask() {
-            return state.isUpdatingTask
-        },
-        get isCreatingSubTask() {
-            return state.isCreatingTask
-        },
-        get selectedTask() {
-            return state.selectedTask
-        },
-        get selectedSubTasks() {
-            return state.selectedSubTasks
         },
         openDrawer() {
             state.isDrawerOpen = true
@@ -36,6 +49,13 @@ export default function TaskPageStore() {
         closeDrawer() {
             state.isDrawerOpen = false
         },         
+        // タスクの作成/更新中のフラグ
+        get isCreatingTask() {
+            return state.isCreatingTask
+        },
+        get isUpdatingTask() {
+            return state.isUpdatingTask
+        },
         startCreateTask() {
             state.isCreatingTask = true
         }, 
@@ -48,30 +68,15 @@ export default function TaskPageStore() {
         stopUpdateTask() {
             state.isUpdatingTask = false
         },
+        // サブタスクの作成/更新中のフラグ
+        get isCreatingSubTask() {
+            return state.isCreatingTask
+        },
         startCreateSubTask() {
             state.isCreatingTask = true
         }, 
         stopCreateSubTask() {
             state.isCreatingTask = false
-        },
-        selectTask(payload:object) {
-            state.selectedTask = payload
-        },      
-        selectTasks(payload:Array<SubTask>) {
-            state.selectedSubTasks = payload
-        },
-        reSetSelectedTask() {
-            state.selectedTask = {}
-        },
-        reSetSelectedTasks() {
-            state.selectedSubTasks = []
-        },
-        appendSelectedTask(payload: SubTask) {
-            state.selectedSubTasks.push(payload)
-        },
-        updateSelectedTask(payload: SubTask) {
-            let target = state.selectedSubTasks.find(task => { return task.id == payload.id })
-            target = payload
         },
   }
 }

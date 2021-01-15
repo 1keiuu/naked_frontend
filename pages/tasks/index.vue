@@ -21,14 +21,12 @@ import TaskPageStoreKey from '@/components/v1/storeKeys/TaskPageStoreKey.ts'
 export default defineComponent({
   components: { TasksPage },
   setup(_props, context) {
-    console.log(_props)
     const tasksStore = inject(TasksStoreKey)
     const taskPageStore = inject(TaskPageStoreKey)
 
     context.root.$axios
       .get('/api/v1/tasks')
       .then((res) => {
-        console.log(res)
         tasksStore.setTodayTasks(res.data.today)
         tasksStore.setTomorrowTasks(res.data.tomorrow)
         tasksStore.setNoDateTasks(res.data.no_date)
@@ -58,11 +56,11 @@ export default defineComponent({
     const updateTask = (inputValue: Task) => {
       if (inputValue) {
         const data = inputValue
-        console.log(data)
         data.user_id = context.root.$auth.user.id
         context.root.$axios
           .patch(`/api/v1/tasks/${inputValue.id}`, data)
           .then((res) => {
+            taskPageStore.updateTask()
             console.log(res)
           })
           .catch((e) => {})

@@ -3,12 +3,12 @@
     <div class="epic-tasks__inner">
       <h3 class="text-lg">{{ task.title }}</h3>
     </div>
-    <div v-if="task.starts_date == task.due_date">
-      <p>{{ task.starts_date }}</p>
+    <div v-if="task.starts_date == task.due_date" class="date__wrapper">
+      <p class="starts-date">{{ task.starts_date }}</p>
     </div>
-    <div v-else-if="task.starts_date || task.due_date">
-      <p>{{ task.starts_date }} ~</p>
-      <p>{{ task.due_date }}</p>
+    <div v-else-if="task.starts_date || task.due_date" class="date__wrapper">
+      <p class="starts-date">{{ task.starts_date }} ~</p>
+      <p class="due-date">{{ task.due_date }}</p>
     </div>
     <button @click="openCalender" class="open-calendar__button">
       <NkdIcon type="calendar" color="grey" />
@@ -102,6 +102,13 @@ export default defineComponent({
     padding: 10px;
     border-radius: 50%;
     border: 1px solid grey;
+  }
+  .date__wrapper {
+    .starts-date,
+    .due-date {
+      color: grey;
+      font-size: 13px;
+    }
   }
   .calendar {
     position: absolute;
