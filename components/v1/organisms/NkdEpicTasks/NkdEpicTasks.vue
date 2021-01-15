@@ -19,6 +19,7 @@
       mode="date"
       is-range
       v-model="selectedDate"
+      v-click-outside="clickCalendarOutside"
     />
   </div>
 </template>
@@ -69,10 +70,23 @@ export default defineComponent({
     })
 
     const openCalender = () => {
-      isCalenderOpen.value = !isCalenderOpen.value
+      isCalenderOpen.value = true
+    }
+    const closeCalender = () => {
+      isCalenderOpen.value = false
     }
 
-    return { onCardClick, openCalender, isCalenderOpen, selectedDate }
+    const clickCalendarOutside = () => {
+      closeCalender()
+    }
+
+    return {
+      onCardClick,
+      openCalender,
+      isCalenderOpen,
+      clickCalendarOutside,
+      selectedDate,
+    }
   },
 })
 </script>
