@@ -25,7 +25,8 @@
     "@typescript-eslint/parser": "^4.10.0",
     "@vue/composition-api": "^1.0.0-beta.21",
     "core-js": "^3.6.5",
-    "nuxt": "^2.14.6"
+    "nuxt": "^2.14.6",
+    "v-calendar": "^2.2.0"
   },
   "devDependencies": {
     "@nuxt/types": "^2.14.6",
