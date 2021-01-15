@@ -9,6 +9,7 @@
         :key="'today-epic-accordion' + i"
         :task="data.task"
         :subTasks="data.sub_task"
+        @updateTaskDate="updateTaskDate"
       />
     </div>
     <div class="epic-tasks__group">
@@ -20,6 +21,7 @@
         :key="'tomorrow-epic-accordion' + i"
         :task="data.task"
         :subTasks="data.sub_task"
+        @updateTaskDate="updateTaskDate"
       />
     </div>
     <div class="epic-tasks__group">
@@ -36,6 +38,7 @@
         :key="'tomorrow-epic-accordion' + i"
         :task="data.task"
         :subTasks="data.sub_task"
+        @updateTaskDate="updateTaskDate"
       />
       <NkdEpicTasksInput @onInputBlur="dispatchEvent" />
     </div>
@@ -67,8 +70,11 @@ export default defineComponent({
     const dispatchEvent = (inputValue: string) => {
       context.emit('onInputBlur', inputValue)
     }
+    const updateTaskDate = (inputValue: Task) => {
+      context.emit('updateTaskDate', inputValue)
+    }
     const taskPageStore = inject(taskPageStoreKey)
-    return { dispatchEvent, taskPageStore }
+    return { dispatchEvent, taskPageStore, updateTaskDate }
   },
 })
 </script>

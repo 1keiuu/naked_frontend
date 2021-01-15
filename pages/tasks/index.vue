@@ -6,6 +6,7 @@
         :tomorrow="tasksStore.tomorrowTasks"
         :noDate="tasksStore.noDateTasks"
         @onInputBlur="createTask"
+        @updateTaskDate="updateTask"
       />
     </TasksPage>
   </div>
@@ -53,9 +54,24 @@ export default defineComponent({
           .catch((e) => {})
       }
     }
+
+    const updateTask = (inputValue: Task) => {
+      if (inputValue) {
+        const data = inputValue
+        console.log(data)
+        data.user_id = context.root.$auth.user.id
+        context.root.$axios
+          .patch(`/api/v1/tasks/${inputValue.id}`, data)
+          .then((res) => {
+            console.log(res)
+          })
+          .catch((e) => {})
+      }
+    }
     return {
       tasksStore,
       createTask,
+      updateTask,
     }
   },
 })
