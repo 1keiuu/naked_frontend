@@ -27,21 +27,9 @@ export default defineComponent({
     context.root.$axios
       .get('/api/v1/tasks')
       .then((res) => {
-        tasksStore.setTodayTasks(
-          res.data.today.map((t: any) => {
-            return t.task
-          })
-        )
-        tasksStore.setTomorrowTasks(
-          res.data.tomorrow.map((t: any) => {
-            return t.task
-          })
-        )
-        tasksStore.setNoDateTasks(
-          res.data.no_date.map((n: any) => {
-            return n.task
-          })
-        )
+        tasksStore.setTodayTasks(res.data.today)
+        tasksStore.setTomorrowTasks(res.data.tomorrow)
+        tasksStore.setNoDateTasks(res.data.no_date)
       })
       .catch((e) => {
         console.error(e)

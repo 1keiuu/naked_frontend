@@ -21,10 +21,7 @@ export default defineComponent({
     context.root.$axios
       .get('/api/v1/sub_tasks')
       .then((res) => {
-        const tasks = res.data.map((d) => {
-          return d.task
-        })
-        tasksStore.setTasks(tasks)
+        tasksStore.setTasks(res.data)
       })
       .catch((e) => {
         console.error(e)
