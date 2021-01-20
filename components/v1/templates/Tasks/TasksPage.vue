@@ -72,7 +72,7 @@ export default defineComponent({
     const deleteEpic = () => {
       const targetId = taskPageStore.selectedTask.id
       context.root.$axios
-        .delete(`/api/v1/epics/${targetId}`)
+        .delete(`/api/v1/tasks/${targetId}`)
         .then((res) => {
           taskPageStore.closeDrawer()
           // TODO: storeの削除系まとめたい

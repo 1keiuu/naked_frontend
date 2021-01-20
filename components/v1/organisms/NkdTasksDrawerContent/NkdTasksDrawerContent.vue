@@ -78,9 +78,7 @@ export default defineComponent({
       if (!props.task || !obj.title) return
       if (obj.title.length > 20)
         return alert('タイトルは20文字以内で入力してください')
-      const target = taskPageStore.selectedTasks.find((task: Task) => {
-        return obj.id == task.id
-      })
+      const target = taskPageStore.selectedTask
       // 変更ない場合は弾く
       if (!target || obj.title == target.title) return
       updateTask({ id: obj.id, title: obj.title })

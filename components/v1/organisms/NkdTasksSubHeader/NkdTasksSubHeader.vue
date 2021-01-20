@@ -39,7 +39,7 @@ export default defineComponent({
       context.emit('onTabClick', id, route)
     }
     const onCreateEpicBtnClick = () => {
-      taskPageStore.startCreateEpic()
+      taskPageStore.startCreateTask()
     }
 
     return { onTabClick, onCreateEpicBtnClick }
