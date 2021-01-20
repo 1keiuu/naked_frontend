@@ -1,7 +1,7 @@
 <template>
   <div class="task-page w-full h-full">
     <TasksPage>
-      <TasksList :epicTasksArray="tasksStore.tasks" @onInputBlur="createEpic" />
+      <TasksList :tasksArray="tasksStore.tasks" @onInputBlur="createEpic" />
     </TasksPage>
   </div>
 </template>
@@ -19,10 +19,12 @@ export default defineComponent({
     const taskPageStore = inject(TaskPageStoreKey)
 
     context.root.$axios
-      .get('/api/v1/tasks')
+      .get('/api/v1/sub_tasks')
       .then((res) => {
-        console.log(res)
-        tasksStore.setTasks(res.data.epics)
+        const tasks = res.data.map((d) => {
+          return d.task
+        })
+        tasksStore.setTasks(tasks)
       })
       .catch((e) => {
         console.error(e)
@@ -45,6 +47,7 @@ export default defineComponent({
           .catch((e) => {})
       }
     }
+
     return {
       tasksStore,
       createEpic,
