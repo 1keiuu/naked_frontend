@@ -1,26 +1,29 @@
 <template>
-  <div id="task__card" class="task__card" @click="onCardClick">
-    <div class="epic-tasks__inner">
-      <h3 class="text-lg">{{ task.title }}</h3>
+  <div class="mb-5">
+    <div id="task-card" class="task-card" @click="onCardClick">
+      <div class="task-card__inner">
+        <h3 class="text-lg">{{ task.title }}</h3>
+      </div>
+      <div v-if="task.starts_date == task.due_date" class="date__wrapper">
+        <p class="starts-date">{{ task.starts_date }}</p>
+      </div>
+      <div v-else-if="task.starts_date || task.due_date" class="date__wrapper">
+        <p class="starts-date">{{ task.starts_date }} ~</p>
+        <p class="due-date">{{ task.due_date }}</p>
+      </div>
+      <button @click="openCalender" class="open-calendar__button">
+        <NkdIcon type="calendar" color="grey" />
+      </button>
+      <v-date-picker
+        v-if="isCalenderOpen"
+        class="calendar"
+        mode="date"
+        is-range
+        v-model="selectedDate"
+        v-click-outside="clickCalendarOutside"
+      />
     </div>
-    <div v-if="task.starts_date == task.due_date" class="date__wrapper">
-      <p class="starts-date">{{ task.starts_date }}</p>
-    </div>
-    <div v-else-if="task.starts_date || task.due_date" class="date__wrapper">
-      <p class="starts-date">{{ task.starts_date }} ~</p>
-      <p class="due-date">{{ task.due_date }}</p>
-    </div>
-    <button @click="openCalender" class="open-calendar__button">
-      <NkdIcon type="calendar" color="grey" />
-    </button>
-    <v-date-picker
-      v-if="isCalenderOpen"
-      class="calendar"
-      mode="date"
-      is-range
-      v-model="selectedDate"
-      v-click-outside="clickCalendarOutside"
-    />
+    <NkdSubTaskItemsList :subTasks="task.sub_tasks" />
   </div>
 </template>
 <script lang="ts">
@@ -88,11 +91,14 @@ export default defineComponent({
 })
 </script>
 <style scoped lang="scss">
-.task__card {
+.task-card {
   display: flex;
   align-items: center;
   justify-content: space-between;
   position: relative;
+  background: #fff;
+  padding: 5px 0 5px 8px;
+  border-bottom: 1px solid #efefef;
   .open-calendar__button {
     height: 40px;
     width: 40px;

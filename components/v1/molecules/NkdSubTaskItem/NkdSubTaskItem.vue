@@ -1,5 +1,5 @@
 <template>
-  <div id="task__card" class="task__card" @click="onCardClick">
+  <div id="task-card" class="task-card" @click="onCardClick">
     <div class="task__inner">
       <h3 class="text-lg">{{ subTask.title }}</h3>
     </div>
@@ -91,11 +91,15 @@ export default defineComponent({
 })
 </script>
 <style scoped lang="scss">
-.task__card {
+.task-card {
   display: flex;
   align-items: center;
   justify-content: space-between;
   position: relative;
+  padding-left: 50px;
+  background: #fff;
+  padding: 5px 0 5px 32px;
+
   .open-calendar__button {
     height: 40px;
     width: 40px;

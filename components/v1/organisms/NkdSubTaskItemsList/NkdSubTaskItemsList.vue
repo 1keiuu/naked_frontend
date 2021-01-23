@@ -1,10 +1,5 @@
 <template>
-  <div class="mb-1">
-    <div class="flex justify-between w-full mb-2">
-      <h2>タスク一覧</h2>
-      <button @click="onCreateSubTaskBtnClick" class="">タスクを追加</button>
-    </div>
-    <div class="sub-task__list overflow-y-scroll">
+    <div class="sub-task__list">
       <NkdSubTaskItem
         v-for="subTask in subTasks"
         :key="'subTask' + subTask.id"
@@ -12,7 +7,6 @@
         @onInputBlur="dispatchEvent"
       />
     </div>
-  </div>
 </template>
 <script lang="ts">
 import { defineComponent, PropType } from '@vue/composition-api'

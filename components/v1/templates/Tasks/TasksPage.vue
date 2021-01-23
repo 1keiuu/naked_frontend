@@ -52,7 +52,7 @@ export default defineComponent({
     const onTasksPageClick = (e: Event) => {
       if (
         !(e.target as HTMLInputElement).closest('.nkd-drawer') &&
-        (e.target as HTMLInputElement).id !== 'task__card'
+        (e.target as HTMLInputElement).id !== 'task-card'
       ) {
         taskPageStore.closeDrawer()
       }

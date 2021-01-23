@@ -1,5 +1,5 @@
 <template>
-  <div class="mb-1">
+  <div>
     <NkdTaskItem
       v-for="task in tasks"
       :key="'task' + task.id + type"

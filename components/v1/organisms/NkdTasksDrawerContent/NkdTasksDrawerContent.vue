@@ -18,11 +18,6 @@
         @onTextAreaInput="onTextAreaInput"
         @onTextAreaBlur="onTextAreaBlur"
       />
-      <NkdSubTaskItemsList
-        :subTasks="subTasks"
-        @onCreateSubTaskBtnClick="onCreateSubTaskBtnClick"
-        @onSubTaskInputBlur="updateTaskTitle"
-      />
       <NkdDrawerTasksInput @onInputBlur="createSubTask" />
     </div>
   </div>
