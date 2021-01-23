@@ -98,14 +98,23 @@ export default defineComponent({
   position: relative;
   padding-left: 50px;
   background: #fff;
-  padding: 5px 0 5px 32px;
+  padding: 8px 12px 8px 32px;
+  cursor: pointer;
 
   .open-calendar__button {
+    pointer-events: none;
+    opacity: 0;
     height: 40px;
     width: 40px;
     padding: 10px;
     border-radius: 50%;
     border: 1px solid grey;
+  }
+  &:hover {
+    .open-calendar__button {
+      opacity: 1;
+      pointer-events: unset;
+    }
   }
   .date__wrapper {
     .starts-date,

@@ -97,14 +97,24 @@ export default defineComponent({
   justify-content: space-between;
   position: relative;
   background: #fff;
-  padding: 5px 0 5px 8px;
+  padding: 8px 12px;
   border-bottom: 1px solid #efefef;
+  cursor: pointer;
+
   .open-calendar__button {
+    pointer-events: none;
+    opacity: 0;
     height: 40px;
     width: 40px;
     padding: 10px;
     border-radius: 50%;
     border: 1px solid grey;
+  }
+  &:hover {
+    .open-calendar__button {
+      opacity: 1;
+      pointer-events: unset;
+    }
   }
   .date__wrapper {
     .starts-date,
