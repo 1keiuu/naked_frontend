@@ -18,7 +18,6 @@ import {
   onMounted,
   watch,
 } from '@vue/composition-api'
-import NkdTaskItemsList from '@/components/v1/molecules/NkdTaskItemsList/NkdTaskItemsList.vue'
 import TaskPageStoreKey from '@/components/v1/storeKeys/TaskPageStoreKey'
 
 export default defineComponent({

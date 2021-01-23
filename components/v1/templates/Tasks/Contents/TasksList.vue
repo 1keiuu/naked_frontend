@@ -1,17 +1,12 @@
 <template>
   <div class="min-h-full">
-    <NkdEpicTasks
-      v-for="(data, i) in tasksArray"
-      :key="'tomorrow-epic-accordion' + i"
-      :task="data"
-    />
+    <NkdTaskItemsList :tasks="tasksArray" />
     <NkdEpicTasksInput @onInputBlur="dispatchEvent" />
   </div>
 </template>
 <script lang="ts">
 import { defineComponent, PropType, inject } from '@vue/composition-api'
-import NkdTaskItem from '@/components/v1/molecules/NkdTaskItem/NkdTaskItem.vue'
-import NkdEpicTasks from '@/components/v1/organisms/NkdEpicTasks/NkdEpicTasks.vue'
+import NkdTaskItemsList from '@/components/v1/organisms/NkdTaskItemsList/NkdTaskItemsList.vue'
 import NkdEpicTasksInput from '@/components/v1/organisms/NkdEpicTasksInput/NkdEpicTasksInput.vue'
 import TaskPageStoreKey from '@/components/v1/storeKeys/TaskPageStoreKey'
 import EpicTasksStoreKey from '@/components/v1/storeKeys/EpicTasksStoreKey'
@@ -25,8 +20,7 @@ export default defineComponent({
   },
   components: {
     NkdEpicTasksInput,
-    NkdTaskItem,
-    NkdEpicTasks,
+    NkdTaskItemsList,
   },
   setup(props, context) {
     const dispatchEvent = (inputValue: string) => {

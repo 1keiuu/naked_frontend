@@ -31,7 +31,6 @@ import {
   ref,
   watch,
 } from '@vue/composition-api'
-import NkdTaskItemsList from '@/components/v1/molecules/NkdTaskItemsList/NkdTaskItemsList.vue'
 import TaskPageStoreKey from '@/components/v1/storeKeys/TaskPageStoreKey'
 import NkdIcon from '@/components/v1/atoms/NkdIcon/NkdIcon.vue'
 export default defineComponent({
