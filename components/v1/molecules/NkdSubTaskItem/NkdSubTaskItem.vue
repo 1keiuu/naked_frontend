@@ -55,14 +55,14 @@ export default defineComponent({
         taskPageStore.closeDrawer()
         return
       }
-      taskPageStore.selectTask(props.task)
-      taskPageStore.selectSubTasks(props.task?.sub_tasks)
+      // taskPageStore.selectTask(props.task)
+      // taskPageStore.selectSubTasks(props.task?.sub_tasks)
       taskPageStore.openDrawer()
     }
     watch(selectedDate, (date) => {
       isCalenderOpen.value = false
       const data = {
-        id: props.task?.id,
+        // id: props.task?.id,
         starts_date: date.start,
         due_date: date.end,
       }
