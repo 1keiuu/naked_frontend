@@ -49,6 +49,10 @@ export default defineComponent({
         title: 'ログアウト',
         type: 'signOut',
       },
+      {
+        title: '詳細ページ',
+        type: 'show',
+      },
     ])
 
     const isItemListActive = ref(false)
@@ -63,10 +67,17 @@ export default defineComponent({
       }
     })
 
+    const x = 1
+
     const onHeaderItemClick = (type: string) => {
       switch (type) {
         case 'signOut':
           signOut()
+          break
+        case 'show':
+          context.root.$router.push(`/users/${x}`)
+          console.log(x)
+          break
       }
     }
 
