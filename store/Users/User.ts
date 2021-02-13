@@ -4,4 +4,10 @@ export default function UserStore() {
   const state = reactive({
     user: <User>{}
   })
+
+  return {
+    get selectedUser() {
+      return state.user
+    }
+  }
 }

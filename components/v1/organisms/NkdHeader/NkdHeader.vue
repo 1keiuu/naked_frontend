@@ -66,7 +66,6 @@ export default defineComponent({
         isItemListActive.value = false
       }
     })
-
     const user_id = context.root.$auth.user.id
 
     const onHeaderItemClick = (type: string) => {
