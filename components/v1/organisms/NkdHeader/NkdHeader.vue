@@ -66,7 +66,6 @@ export default defineComponent({
         isItemListActive.value = false
       }
     })
-    const user_id = context.root.$auth.user.id
 
     const onHeaderItemClick = (type: string) => {
       switch (type) {
@@ -74,8 +73,11 @@ export default defineComponent({
           signOut()
           break
         case 'show':
-          context.root.$router.push(`/users/${user_id}`)
-          isItemListActive.value = false
+          if (context.root.$auth.loggedIn) {
+            const user_id = context.root.$auth.user.id
+            context.root.$router.push(`/users/${user_id}`)
+            isItemListActive.value = false
+          }
           break
       }
     }
