@@ -23,6 +23,7 @@ export default defineComponent({
       .get(`api/v1/users/${user_id}`)
       .then((res) => {
         state.user = res.data
+        console.log(state.user)
       })
       .catch((e) => {
         console.error(e)
