@@ -1,5 +1,5 @@
 declare type User = {
-  id: number
+  id?: number
   email: string
   name: string
   token: string
