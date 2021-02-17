@@ -8,6 +8,16 @@
       id="avatar"
       class="rounded-full h-12 mr-2 cursor-pointer w-12 object-cover"
     />
+    <div v-if="user_id == user.id">
+      <button class="mr-5">
+        <p>プロフィールの編集</p>
+      </button>
+    </div>
+    <div v-else>
+      <button class="mr-5">
+        <p>フォローする</p>
+      </button>
+    </div>
   </div>
 </template>
 
@@ -28,8 +38,25 @@ export default defineComponent({
   },
   components: {},
   setup(props, context) {
-    console.log(props)
-    console.log(props.user)
+    // const  = ref('')
+    const user_id = context.root.$auth.user.id
+    console.log(user_id)
+    // const onFollowBtnClick  = () => {
+    //   if ( && props.task) {
+    //     context.root.$axios
+    //       .post('/api/v1/sub_tasks', {
+    //         title: inputValue,
+    //         task_id: props.task.id,
+    //       })
+    //       .then((res) => {
+    //         if (!props.task) return
+    //         const subTask = res.data.sub_task
+    //         taskPageStore.appendToSelectedSubTasks(subTask)
+    //       })
+    //       .catch((e) => {})
+    //   }
+    // }
+    return { user_id }
   },
 })
 </script>

@@ -22,8 +22,7 @@ export default defineComponent({
     context.root.$axios
       .get(`api/v1/users/${user_id}`)
       .then((res) => {
-        state.user = res.data
-        console.log(state.user)
+        state.user = res.data.user
       })
       .catch((e) => {
         console.error(e)
