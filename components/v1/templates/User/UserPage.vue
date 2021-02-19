@@ -1,8 +1,6 @@
 <template>
-  <div
-    class="mt-16 pt-12 pl-56 h-screen overflow-scroll"
-  >
-    <div>{{ user.name}}</div>
+  <div class="mt-16 pt-12 pl-56 h-screen overflow-scroll">
+    <div>{{ user.name }}</div>
     <div>{{ user.id }}</div>
     <img
       src="~/assets/images/avatar.jpg"
@@ -15,7 +13,7 @@
       </button>
     </div>
     <div v-else>
-      <button class="mr-5"  @click="onFollowBtnClick">
+      <button class="mr-5" @click="onFollowBtnClick">
         <p>フォローする</p>
       </button>
     </div>
@@ -44,22 +42,20 @@ export default defineComponent({
   setup(props, context) {
     const followBoolean = ref(false)
     const current_user_id = ref(context.root.$auth.user.id)
-    onMounted(() => {
-      if (props.user && current_user_id != props.user.id) {
-        console.log(props.userId)
-        context.root.$axios
-          .post('api/v1/users/followings', {
-            user_id: props.userId,
-            current_user_id: current_user_id,
-          })
-          .then((res) => {
-            followBoolean.value = res.data.boolean
-          })
-          .catch((e) => {
-            console.error(e)
-          })
-      }
-    })
+    console.log(props?.user?.id)
+
+    context.root.$axios
+      .post('api/v1/users/followings', {
+        user_id: props?.user?.id,
+        current_user_id: current_user_id,
+      })
+      .then((res) => {
+        followBoolean.value = res.data.boolean
+      })
+      .catch((e) => {
+        console.error(e)
+      })
+
     // const followBoolean = ref(false)
     // const current_user_id = context.root.$auth.user.id
     // if (props.user && current_user_id != props.user.id) {
