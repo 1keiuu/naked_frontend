@@ -12,6 +12,11 @@
         <p>プロフィールの編集</p>
       </button>
     </div>
+    <div v-else-if="followBoolean  == true">
+      <button class="mr-5" @click="onFollowBtnClick">
+        <p>フォロ-を外す</p>
+      </button>
+    </div>
     <div v-else>
       <button class="mr-5" @click="onFollowBtnClick">
         <p>フォローする</p>
@@ -41,13 +46,16 @@ export default defineComponent({
   components: {},
   setup(props, context) {
     const followBoolean = ref(false)
-    const current_user_id = ref(context.root.$auth.user.id)
+    const current_user_id = context.root.$auth.user.id
     console.log(props?.user?.id)
+    console.log(props.userId)
 
     context.root.$axios
       .post('api/v1/users/followings', {
-        user_id: props?.user?.id,
-        current_user_id: current_user_id,
+        follow: {
+          user_id: props?.userId,
+          current_user_id: current_user_id,
+        },
       })
       .then((res) => {
         followBoolean.value = res.data.boolean

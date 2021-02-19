@@ -1,6 +1,10 @@
 <template>
   <div class="task-page w-full h-full">
-    <UserPage :user="user" :props="userId" />
+    <UserPage
+      :user="user"
+      :userId="userId"
+    >
+    </UserPage>
   </div>
 </template>
 <script lang="ts">
