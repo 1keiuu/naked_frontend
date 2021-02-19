@@ -2,6 +2,7 @@
   <div class="task-page w-full h-full">
     <UserPage
       :user="state.user"
+      :props="userId"
     >
     </UserPage>
   </div>
@@ -17,18 +18,20 @@ export default defineComponent({
       user: <User>{},
     })
 
-    const user_id = context.root.$auth.user.id
+    const userId = context.root.$route.params.id
+    //ここが違う、urlからidを持ってくる方法
 
     context.root.$axios
-      .get(`api/v1/users/${user_id}`)
+      .get(`api/v1/users/${userId}`)
       .then((res) => {
         state.user = res.data.user
+        console.log(state.user)
       })
       .catch((e) => {
         console.error(e)
       })
 
-    return { state }
+    return { state, userId }
   },
 })
 </script>

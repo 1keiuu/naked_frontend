@@ -29,32 +29,55 @@ import {
   ref,
   computed,
   PropType,
+  onMounted,
 } from '@vue/composition-api'
+import NkdTasksDrawerContentVue from '../../organisms/NkdTasksDrawerContent/NkdTasksDrawerContent.vue'
 
 export default defineComponent({
   props: {
     user: {
       type: Object as PropType<User>,
     },
+    userId: String,
   },
   components: {},
   setup(props, context) {
-    var followBoolean = ref(false)
-    const current_user_id = context.root.$auth.user.id
-    if (props.user) {
-      console.log(props.user.id)
-      context.root.$axios
-        .post('api/v1/users/followings', {
-          a_user_id: props.user.id,
-          current_user_id: current_user_id,
-        })
-        .then((res) => {
-          followBoolean = res.data.boolean
-        })
-        .catch((e) => {
-          console.error(e)
-        })
-    }
+    const followBoolean = ref(false)
+    const current_user_id = ref(context.root.$auth.user.id)
+    onMounted(() => {
+      if (props.user && current_user_id != props.user.id) {
+        console.log(props.userId)
+        context.root.$axios
+          .post('api/v1/users/followings', {
+            user_id: props.userId,
+            current_user_id: current_user_id,
+          })
+          .then((res) => {
+            followBoolean.value = res.data.boolean
+          })
+          .catch((e) => {
+            console.error(e)
+          })
+      }
+    })
+    // const followBoolean = ref(false)
+    // const current_user_id = context.root.$auth.user.id
+    // if (props.user && current_user_id != props.user.id) {
+    //   console.log(props)
+    //   console.log(props.user)
+    //   console.log(props.user.id)
+    //   context.root.$axios
+    //     .post('api/v1/users/followings', {
+    //       user_id: props.user.id,
+    //       current_user_id: current_user_id,
+    //     })
+    //     .then((res) => {
+    //       followBoolean.value = res.data.boolean
+    //     })
+    //     .catch((e) => {
+    //       console.error(e)
+    //     })
+    // }
 
     const onFollowBtnClick = () => {
       if (props.user) {
@@ -64,7 +87,7 @@ export default defineComponent({
           })
           .then((res) => {
             if (!props.user) return
-            followBoolean = ref(true)
+            followBoolean.value = true
           })
           .catch((e) => {})
       }
