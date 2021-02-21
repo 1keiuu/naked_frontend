@@ -80,12 +80,12 @@ export default defineComponent({
     const onUnFollowBtnClick = () => {
       if (props.user) {
         context.root.$axios
-          .post('api/v1/relationships', {
+          .post('api/v1/relationships/unfollow', {
             follow_id: props.user.id,
           })
           .then((res) => {
             if (!props.user) return
-            followBoolean.value = true
+            followBoolean.value = false
           })
           .catch((e) => {})
       }

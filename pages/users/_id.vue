@@ -3,8 +3,7 @@
     <UserPage
       :user="user"
       :userId="userId"
-    >
-    </UserPage>
+    />
   </div>
 </template>
 <script lang="ts">
