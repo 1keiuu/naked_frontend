@@ -13,7 +13,7 @@
       </button>
     </div>
     <div v-else-if="followBoolean  == true">
-      <button class="mr-5" @click="onFollowBtnClick">
+      <button class="mr-5" @click="onUnFollowBtnClick">
         <p>フォロ-を外す</p>
       </button>
     </div>
@@ -34,7 +34,6 @@ import {
   PropType,
   onMounted,
 } from '@vue/composition-api'
-import NkdTasksDrawerContentVue from '../../organisms/NkdTasksDrawerContent/NkdTasksDrawerContent.vue'
 
 export default defineComponent({
   props: {
@@ -64,25 +63,6 @@ export default defineComponent({
         console.error(e)
       })
 
-    // const followBoolean = ref(false)
-    // const current_user_id = context.root.$auth.user.id
-    // if (props.user && current_user_id != props.user.id) {
-    //   console.log(props)
-    //   console.log(props.user)
-    //   console.log(props.user.id)
-    //   context.root.$axios
-    //     .post('api/v1/users/followings', {
-    //       user_id: props.user.id,
-    //       current_user_id: current_user_id,
-    //     })
-    //     .then((res) => {
-    //       followBoolean.value = res.data.boolean
-    //     })
-    //     .catch((e) => {
-    //       console.error(e)
-    //     })
-    // }
-
     const onFollowBtnClick = () => {
       if (props.user) {
         context.root.$axios
@@ -96,7 +76,26 @@ export default defineComponent({
           .catch((e) => {})
       }
     }
-    return { current_user_id, onFollowBtnClick }
+
+    const onUnFollowBtnClick = () => {
+      if (props.user) {
+        context.root.$axios
+          .post('api/v1/relationships', {
+            follow_id: props.user.id,
+          })
+          .then((res) => {
+            if (!props.user) return
+            followBoolean.value = true
+          })
+          .catch((e) => {})
+      }
+    }
+    return {
+      current_user_id,
+      onFollowBtnClick,
+      onUnFollowBtnClick,
+      followBoolean,
+    }
   },
 })
 </script>
