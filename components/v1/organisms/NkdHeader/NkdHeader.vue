@@ -3,6 +3,8 @@
     :class="{ '--active': loggedIn }"
     class="nkd-header fixed bg-white top-0 px-3 z-5 h-16 w-full items-center justify-end border-gray-300 border-b-2 z-10"
   >
+    <input class="search" type="text" placeholder="ユーザーを検索してください"/>
+    <!-- <input id="sbox2" name="s" type="text" placeholder="フリーワードを入力"/> -->
     <img
       :src="avatarUrl"
       v-if="avatarUrl"
@@ -93,4 +95,27 @@ export default defineComponent({
     display: flex;
   }
 }
+
+.search {
+  border: 0;
+  font-size: 1.3em;
+  font-family: Arial, sans-serif;
+  color: #aaa;
+  border: solid 1px #ccc;
+  width: 300px;
+  margin-right: auto;
+  margin-left: 220px;
+  background: #eee;
+}
+// #sbox2 {
+
+//   height: 50px;
+//   /* padding: 0 10px; */
+//   /* position: absolute; */
+//   /* left: 0; */
+//   /* top: 0; */
+//   border-radius: 2px;
+//   outline: 0;
+//   background: #eee;
+// }
 </style>
