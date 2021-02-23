@@ -4,6 +4,9 @@
     class="nkd-header fixed bg-white top-0 px-3 z-5 h-16 w-full items-center justify-end border-gray-300 border-b-2 z-10"
   >
     <input class="search" type="text" placeholder="ユーザーを検索してください"/>
+    <div class="search-icon h-10">
+      <NkdIcon type="search" />
+    </div>
     <!-- <input id="sbox2" name="s" type="text" placeholder="フリーワードを入力"/> -->
     <img
       :src="avatarUrl"
@@ -30,6 +33,8 @@
 <script lang="ts">
 import { defineComponent, reactive, ref, computed } from '@vue/composition-api'
 import HeaderItemList from '@/components/v1/organisms/NkdHeaderItemList/NkdHeaderItemList.vue'
+import NkdIcon from '@/components/v1/atoms/NkdIcon/NkdIcon.vue'
+
 export default defineComponent({
   name: 'NkdHeader',
   props: {
@@ -44,6 +49,7 @@ export default defineComponent({
   },
   components: {
     HeaderItemList,
+    NkdIcon,
   },
   setup(_props, context) {
     const items = reactive<HeaderItem[]>([
@@ -98,7 +104,7 @@ export default defineComponent({
 
 .search {
   border: 0;
-  font-size: 1.3em;
+  font-size: 1.1em;
   font-family: Arial, sans-serif;
   color: #aaa;
   border: solid 1px #ccc;
@@ -106,6 +112,11 @@ export default defineComponent({
   margin-right: auto;
   margin-left: 220px;
   background: #eee;
+}
+
+.search-icon {
+  margin-right: auto;
+  margin-left: 300px;
 }
 // #sbox2 {
 
