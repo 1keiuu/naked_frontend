@@ -21,6 +21,7 @@ export default defineComponent({
     context.root.$axios
       .get('/api/v1/sub_tasks')
       .then((res) => {
+        console.log(`${res.data}`)
         tasksStore.setTasks(res.data)
       })
       .catch((e) => {

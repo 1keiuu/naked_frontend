@@ -57,6 +57,7 @@ export default defineComponent({
         },
       })
       .then((res) => {
+        console.log(`${res.data.boolean}`)
         followBoolean.value = res.data.boolean
       })
       .catch((e) => {

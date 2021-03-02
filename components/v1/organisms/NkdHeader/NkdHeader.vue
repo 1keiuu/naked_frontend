@@ -5,6 +5,7 @@
   >
     <input class="search" type="text" placeholder="ユーザーを検索してください" @keyup.enter="trigger" v-model="state.username"/>
     {{state.username}}
+    {{user}}
     <div class="search-icon h-10">
       <NkdIcon type="search" />
     </div>
@@ -32,7 +33,13 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, ref, computed } from '@vue/composition-api'
+import {
+  defineComponent,
+  reactive,
+  ref,
+  computed,
+  PropType,
+} from '@vue/composition-api'
 import HeaderItemList from '@/components/v1/organisms/NkdHeaderItemList/NkdHeaderItemList.vue'
 import NkdIcon from '@/components/v1/atoms/NkdIcon/NkdIcon.vue'
 
@@ -55,18 +62,19 @@ export default defineComponent({
   setup(_props, context) {
     const state = reactive({
       username: '',
-      user: '',
     })
-    // const user = ref({})
+    const user = ref([])
     const trigger = (event: any) => {
       // if (event.keyCode !== 13) return
       console.log(`${state.username}`)
       context.root.$axios
-        .post('api/v1/users/followings', {
+        .post('api/v1/users/search', {
           q: state.username,
         })
         .then((res) => {
-          state.user = res.data.user
+          console.log(`${res.data}`)
+          user.value = res.data
+          console.log(`${user}`)
         })
         .catch((e) => {
           console.error(e)
@@ -118,6 +126,7 @@ export default defineComponent({
       onHeaderItemClick,
       state,
       trigger,
+      user,
     }
   },
 })
