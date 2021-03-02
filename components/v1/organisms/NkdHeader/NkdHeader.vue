@@ -3,7 +3,8 @@
     :class="{ '--active': loggedIn }"
     class="nkd-header fixed bg-white top-0 px-3 z-5 h-16 w-full items-center justify-end border-gray-300 border-b-2 z-10"
   >
-    <input class="search" type="text" placeholder="ユーザーを検索してください"/>
+    <input class="search" type="text" placeholder="ユーザーを検索してください" @keyup.enter="trigger" v-model="state.username"/>
+    {{state.username}}
     <div class="search-icon h-10">
       <NkdIcon type="search" />
     </div>
@@ -52,6 +53,26 @@ export default defineComponent({
     NkdIcon,
   },
   setup(_props, context) {
+    const state = reactive({
+      username: '',
+      user: '',
+    })
+    // const user = ref({})
+    const trigger = (event: any) => {
+      // if (event.keyCode !== 13) return
+      console.log(`${state.username}`)
+      context.root.$axios
+        .post('api/v1/users/followings', {
+          q: state.username,
+        })
+        .then((res) => {
+          state.user = res.data.user
+        })
+        .catch((e) => {
+          console.error(e)
+        })
+      // 実行したい処理
+    }
     const items = reactive<HeaderItem[]>([
       {
         title: 'ログアウト',
@@ -90,7 +111,14 @@ export default defineComponent({
       }
     }
 
-    return { items, isItemListActive, signOut, onHeaderItemClick }
+    return {
+      items,
+      isItemListActive,
+      signOut,
+      onHeaderItemClick,
+      state,
+      trigger,
+    }
   },
 })
 </script>
