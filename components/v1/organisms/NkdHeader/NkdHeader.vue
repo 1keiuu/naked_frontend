@@ -4,7 +4,6 @@
     class="nkd-header fixed bg-white top-0 px-3 z-5 h-16 w-full items-center justify-end border-gray-300 border-b-2 z-10"
   >
     <input class="search" type="text" placeholder="ユーザーを検索してください" @keyup.enter="trigger" v-model="state.username"/>
-    {{state.username}}
     {{user}}
     <div class="search-icon h-10">
       <NkdIcon type="search" />
@@ -65,6 +64,7 @@ export default defineComponent({
     })
     const user = ref([])
     const trigger = (event: any) => {
+      context.root.$router.push(`/users/search?username=${state.username}`)
       // if (event.keyCode !== 13) return
       console.log(`${state.username}`)
       context.root.$axios
