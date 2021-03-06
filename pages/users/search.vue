@@ -32,7 +32,6 @@ export default defineComponent({
       .catch((e) => {
         console.error(e)
       })
-    //ここが違う、urlからidを持ってくる方法
 
     return { query, users }
   },
