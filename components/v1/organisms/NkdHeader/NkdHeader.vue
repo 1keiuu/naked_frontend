@@ -4,7 +4,6 @@
     class="nkd-header fixed bg-white top-0 px-3 z-5 h-16 w-full items-center justify-end border-gray-300 border-b-2 z-10"
   >
     <input class="search" type="text" placeholder="ユーザーを検索してください" @keyup.enter="trigger" v-model="state.username"/>
-    {{user}}
     <div class="search-icon h-10">
       <NkdIcon type="search" />
     </div>
@@ -67,18 +66,18 @@ export default defineComponent({
       context.root.$router.push(`/users/search?username=${state.username}`)
       // if (event.keyCode !== 13) return
       console.log(`${state.username}`)
-      context.root.$axios
-        .post('api/v1/users/search', {
-          q: state.username,
-        })
-        .then((res) => {
-          console.log(`${res.data}`)
-          user.value = res.data
-          console.log(`${user}`)
-        })
-        .catch((e) => {
-          console.error(e)
-        })
+      // context.root.$axios
+      //   .post('api/v1/users/search', {
+      //     q: state.username,
+      //   })
+      //   .then((res) => {
+      //     console.log(`${res.data}`)
+      //     user.value = res.data
+      //     console.log(`${user}`)
+      //   })
+      //   .catch((e) => {
+      //     console.error(e)
+      //   })
       // 実行したい処理
     }
     const items = reactive<HeaderItem[]>([
