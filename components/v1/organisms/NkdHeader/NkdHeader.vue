@@ -67,20 +67,6 @@ export default defineComponent({
     const trigger = (event: any) => {
       context.root.$router.push(`/users/search?username=${state.username}`)
       // if (event.keyCode !== 13) return
-      console.log(`${state.username}`)
-      // context.root.$axios
-      //   .post('api/v1/users/search', {
-      //     q: state.username,
-      //   })
-      //   .then((res) => {
-      //     console.log(`${res.data}`)
-      //     user.value = res.data
-      //     console.log(`${user}`)
-      //   })
-      //   .catch((e) => {
-      //     console.error(e)
-      //   })
-      // 実行したい処理
     }
     const items = reactive<HeaderItem[]>([
       {

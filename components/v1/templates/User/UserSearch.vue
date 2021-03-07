@@ -1,7 +1,7 @@
 <template>
   <div class="mt-16 pl-56 pt-3">
     <div v-for="user in users.users" :key="user.name">
-      <div class="box pt-3">
+      <div class="box pt-3" @click="onUserClick(user.id)">
         <img
         src="~/assets/images/avatar.jpg"
         id="avatar"
@@ -31,7 +31,10 @@ export default defineComponent({
   },
   components: {},
   setup(_props, context) {
-    return {}
+    const onUserClick = (userId: any) => {
+      context.root.$router.push(`/users/${userId}`)
+    }
+    return { onUserClick }
   },
 })
 </script>
