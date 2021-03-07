@@ -3,9 +3,11 @@
     :class="{ '--active': loggedIn }"
     class="nkd-header fixed bg-white top-0 px-3 z-5 h-16 w-full items-center justify-end border-gray-300 border-b-2 z-10"
   >
-    <input class="search" type="text" placeholder="ユーザーを検索してください" @keyup.enter="trigger" v-model="state.username"/>
-    <div class="search-icon h-10">
-      <NkdIcon type="search" />
+    <div class="search">
+      <input class="search__input" type="text" placeholder="ユーザーを検索してください" @keyup.enter="trigger" v-model="state.username"/>
+      <div class="search__icon h-10">
+        <NkdIcon type="search" color="#666"/>
+      </div>
     </div>
     <!-- <input id="sbox2" name="s" type="text" placeholder="フリーワードを入力"/> -->
     <img
@@ -139,21 +141,30 @@ export default defineComponent({
 }
 
 .search {
-  border: 0;
-  font-size: 1.1em;
-  font-family: Arial, sans-serif;
-  color: #aaa;
-  border: solid 1px #ccc;
-  width: 300px;
-  margin-right: auto;
-  margin-left: 220px;
-  background: #eee;
+  &__input {
+    padding: 0 10px;
+    position: absolute;
+    width: 300px;
+    left: 230px;
+    top: 0;
+    border-radius: 2px;
+    outline: 0;
+    background: #eee;
+    height: 35px;
+    margin-top: 15px;
+  }
+  &__icon {
+    height: 25px;
+    position: absolute;
+    left: 490px;
+    top: 20px;
+    background: none;
+    color: #666;
+    border: none;
+    font-size: 20px;
+  }
 }
 
-.search-icon {
-  margin-right: auto;
-  margin-left: 300px;
-}
 // #sbox2 {
 
 //   height: 50px;

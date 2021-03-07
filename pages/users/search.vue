@@ -3,7 +3,6 @@
     <UserSearch
       :users="users"
     />
-    {{users}}
   </div>
 </template>
 <script lang="ts">
