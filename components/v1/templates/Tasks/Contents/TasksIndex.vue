@@ -31,7 +31,7 @@
         :tasks="noDate"
         @updateTaskDate="updateTaskDate"
       />
-      <NkdEpicTasksInput @onInputBlur="dispatchEvent" />
+      <NkdTasksInput @onInputBlur="dispatchEvent" />
     </div>
   </div>
 </template>
@@ -39,6 +39,7 @@
 import { defineComponent, PropType, inject } from '@vue/composition-api'
 import NkdTaskItemsList from '@/components/v1/organisms/NkdTaskItemsList/NkdTaskItemsList.vue'
 import taskPageStoreKey from '@/components/v1/storeKeys/TaskPageStoreKey'
+import NkdTasksInput from '@/components/v1/organisms/NkdTasksInput/NkdTasksInput.vue'
 export default defineComponent({
   props: {
     today: {
@@ -56,6 +57,7 @@ export default defineComponent({
   },
   components: {
     NkdTaskItemsList,
+    NkdTasksInput,
   },
   setup(props, context) {
     const dispatchEvent = (inputValue: string) => {

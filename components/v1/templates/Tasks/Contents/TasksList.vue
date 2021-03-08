@@ -1,13 +1,13 @@
 <template>
   <div class="min-h-full">
     <NkdTaskItemsList :tasks="tasksArray" />
-    <NkdEpicTasksInput @onInputBlur="dispatchEvent" />
+    <NkdTasksInput @onInputBlur="dispatchEvent" />
   </div>
 </template>
 <script lang="ts">
 import { defineComponent, PropType, inject } from '@vue/composition-api'
 import NkdTaskItemsList from '@/components/v1/organisms/NkdTaskItemsList/NkdTaskItemsList.vue'
-import NkdEpicTasksInput from '@/components/v1/organisms/NkdEpicTasksInput/NkdEpicTasksInput.vue'
+import NkdTasksInput from '@/components/v1/organisms/NkdTasksInput/NkdTasksInput.vue'
 import TaskPageStoreKey from '@/components/v1/storeKeys/TaskPageStoreKey'
 import EpicTasksStoreKey from '@/components/v1/storeKeys/EpicTasksStoreKey'
 
@@ -19,7 +19,7 @@ export default defineComponent({
     },
   },
   components: {
-    NkdEpicTasksInput,
+    NkdTasksInput,
     NkdTaskItemsList,
   },
   setup(props, context) {

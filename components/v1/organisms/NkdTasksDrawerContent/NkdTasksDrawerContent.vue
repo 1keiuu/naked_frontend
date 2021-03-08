@@ -2,7 +2,7 @@
   <div class="w-full h-full pt-12 overflow-y-hidden">
     <NkdTasksDrawerHeader @onClickEpicDeleteButton="onClickEpicDeleteButton" />
     <div class="px-5 pt-2">
-      <NkdLabel name="task-title" value="エピック名" />
+      <NkdLabel name="task-title" value="タスク名" />
       <NkdTextField
         :isOutLined="true"
         :value="task.title"
@@ -10,7 +10,7 @@
         @onTextFieldInput="onTextFieldInput"
         @onTextFieldBlur="onTextFieldBlur"
       />
-      <NkdLabel name="task-description" value="エピックの説明" class="mt-8" />
+      <NkdLabel name="task-description" value="タスクの説明" class="mt-8" />
       <NkdTextArea
         :isOutLined="true"
         :value="task.description"
