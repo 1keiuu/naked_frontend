@@ -1,7 +1,7 @@
 <template>
   <div class="min-h-full">
     <div class="tasks-group ml-5 mt-3">
-      <h2 class="text-xl">タスク一覧</h2>
+      <h2 class="text-xl mb-3">タスク一覧</h2>
       <NkdTaskItemsList :tasks="tasksArray" />
       <NkdTasksInput @onInputBlur="dispatchEvent" />
     </div>
