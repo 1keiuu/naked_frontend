@@ -1,5 +1,5 @@
 <template>
-  <div class="mb-5">
+  <div>
     <div id="task-card" class="task-card" @click="onCardClick">
       <div class="task-card__inner">
         <h3 class="text-lg">{{ task.title }}</h3>
@@ -100,6 +100,7 @@ export default defineComponent({
   padding: 8px 12px;
   border-bottom: 1px solid #efefef;
   cursor: pointer;
+  width: 95%;
 
   .open-calendar__button {
     pointer-events: none;
@@ -129,5 +130,8 @@ export default defineComponent({
     right: 0;
     z-index: 5;
   }
+}
+.task-card:hover {
+  background: #f1f4f7;
 }
 </style>

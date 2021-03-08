@@ -1,5 +1,5 @@
 <template>
-  <div class="epic-tasks__input" v-if="taskPageStore.isCreatingTask">
+  <div class="tasks-input" v-if="taskPageStore.isCreatingTask">
     <input
       class="text-lg"
       @blur="onBlur"
@@ -53,3 +53,8 @@ export default defineComponent({
   },
 })
 </script>
+<style scoped lang="scss">
+.tasks-input {
+  width: 500px;
+}
+</style>

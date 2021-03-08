@@ -1,7 +1,7 @@
 <template>
   <div class="min-h-full">
-    <div class="epic-tasks__group">
-      <h2 class="ml-5 text-xl">今日</h2>
+    <div class="epic-tasks__group ml-5">
+      <h2 class="text-xl">今日</h2>
       <p v-if="today.length <= 0" class="pl-10">タスクはありません</p>
       <NkdTaskItemsList
         v-else-if="today.length >= 1"
@@ -9,8 +9,8 @@
         @updateTaskDate="updateTaskDate"
       />
     </div>
-    <div class="epic-tasks__group">
-      <h2 class="ml-5 text-xl">明日</h2>
+    <div class="epic-tasks__group ml-5">
+      <h2 class="text-xl">明日</h2>
       <p v-if="tomorrow.length <= 0" class="pl-10">タスクはありません</p>
       <NkdTaskItemsList
         v-else-if="tomorrow.length >= 1"
@@ -18,8 +18,8 @@
         @updateTaskDate="updateTaskDate"
       />
     </div>
-    <div class="epic-tasks__group">
-      <h2 class="ml-5 text-xl">期日未設定</h2>
+    <div class="tasks-group ml-5">
+      <h2 class="text-xl">期日未設定</h2>
       <p
         v-if="noDate.length <= 0 && !taskPageStore.isCreatingEpic"
         class="pl-10"
@@ -71,3 +71,5 @@ export default defineComponent({
   },
 })
 </script>
+<style scoped lang="scss">
+</style>

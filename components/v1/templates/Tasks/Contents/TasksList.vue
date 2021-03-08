@@ -1,7 +1,10 @@
 <template>
   <div class="min-h-full">
-    <NkdTaskItemsList :tasks="tasksArray" />
-    <NkdTasksInput @onInputBlur="dispatchEvent" />
+    <div class="tasks-group ml-5 mt-3">
+      <h2 class="text-xl">タスク一覧</h2>
+      <NkdTaskItemsList :tasks="tasksArray" />
+      <NkdTasksInput @onInputBlur="dispatchEvent" />
+    </div>
   </div>
 </template>
 <script lang="ts">
@@ -30,3 +33,5 @@ export default defineComponent({
   },
 })
 </script>
+<style scoped lang="scss">
+</style>
