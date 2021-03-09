@@ -96,7 +96,7 @@ export default defineComponent({
   align-items: center;
   justify-content: space-between;
   position: relative;
-  background: #fff;
+  // background: #fff;
   padding: 8px 12px;
   border-bottom: 1px solid #efefef;
   cursor: pointer;

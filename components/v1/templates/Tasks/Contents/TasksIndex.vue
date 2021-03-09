@@ -19,7 +19,7 @@
       />
     </div>
     <div class="tasks-group ml-5">
-      <h2 class="text-xl mb-3">期日未設定</h2>
+      <h2 class="text-xl mb-3 tasks-group__day">期日未設定</h2>
       <p
         v-if="noDate.length <= 0 && !taskPageStore.isCreatingEpic"
         class="pl-10"
@@ -72,4 +72,7 @@ export default defineComponent({
 })
 </script>
 <style scoped lang="scss">
+.tasks-group__day {
+  z-index: 10;
+}
 </style>
