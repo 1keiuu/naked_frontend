@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full h-full pt-12 overflow-y-hidden">
+  <div class="w-full h-full pt-12 overflow-y-hidden task-drawer">
     <NkdTasksDrawerHeader @onClickEpicDeleteButton="onClickEpicDeleteButton" />
     <div class="px-5 pt-2">
       <NkdLabel name="task-title" value="タスク名" />
@@ -89,7 +89,7 @@ export default defineComponent({
           console.log(e.response.message)
         })
     }
-    const updateEpic = (obj: Object) => {
+    const updateSubTask = (obj: Object) => {
       taskPageStore.stopCreateTask()
       if (props.task) {
         context.root.$axios
@@ -97,12 +97,12 @@ export default defineComponent({
           .then((res) => {
             if (!props.task) return
             const task = res.data.task
-            taskTasksStore.updateEpic({
+            taskTasksStore.updateTask({
               id: task.id,
               title: task.title,
               description: task.description,
             })
-            taskPageStore.selectEpic({
+            taskPageStore.selectTask({
               id: task.id,
               title: task.title,
               description: task.description,
@@ -114,15 +114,17 @@ export default defineComponent({
 
     const onTextFieldBlur = (inputValue: string) => {
       taskPageStore.stopUpdateTask()
-      if (taskPageStore.selectedTask.title !== inputValue)
-        updateEpic({
+      if (taskPageStore.selectedTask.title !== inputValue && props.task)
+        updateTask({
+          id: props.task.id,
           title: inputValue,
         })
     }
     const onTextAreaBlur = (inputValue: string) => {
       taskPageStore.stopUpdateTask()
-      if (taskPageStore.selectedTask.description !== inputValue)
-        updateEpic({
+      if (taskPageStore.selectedTask.description !== inputValue && props.task)
+        updateTask({
+          id: props.task.id,
           description: inputValue,
         })
     }

@@ -55,6 +55,11 @@ export default defineComponent({
         (e.target as HTMLInputElement).id !== 'task-card'
       ) {
         taskPageStore.closeDrawer()
+        //リアルタイム同期はできないがdrawerとurl変えることになるので強制リダイレクト
+        // context.root.$router.go({
+        //   path: context.root.$route.path,
+        //   force: true,
+        // })
       }
     }
 
