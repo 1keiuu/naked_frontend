@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full h-full pt-12 overflow-y-hidden task-drawer">
+  <div class="w-full h-full pt-12 overflow-y-hidden task-drawer" ref="task-drawer">
     <NkdTasksDrawerHeader @onClickEpicDeleteButton="onClickEpicDeleteButton" />
     <div class="px-5 pt-2">
       <NkdLabel name="task-title" value="タスク名" />
