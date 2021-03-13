@@ -60,20 +60,12 @@ export default defineComponent({
       console.log(e.target)
       if (
         !(e.target as HTMLInputElement).closest('.nkd-drawer') &&
-        // (e.target as HTMLInputElement).className !== 'open-calendar__button' &&
-        (e.target as HTMLInputElement).id !== 'task-card'
-        // taskPageStore.isCalendarOpen == false
-        // root?.value.$el.id === 'task-drawer'
+        (e.target as HTMLInputElement).id !== 'task-card' &&
+        taskPageStore.isDrawerOpen == true
       ) {
-        console.log(taskPageStore.isDrawerOpen)
-        console.log(taskPageStore.isCalendarOpen)
         taskPageStore.closeDrawer()
         //リアルタイム同期はできないがdrawerとurl変えることになるので強制リダイレクト
-        // context.root.$router.go(0)
-        // context.root.$router.go({
-        //   path: context.root.$route.path,
-        //   force: true,
-        // })
+        context.root.$router.go(0)
       }
     }
 

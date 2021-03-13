@@ -7,7 +7,6 @@ export default function TaskPageStore() {
         isCreatingTask: false,
         isUpdatingTask: false,
         isCreatingSubTask:false,
-        isCalendarOpen:false,
         selectedTask: <Task>{},
         selectedSubTasks: <SubTask[]>[]
     })
@@ -49,15 +48,6 @@ export default function TaskPageStore() {
         },      
         closeDrawer() {
             state.isDrawerOpen = false
-        },
-        get isCalendarOpen() {
-            return state.isCalendarOpen
-        },
-        openCalendar(){
-            state.isCalendarOpen = true
-        },
-        closeCalendar() {
-            state.isCalendarOpen = false
         },
         // タスクの作成/更新中のフラグ
         get isCreatingTask() {

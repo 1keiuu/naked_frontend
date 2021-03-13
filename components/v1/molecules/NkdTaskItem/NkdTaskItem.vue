@@ -55,6 +55,10 @@ export default defineComponent({
         taskPageStore.closeDrawer()
         return
       }
+      if (isCalenderOpen.value == true) {
+        taskPageStore.closeDrawer()
+        return
+      }
       taskPageStore.selectTask(props.task)
       taskPageStore.selectSubTasks(props.task?.sub_tasks)
       taskPageStore.openDrawer()
