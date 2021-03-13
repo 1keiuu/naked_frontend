@@ -31,7 +31,7 @@ import {
 } from '@vue/composition-api'
 import NkdTaskSubHeader from '@/components/v1/organisms/NkdTasksSubHeader/NkdTasksSubHeader.vue'
 import NkdDrawer from '@/components/v1/organisms/NkdDrawer/NkdDrawer.vue'
-import TaskPageStoreKey from '@/components/v1/storeKeys/TaskPageStoreKey.ts'
+import TaskPageStoreKey from '@/components/v1/storeKeys/TaskPageStoreKey'
 import NkdTasksDrawerContent from '@/components/v1/organisms/NkdTasksDrawerContent/NkdTasksDrawerContent.vue'
 import EpicTasksStoreKey from '@/components/v1/storeKeys/EpicTasksStoreKey'
 
@@ -40,7 +40,6 @@ export default defineComponent({
     NkdTaskSubHeader,
     NkdDrawer,
     NkdTasksDrawerContent,
-    TaskPageStoreKey,
   },
   setup(props, context) {
     const contents = reactive([
@@ -58,15 +57,19 @@ export default defineComponent({
     })
 
     const onTasksPageClick = (e: Event) => {
+      console.log(e.target)
       if (
         !(e.target as HTMLInputElement).closest('.nkd-drawer') &&
-        (e.target as HTMLInputElement).id !== 'task-card' &&
-        root.value.$el.id === 'task-drawer'
+        // (e.target as HTMLInputElement).className !== 'open-calendar__button' &&
+        (e.target as HTMLInputElement).id !== 'task-card'
+        // taskPageStore.isCalendarOpen == false
+        // root?.value.$el.id === 'task-drawer'
       ) {
+        console.log(taskPageStore.isDrawerOpen)
+        console.log(taskPageStore.isCalendarOpen)
         taskPageStore.closeDrawer()
-        console.log(root.value.$el.id)
         //リアルタイム同期はできないがdrawerとurl変えることになるので強制リダイレクト
-        context.root.$router.go(0)
+        // context.root.$router.go(0)
         // context.root.$router.go({
         //   path: context.root.$route.path,
         //   force: true,

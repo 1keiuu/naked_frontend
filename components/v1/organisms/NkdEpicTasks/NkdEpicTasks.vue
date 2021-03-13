@@ -10,16 +10,16 @@
       <p class="starts-date">{{ task.starts_date }} ~</p>
       <p class="due-date">{{ task.due_date }}</p>
     </div>
-    <button @click="openCalender" class="open-calendar__button">
+    <button @click="taskPageStore.openCalendar" class="open-calendar__button">
       <NkdIcon type="calendar" color="grey" />
     </button>
     <v-date-picker
-      v-if="isCalenderOpen"
+      v-if="taskPageStore.isCalendarOpen == true"
       class="calendar"
       mode="date"
       is-range
       v-model="selectedDate"
-      v-click-outside="clickCalendarOutside"
+      
     />
   </div>
 </template>
@@ -44,7 +44,7 @@ export default defineComponent({
   },
   setup(props, context) {
     const taskPageStore = inject(TaskPageStoreKey)
-    const isCalenderOpen = ref(false)
+    // const isCalenderOpen = ref(false)
     const selectedDate = ref({ start: String, end: String })
     const onCardClick = () => {
       const isDrawerOpen = taskPageStore.isDrawerOpen
@@ -57,7 +57,7 @@ export default defineComponent({
       taskPageStore.openDrawer()
     }
     watch(selectedDate, (date) => {
-      isCalenderOpen.value = false
+      taskPageStore.isCalendarOpen.value = false
       const data = {
         id: props.task?.id,
         starts_date: date.start,
@@ -66,23 +66,24 @@ export default defineComponent({
       context.emit('updateTaskDate', data)
     })
 
-    const openCalender = () => {
-      isCalenderOpen.value = true
-    }
-    const closeCalender = () => {
-      isCalenderOpen.value = false
-    }
+    // const openCalender = () => {
+    //   isCalenderOpen.value = true
+    // }
+    // const closeCalender = () => {
+    //   isCalenderOpen.value = false
+    // }
 
-    const clickCalendarOutside = () => {
-      closeCalender()
-    }
+    // const clickCalendarOutside = () => {
+    //   taskPageStore.closeCalendar()
+    // }
 
     return {
       onCardClick,
-      openCalender,
-      isCalenderOpen,
-      clickCalendarOutside,
+      // openCalender,
+      // isCalenderOpen,
+      // clickCalendarOutside,
       selectedDate,
+      taskPageStore,
     }
   },
 })
