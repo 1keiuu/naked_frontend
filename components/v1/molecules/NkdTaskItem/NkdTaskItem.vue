@@ -46,6 +46,7 @@ export default defineComponent({
     },
   },
   setup(props, context) {
+    const date = ref(new Date())
     const taskPageStore = inject(TaskPageStoreKey)
     const isCalenderOpen = ref(false)
     const selectedDate = ref({ start: String, end: String })
@@ -70,6 +71,7 @@ export default defineComponent({
         starts_date: date.start,
         due_date: date.end,
       }
+      console.log(data)
       context.emit('updateTaskDate', data)
     })
 
@@ -90,6 +92,7 @@ export default defineComponent({
       isCalenderOpen,
       clickCalendarOutside,
       selectedDate,
+      date,
     }
   },
 })

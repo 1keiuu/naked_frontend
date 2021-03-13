@@ -54,6 +54,7 @@ export default defineComponent({
     }
 
     const updateTask = (inputValue: Task) => {
+      console.log(inputValue)
       if (inputValue) {
         const data = inputValue
         data.user_id = context.root.$auth.user.id

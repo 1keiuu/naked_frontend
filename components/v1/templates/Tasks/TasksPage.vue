@@ -57,7 +57,6 @@ export default defineComponent({
     })
 
     const onTasksPageClick = (e: Event) => {
-      console.log(e.target)
       if (
         !(e.target as HTMLInputElement).closest('.nkd-drawer') &&
         (e.target as HTMLInputElement).id !== 'task-card' &&
