@@ -1,6 +1,14 @@
 <template>
   <div class="min-h-full">
     <div class="epic-tasks__group ml-5 mb-5">
+      <h2 class="text-xl mb-3">現在のタスク</h2>
+      <p v-if="current == null" class="pl-10">タスクはありません</p>
+      <NkdTaskItem
+        v-else
+        :task="current"
+      />
+    </div>
+    <div class="epic-tasks__group ml-5 mb-5">
       <h2 class="text-xl mb-3">今日</h2>
       <p v-if="today.length <= 0" class="pl-10">タスクはありません</p>
       <NkdTaskItemsList
@@ -38,10 +46,14 @@
 <script lang="ts">
 import { defineComponent, PropType, inject } from '@vue/composition-api'
 import NkdTaskItemsList from '@/components/v1/organisms/NkdTaskItemsList/NkdTaskItemsList.vue'
+import NkdTaskItem from '@/components/v1/molecules/NkdTaskItem/NkdTaskItem.vue'
 import taskPageStoreKey from '@/components/v1/storeKeys/TaskPageStoreKey'
 import NkdTasksInput from '@/components/v1/organisms/NkdTasksInput/NkdTasksInput.vue'
 export default defineComponent({
   props: {
+    current: {
+      type: Object as PropType<Task>,
+    },
     today: {
       type: Array as PropType<Task[]>,
       required: false,
@@ -58,6 +70,7 @@ export default defineComponent({
   components: {
     NkdTaskItemsList,
     NkdTasksInput,
+    NkdTaskItem,
   },
   setup(props, context) {
     const dispatchEvent = (inputValue: string) => {
