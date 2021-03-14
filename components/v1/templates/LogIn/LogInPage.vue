@@ -64,9 +64,8 @@ export default defineComponent({
           })
         })
     }
-
     const env = process.env.NODE_ENV
-    console.log(env)
+
     return { errorMessages, onSubmitButtonClick, env }
   },
 })

@@ -3,6 +3,13 @@
     :class="{ '--active': loggedIn }"
     class="nkd-header fixed bg-white top-0 px-3 z-5 h-16 w-full items-center justify-end border-gray-300 border-b-2 z-10"
   >
+    <div class="search">
+      <input class="search__input" type="text" placeholder="ユーザーを検索してください" @keyup.enter="trigger" v-model="state.username"/>
+      <div class="search__icon h-10">
+        <NkdIcon type="search" color="#666"/>
+      </div>
+    </div>
+    <!-- <input id="sbox2" name="s" type="text" placeholder="フリーワードを入力"/> -->
     <img
       :src="avatarUrl"
       v-if="avatarUrl"
@@ -26,8 +33,16 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, ref, computed } from '@vue/composition-api'
+import {
+  defineComponent,
+  reactive,
+  ref,
+  computed,
+  PropType,
+} from '@vue/composition-api'
 import HeaderItemList from '@/components/v1/organisms/NkdHeaderItemList/NkdHeaderItemList.vue'
+import NkdIcon from '@/components/v1/atoms/NkdIcon/NkdIcon.vue'
+
 export default defineComponent({
   name: 'NkdHeader',
   props: {
@@ -42,12 +57,25 @@ export default defineComponent({
   },
   components: {
     HeaderItemList,
+    NkdIcon,
   },
   setup(_props, context) {
+    const state = reactive({
+      username: '',
+    })
+    const user = ref([])
+    const trigger = (event: any) => {
+      context.root.$router.push(`/users/search?username=${state.username}`)
+      // if (event.keyCode !== 13) return
+    }
     const items = reactive<HeaderItem[]>([
       {
         title: 'ログアウト',
         type: 'signOut',
+      },
+      {
+        title: '詳細ページ',
+        type: 'show',
       },
     ])
 
@@ -67,10 +95,26 @@ export default defineComponent({
       switch (type) {
         case 'signOut':
           signOut()
+          break
+        case 'show':
+          if (context.root.$auth.loggedIn) {
+            const user_id = context.root.$auth.user.id
+            context.root.$router.push(`/users/${user_id}`)
+            isItemListActive.value = false
+          }
+          break
       }
     }
 
-    return { items, isItemListActive, signOut, onHeaderItemClick }
+    return {
+      items,
+      isItemListActive,
+      signOut,
+      onHeaderItemClick,
+      state,
+      trigger,
+      user,
+    }
   },
 })
 </script>
@@ -81,4 +125,41 @@ export default defineComponent({
     display: flex;
   }
 }
+
+.search {
+  &__input {
+    padding: 0 10px;
+    position: absolute;
+    width: 300px;
+    left: 230px;
+    top: 0;
+    border-radius: 2px;
+    outline: 0;
+    background: #eee;
+    height: 35px;
+    margin-top: 15px;
+  }
+  &__icon {
+    height: 25px;
+    position: absolute;
+    left: 490px;
+    top: 20px;
+    background: none;
+    color: #666;
+    border: none;
+    font-size: 20px;
+  }
+}
+
+// #sbox2 {
+
+//   height: 50px;
+//   /* padding: 0 10px; */
+//   /* position: absolute; */
+//   /* left: 0; */
+//   /* top: 0; */
+//   border-radius: 2px;
+//   outline: 0;
+//   background: #eee;
+// }
 </style>

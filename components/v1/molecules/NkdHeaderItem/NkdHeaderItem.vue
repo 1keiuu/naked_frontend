@@ -23,6 +23,7 @@ export default defineComponent({
     const onItemClick = () => {
       context.emit('onHeaderItemClick', props.item.type)
     }
+
     return { onItemClick }
   },
 })
