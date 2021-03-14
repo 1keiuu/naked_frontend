@@ -16,7 +16,7 @@ import { defineComponent, reactive, inject } from '@vue/composition-api'
 import TasksPage from '@/components/v1/templates/Tasks/TasksPage.vue'
 import TasksIndex from '@/components/v1/templates/Tasks/Contents/TasksIndex.vue'
 import TasksStoreKey from '@/components/v1/storeKeys/TasksStoreKey'
-import TaskPageStoreKey from '@/components/v1/storeKeys/TaskPageStoreKey.ts'
+import TaskPageStoreKey from '@/components/v1/storeKeys/TaskPageStoreKey'
 
 export default defineComponent({
   components: { TasksPage },

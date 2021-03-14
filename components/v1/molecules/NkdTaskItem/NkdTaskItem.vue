@@ -11,6 +11,12 @@
         <p class="starts-date">{{ task.starts_date }} ~</p>
         <p class="due-date">{{ task.due_date }}</p>
       </div>
+      <!-- <button>
+        <NkdIcon type="calendar" color="grey" />
+      </button> -->
+      <button @click="createRecord" class="open-play__button">
+        <NkdIcon type="play" color="grey" />
+      </button>
       <button @click="openCalender" class="open-calendar__button">
         <NkdIcon type="calendar" color="grey" />
       </button>
@@ -86,6 +92,18 @@ export default defineComponent({
       closeCalender()
     }
 
+    const createRecord = () => {
+      context.root.$axios
+        .post('/api/v1/records', {
+          task_id: props.task?.id,
+          user_id: context.root.$auth.user.id,
+        })
+        .then((res) => {
+          const record = res.data.record
+        })
+        .catch((e) => {})
+    }
+
     return {
       onCardClick,
       openCalender,
@@ -93,6 +111,7 @@ export default defineComponent({
       clickCalendarOutside,
       selectedDate,
       date,
+      createRecord,
     }
   },
 })
@@ -120,6 +139,19 @@ export default defineComponent({
   }
   &:hover {
     .open-calendar__button {
+      opacity: 1;
+      pointer-events: unset;
+    }
+  }
+  .open-play__button {
+    opacity: 0;
+    height: 45px;
+    width: 45px;
+    padding: 10px;
+    margin: 0 0 0 auto;
+  }
+  &:hover {
+    .open-play__button {
       opacity: 1;
       pointer-events: unset;
     }
