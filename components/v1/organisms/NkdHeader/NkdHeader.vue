@@ -10,11 +10,11 @@
         <NkdIcon type="search" color="#666"/>
       </div>
     </div>
-    <!-- <p v-if="current == null">なし</p>
+    <p v-if="tasksStore.currentTask == null">なし</p>
     <NkdHeaderTask
       v-else
       :task="tasksStore.currentTask"
-    /> -->
+    />
     <img
       :src="avatarUrl"
       v-if="avatarUrl"
@@ -76,20 +76,19 @@ export default defineComponent({
     })
 
     const tasksStore = inject(TasksStoreKey)
-    // tasksStore.setCurrentTask(null)
+    tasksStore.setCurrentTask(null)
 
-    // context.root.$axios
-    //   .get('/api/v1/tasks')
-    //   .then((res) => {
-    //     tasksStore.setCurrentTask(res.data.current)
-    //   })
-    //   .catch((e) => {
-    //     console.error(e)
-    //   })
+    context.root.$axios
+      .get('/api/v1/tasks')
+      .then((res) => {
+        tasksStore.setCurrentTask(res.data.current)
+      })
+      .catch((e) => {
+        console.error(e)
+      })
     const user = ref([])
     const trigger = (event: any) => {
       context.root.$router.push(`/users/search?username=${state.username}`)
-      // context.root.$router.push(`/users/search?username=${username}`)
       // if (event.keyCode !== 13) return
     }
     const items = reactive<HeaderItem[]>([
@@ -175,16 +174,4 @@ export default defineComponent({
     font-size: 20px;
   }
 }
-
-// #sbox2 {
-
-//   height: 50px;
-//   /* padding: 0 10px; */
-//   /* position: absolute; */
-//   /* left: 0; */
-//   /* top: 0; */
-//   border-radius: 2px;
-//   outline: 0;
-//   background: #eee;
-// }
 </style>

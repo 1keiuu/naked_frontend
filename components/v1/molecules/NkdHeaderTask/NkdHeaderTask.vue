@@ -1,12 +1,15 @@
 <template>
   <div>
-    <div id="task-card" class="task-card">
+    <div id="task-card" class="task-card mr-2">
       <div class="task-card__inner">
         <h3 class="text-lg">{{ task.title }}</h3>
       </div>
-      <button @click="createRecord" class="open-play__button">
-        <NkdIcon type="play" color="grey" />
-      </button>
+      <div class="task-card__table">
+        <div class="task-card__table__time">2:00</div>
+        <button @click="createRecord" class="open-play__button">
+          <NkdIcon type="play" color="grey" />
+        </button>
+      </div>
     </div>
   </div>
 </template>
@@ -57,21 +60,31 @@ export default defineComponent({
 </script>
 <style scoped lang="scss">
 .task-card {
+  background-color: #f5f4f4;
+  display: flex;
+  overflow: hidden;
+  padding: 0 8px;
+  width: auto;
+  &__inner {
+    padding: 9px;
+  }
   .open-play__button {
-    opacity: 0;
     height: 45px;
     width: 45px;
     padding: 10px;
     margin: 0 0 0 auto;
   }
-  &:hover {
-    .open-play__button {
-      opacity: 1;
-      pointer-events: unset;
+  &__table {
+    // padding: 10px;
+    display: flex;
+    padding: 0 10px;
+    border-left: 1px solid #c9ccce;
+    &__time {
+      padding: 11px;
     }
   }
 }
 .task-card:hover {
-  background: #f1f4f7;
+  background: #dfe2e6;
 }
 </style>
