@@ -5,11 +5,16 @@
   >
     <div class="search">
       <input class="search__input" type="text" placeholder="ユーザーを検索してください" @keyup.enter="trigger" v-model="state.username"/>
+
       <div class="search__icon h-10">
         <NkdIcon type="search" color="#666"/>
       </div>
     </div>
-    <!-- <input id="sbox2" name="s" type="text" placeholder="フリーワードを入力"/> -->
+    <!-- <p v-if="current == null">なし</p>
+    <NkdHeaderTask
+      v-else
+      :task="tasksStore.currentTask"
+    /> -->
     <img
       :src="avatarUrl"
       v-if="avatarUrl"
@@ -37,11 +42,15 @@ import {
   defineComponent,
   reactive,
   ref,
+  inject,
+  provide,
   computed,
   PropType,
 } from '@vue/composition-api'
 import HeaderItemList from '@/components/v1/organisms/NkdHeaderItemList/NkdHeaderItemList.vue'
 import NkdIcon from '@/components/v1/atoms/NkdIcon/NkdIcon.vue'
+import NkdHeaderTask from '../../molecules/NkdHeaderTask/NkdHeaderTask.vue'
+import TasksStoreKey from '@/components/v1/storeKeys/TasksStoreKey'
 
 export default defineComponent({
   name: 'NkdHeader',
@@ -58,14 +67,29 @@ export default defineComponent({
   components: {
     HeaderItemList,
     NkdIcon,
+    NkdHeaderTask,
   },
+
   setup(_props, context) {
     const state = reactive({
       username: '',
     })
+
+    const tasksStore = inject(TasksStoreKey)
+    // tasksStore.setCurrentTask(null)
+
+    // context.root.$axios
+    //   .get('/api/v1/tasks')
+    //   .then((res) => {
+    //     tasksStore.setCurrentTask(res.data.current)
+    //   })
+    //   .catch((e) => {
+    //     console.error(e)
+    //   })
     const user = ref([])
     const trigger = (event: any) => {
       context.root.$router.push(`/users/search?username=${state.username}`)
+      // context.root.$router.push(`/users/search?username=${username}`)
       // if (event.keyCode !== 13) return
     }
     const items = reactive<HeaderItem[]>([
@@ -114,6 +138,7 @@ export default defineComponent({
       state,
       trigger,
       user,
+      tasksStore,
     }
   },
 })

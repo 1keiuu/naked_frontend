@@ -157,6 +157,7 @@ export default defineComponent({
     }
   }
   .date__wrapper {
+    margin: 0 0 0 auto;
     .starts-date,
     .due-date {
       color: grey;
