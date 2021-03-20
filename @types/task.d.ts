@@ -9,6 +9,5 @@ declare type Task = {
     completed_date?: string,
     created_at?: Date,
     updated_at?: Date,
-    record: TaskRecord,
     sub_tasks?: SubTask[]
 }

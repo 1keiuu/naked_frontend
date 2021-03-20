@@ -81,7 +81,10 @@ export default defineComponent({
     context.root.$axios
       .get('/api/v1/tasks')
       .then((res) => {
-        tasksStore.setCurrentTask(res.data.current)
+        if (res.data.current.id !== null)
+          tasksStore.setCurrentTask(res.data.current)
+        else return
+        console.log(res.data.current)
       })
       .catch((e) => {
         console.error(e)

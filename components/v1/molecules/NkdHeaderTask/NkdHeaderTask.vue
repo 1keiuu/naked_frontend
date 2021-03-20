@@ -29,7 +29,7 @@ export default defineComponent({
   },
   props: {
     task: {
-      type: Object as PropType<Task>,
+      type: Object,
     },
   },
   setup(props, context) {
