@@ -5,7 +5,11 @@
         <h3 class="text-lg">{{ task.title }}</h3>
       </div>
       <div class="task-card__table">
-        <div class="task-card__table__time">2:00</div>
+        <div class="task-card__table__time">
+          {{ hours }} :
+          {{ minutes | zeroPad }} :
+          {{ seconds | zeroPad }}
+        </div>
         <button @click="updateRecord" class="open-play__button">
           <NkdIcon type="stop" color="grey" />
         </button>
@@ -19,6 +23,7 @@ import {
   PropType,
   inject,
   ref,
+  computed,
   watch,
 } from '@vue/composition-api'
 import TaskPageStoreKey from '@/components/v1/storeKeys/TaskPageStoreKey'
@@ -37,6 +42,30 @@ export default defineComponent({
     const taskPageStore = inject(TaskPageStoreKey)
     const isCalenderOpen = ref(false)
     const selectedDate = ref({ start: String, end: String })
+    const animateFrame = ref(0)
+    const nowTime = ref(0)
+    const diffTime = ref(0)
+    const startTime = ref(0)
+    const isRunning = ref(false)
+
+    const setSubtractStartTime = (time: number) => {
+      var time = typeof time !== 'undefined' ? time : 0
+      startTime.value = Math.floor(performance.now() - time)
+    }
+
+    const startTimer = () => {
+      isRunning.value = true
+      setSubtractStartTime(diffTime.value)
+      ;(function loop() {
+        nowTime.value = Math.floor(performance.now())
+        diffTime.value = nowTime.value - startTime.value
+        animateFrame.value = requestAnimationFrame(loop)
+      })()
+    }
+
+    const stopTimer = () => {
+      cancelAnimationFrame(animateFrame.value)
+    }
 
     const updateRecord = () => {
       context.root.$axios
@@ -46,14 +75,38 @@ export default defineComponent({
         })
         .then((res) => {
           const record = res.data.record
+          context.root.$router.go(0)
         })
         .catch((e) => {})
     }
+    const hours = computed(() => {
+      return Math.floor(diffTime.value / 1000 / 60 / 60)
+        .toString()
+        .padStart(2, '0')
+    })
+    const minutes = computed(() => {
+      return (Math.floor(diffTime.value / 1000 / 60) % 60)
+        .toString()
+        .padStart(2, '0')
+    })
+    // 秒数を計算 (60秒になったら0秒に戻る)
+    const seconds = computed(() => {
+      return (Math.floor(diffTime.value / 1000) % 60)
+        .toString()
+        .padStart(2, '0')
+    })
+
+    startTimer()
 
     return {
       selectedDate,
       date,
       updateRecord,
+      startTimer,
+      stopTimer,
+      hours,
+      minutes,
+      seconds,
     }
   },
 })

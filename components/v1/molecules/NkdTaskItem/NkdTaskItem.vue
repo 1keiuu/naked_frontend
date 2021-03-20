@@ -11,9 +11,6 @@
         <p class="starts-date">{{ task.starts_date }} ~</p>
         <p class="due-date">{{ task.due_date }}</p>
       </div>
-      <!-- <button>
-        <NkdIcon type="calendar" color="grey" />
-      </button> -->
       <button @click="createRecord" class="open-play__button">
         <NkdIcon type="play" color="grey" />
       </button>
@@ -77,7 +74,6 @@ export default defineComponent({
         starts_date: date.start,
         due_date: date.end,
       }
-      console.log(data)
       context.emit('updateTaskDate', data)
     })
 
