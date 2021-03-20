@@ -6,8 +6,8 @@
       </div>
       <div class="task-card__table">
         <div class="task-card__table__time">2:00</div>
-        <button @click="createRecord" class="open-play__button">
-          <NkdIcon type="play" color="grey" />
+        <button @click="updateRecord" class="open-play__button">
+          <NkdIcon type="stop" color="grey" />
         </button>
       </div>
     </div>
@@ -38,9 +38,9 @@ export default defineComponent({
     const isCalenderOpen = ref(false)
     const selectedDate = ref({ start: String, end: String })
 
-    const createRecord = () => {
+    const updateRecord = () => {
       context.root.$axios
-        .post('/api/v1/records', {
+        .patch(`/api/v1/records/${props.task?.record?.id}`, {
           task_id: props.task?.id,
           user_id: context.root.$auth.user.id,
         })
@@ -53,7 +53,7 @@ export default defineComponent({
     return {
       selectedDate,
       date,
-      createRecord,
+      updateRecord,
     }
   },
 })

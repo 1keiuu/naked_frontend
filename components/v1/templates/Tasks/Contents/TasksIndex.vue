@@ -1,14 +1,6 @@
 <template>
   <div class="min-h-full">
     <div class="epic-tasks__group ml-5 mb-5">
-      <h2 class="text-xl mb-3">現在のタスク</h2>
-      <p v-if="current == null" class="pl-10">タスクはありません</p>
-      <NkdTaskItem
-        v-else
-        :task="current"
-      />
-    </div>
-    <div class="epic-tasks__group ml-5 mb-5">
       <h2 class="text-xl mb-3">今日</h2>
       <p v-if="today.length <= 0" class="pl-10">タスクはありません</p>
       <NkdTaskItemsList
