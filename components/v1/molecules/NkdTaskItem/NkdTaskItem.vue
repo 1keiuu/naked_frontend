@@ -17,6 +17,7 @@
       <button @click="openCalender" class="open-calendar__button">
         <NkdIcon type="calendar" color="grey" />
       </button>
+      <p class="ml-2 task-card__time">{{record_time}}</p>
       <v-date-picker
         v-if="isCalenderOpen"
         class="calendar"
@@ -51,6 +52,7 @@ export default defineComponent({
   },
   setup(props, context) {
     const date = ref(new Date())
+    const record_time = ref(Number)
     const taskPageStore = inject(TaskPageStoreKey)
     const isCalenderOpen = ref(false)
     const selectedDate = ref({ start: String, end: String })
@@ -113,6 +115,15 @@ export default defineComponent({
         .catch((e) => {})
     }
 
+    context.root.$axios
+      .post('/api/v1/records/time', {
+        task_id: props.task?.id,
+      })
+      .then((res) => {
+        record_time.value = res.data.record_time
+      })
+      .catch((e) => {})
+
     return {
       onCardClick,
       openCalender,
@@ -121,6 +132,7 @@ export default defineComponent({
       selectedDate,
       date,
       createRecord,
+      record_time,
     }
   },
 })
@@ -178,6 +190,10 @@ export default defineComponent({
     top: 100%;
     right: 0;
     z-index: 5;
+  }
+  &__time {
+    color: gray;
+    font-size: 13px;
   }
 }
 .task-card:hover {
