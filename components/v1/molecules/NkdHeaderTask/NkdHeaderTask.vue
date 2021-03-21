@@ -58,7 +58,11 @@ export default defineComponent({
       setSubtractStartTime(diffTime.value)
       ;(function loop() {
         nowTime.value = Math.floor(performance.now())
-        diffTime.value = nowTime.value - startTime.value
+        // nowTime.value = Math.floor(props?.task?.record_time)
+        diffTime.value =
+          Math.floor(props?.task?.record_time * 1000) +
+          nowTime.value -
+          startTime.value
         animateFrame.value = requestAnimationFrame(loop)
       })()
     }
