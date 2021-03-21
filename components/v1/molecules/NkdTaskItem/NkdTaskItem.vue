@@ -39,13 +39,14 @@ import {
 } from '@vue/composition-api'
 import TaskPageStoreKey from '@/components/v1/storeKeys/TaskPageStoreKey'
 import NkdIcon from '@/components/v1/atoms/NkdIcon/NkdIcon.vue'
+import TasksStoreKey from '@/components/v1/storeKeys/TasksStoreKey'
 export default defineComponent({
   components: {
     NkdIcon,
   },
   props: {
     task: {
-      type: Object as PropType<Task>,
+      type: Object,
     },
   },
   setup(props, context) {
@@ -53,6 +54,8 @@ export default defineComponent({
     const taskPageStore = inject(TaskPageStoreKey)
     const isCalenderOpen = ref(false)
     const selectedDate = ref({ start: String, end: String })
+    const tasksStore = inject(TasksStoreKey)
+
     const onCardClick = () => {
       const isDrawerOpen = taskPageStore.isDrawerOpen
       if (isDrawerOpen) {
@@ -89,6 +92,16 @@ export default defineComponent({
     }
 
     const createRecord = () => {
+      if (tasksStore.currentTask.id !== null)
+        context.root.$axios
+          .patch(`/api/v1/records/${tasksStore.currentTask.record.id}`, {
+            task_id: props.task?.id,
+            user_id: context.root.$auth.user.id,
+          })
+          .then((res) => {
+            const record = res.data.record
+          })
+          .catch((e) => {})
       context.root.$axios
         .post('/api/v1/records', {
           task_id: props.task?.id,

@@ -7,8 +7,8 @@
       <div class="task-card__table">
         <div class="task-card__table__time">
           {{ hours }} :
-          {{ minutes | zeroPad }} :
-          {{ seconds | zeroPad }}
+          {{ minutes}} :
+          {{ seconds}}
         </div>
         <button @click="updateRecord" class="open-play__button">
           <NkdIcon type="stop" color="grey" />

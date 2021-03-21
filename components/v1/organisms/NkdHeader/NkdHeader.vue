@@ -84,7 +84,6 @@ export default defineComponent({
         if (res.data.current.id !== null)
           tasksStore.setCurrentTask(res.data.current)
         else return
-        console.log(res.data.current)
       })
       .catch((e) => {
         console.error(e)
