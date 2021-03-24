@@ -104,6 +104,24 @@ export default defineComponent({
             const record = res.data.record
           })
           .catch((e) => {})
+
+      // context.root.$axios
+      //   .patch(`/api/v1/tasks/${props.task?.id}`, {
+      //     id: props.task?.id,
+      //   })
+      //   .then((res) => {
+      //     const record = res.data.record
+      //   })
+      //   .catch((e) => {})
+
+      context.root.$axios
+        .post('/api/v1/tasks/record_update', {
+          id: props.task?.id,
+        })
+        .then((res) => {
+          const record = res.data.record
+        })
+        .catch((e) => {})
       context.root.$axios
         .post('/api/v1/records', {
           task_id: props.task?.id,
@@ -148,6 +166,9 @@ export default defineComponent({
   border-bottom: 1px solid #efefef;
   cursor: pointer;
   width: 95%;
+  &__inner {
+    flex: 1;
+  }
 
   .open-calendar__button {
     pointer-events: none;
@@ -178,7 +199,8 @@ export default defineComponent({
     }
   }
   .date__wrapper {
-    margin: 0 0 0 auto;
+    margin-left: 100px;
+    flex: 2;
     .starts-date,
     .due-date {
       color: grey;
@@ -194,6 +216,7 @@ export default defineComponent({
   &__time {
     color: gray;
     font-size: 13px;
+    width: 30px;
   }
 }
 .task-card:hover {
