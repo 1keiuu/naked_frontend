@@ -25,6 +25,7 @@
         is-range
         v-model="selectedDate"
         v-click-outside="clickCalendarOutside"
+        @input="inputDate"
       />
     </div>
     <NkdSubTaskItemsList :subTasks="task.sub_tasks" />
@@ -105,15 +106,6 @@ export default defineComponent({
           })
           .catch((e) => {})
 
-      // context.root.$axios
-      //   .patch(`/api/v1/tasks/${props.task?.id}`, {
-      //     id: props.task?.id,
-      //   })
-      //   .then((res) => {
-      //     const record = res.data.record
-      //   })
-      //   .catch((e) => {})
-
       context.root.$axios
         .post('/api/v1/tasks/record_update', {
           id: props.task?.id,
@@ -131,6 +123,10 @@ export default defineComponent({
           const record = res.data.record
         })
         .catch((e) => {})
+    }
+
+    const inputDate = (event: any) => {
+      console.log(event.start)
     }
 
     context.root.$axios
@@ -151,6 +147,7 @@ export default defineComponent({
       date,
       createRecord,
       record_time,
+      inputDate,
     }
   },
 })

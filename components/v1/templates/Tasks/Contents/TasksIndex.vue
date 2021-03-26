@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-full">
+  <div class="min-h-full tasks-group">
     <div class="epic-tasks__group ml-5 mb-5">
       <h2 class="text-xl mb-3">今日</h2>
       <p v-if="today.length <= 0" class="pl-10">タスクはありません</p>
@@ -79,5 +79,11 @@ export default defineComponent({
 <style scoped lang="scss">
 .tasks-group__day {
   z-index: 10;
+}
+
+.tasks-group::after {
+  content: '';
+  height: 50px;
+  display: block;
 }
 </style>

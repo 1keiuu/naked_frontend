@@ -49,6 +49,7 @@ export default defineComponent({
 <style scoped lang="scss">
 .task__sub-header {
   top: 4em;
+  z-index: 2;
 }
 .tab {
   outline: 0;

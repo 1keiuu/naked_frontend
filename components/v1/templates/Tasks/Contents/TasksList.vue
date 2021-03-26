@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-full">
+  <div class="min-h-full tasks-group">
     <div class="tasks-group ml-5 mt-3">
       <h2 class="text-xl mb-3">タスク一覧</h2>
       <NkdTaskItemsList :tasks="tasksArray" />
@@ -34,4 +34,9 @@ export default defineComponent({
 })
 </script>
 <style scoped lang="scss">
+.tasks-group::after {
+  content: '';
+  height: 80px;
+  display: block;
+}
 </style>
