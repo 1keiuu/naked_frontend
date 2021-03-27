@@ -35,7 +35,9 @@ export default defineComponent({
     const listItems = reactive<SideBarItem[]>([
       { title: 'ホーム', to: '/', icon: 'home' },
       { title: 'マイタスク', to: '/tasks', icon: 'task' },
+      { title: '分析', to: '/graph', icon: 'graph' },
     ])
+    console.log(listItems)
     return { listItems }
   },
 })
