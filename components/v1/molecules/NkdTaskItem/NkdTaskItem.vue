@@ -126,7 +126,16 @@ export default defineComponent({
     }
 
     const inputDate = (event: any) => {
-      console.log(event.start)
+      console.log(event)
+      context.root.$axios
+        .patch(`/api/v1/tasks/${props.task?.id}`, {
+          starts_date: event.start,
+          due_date: event.end,
+        })
+        .then((res) => {
+          const record = res.data.record
+        })
+        .catch((e) => {})
     }
 
     context.root.$axios

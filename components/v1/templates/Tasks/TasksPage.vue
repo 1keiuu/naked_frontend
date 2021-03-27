@@ -64,7 +64,7 @@ export default defineComponent({
       ) {
         taskPageStore.closeDrawer()
         //リアルタイム同期はできないがdrawerとurl変えることになるので強制リダイレクト
-        // context.root.$router.go(0)
+        context.root.$router.go(0)
       }
     }
 

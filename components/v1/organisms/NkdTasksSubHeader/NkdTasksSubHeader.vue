@@ -21,7 +21,7 @@
 
 <script lang="ts">
 import { defineComponent, inject } from '@vue/composition-api'
-import TaskPageStoreKey from '@/components/v1/storeKeys/TaskPageStoreKey.ts'
+import TaskPageStoreKey from '@/components/v1/storeKeys/TaskPageStoreKey'
 
 export default defineComponent({
   props: {
