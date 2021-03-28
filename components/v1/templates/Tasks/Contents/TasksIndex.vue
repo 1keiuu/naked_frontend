@@ -1,7 +1,7 @@
 <template>
   <div class="min-h-full tasks-group">
     <div class="epic-tasks__group ml-5 mb-5">
-      <h2 class="text-xl mb-3">今日</h2>
+      <h2 class="text-xl mb-3 mt-2">今日</h2>
       <p v-if="today.length <= 0" class="pl-10">タスクはありません</p>
       <NkdTaskItemsList
         v-else-if="today.length >= 1"

@@ -10,9 +10,8 @@
         <NkdIcon type="search" color="#666"/>
       </div>
     </div>
-    <p v-if="tasksStore.currentTask == null"></p>
     <NkdHeaderTask
-      v-else
+      v-if="tasksStore.currentTask !== null"
       :task="tasksStore.currentTask"
     />
     <img

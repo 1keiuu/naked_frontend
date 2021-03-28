@@ -48,9 +48,7 @@ export default defineComponent({
           })
           .then((res) => {
             const task = res.data.task
-            tasksStore.appendTasks({
-              task: { id: task.id, title: task.title },
-            })
+            tasksStore.appendToNoDateTask(task)
           })
           .catch((e) => {})
       }

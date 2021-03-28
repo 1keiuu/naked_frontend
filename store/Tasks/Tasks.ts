@@ -74,6 +74,9 @@ export default function TasksStore() {
     setNoDateTasks(array:Task[]) {
       state.noDateTasks = array
     },
+    appendToNoDateTask(payload: Task) {
+      state.noDateTasks.push(payload)
+    },
     deleteNoDateTasks(payload: Number) {
       const target = state.noDateTasks.find((item:Task) => {
         return item.id == payload
