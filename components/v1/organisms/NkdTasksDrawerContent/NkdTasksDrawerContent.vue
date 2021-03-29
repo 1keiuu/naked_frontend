@@ -18,17 +18,21 @@
         @onTextAreaInput="onTextAreaInput"
         @onTextAreaBlur="onTextAreaBlur"
       />
+      <NkdRecordItemsList
+        :records="task.records"
+      />
       <NkdDrawerTasksInput @onInputBlur="createSubTask" />
     </div>
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, PropType, inject } from '@vue/composition-api'
+import { defineComponent, PropType, inject, ref } from '@vue/composition-api'
 import NkdTextField from '@/components/v1/atoms/NkdTextField/NkdTextField.vue'
 import NkdTextArea from '@/components/v1/atoms/NkdTextArea/NkdTextArea.vue'
 import NkdLabel from '@/components/v1/atoms/NkdLabel/NkdLabel.vue'
 import NkdSubTaskItemsList from '@/components/v1/organisms/NkdSubTaskItemsList/NkdSubTaskItemsList.vue'
 import NkdTasksDrawerHeader from '@/components/v1/organisms/NkdTasksDrawerHeader/NkdTasksDrawerHeader.vue'
+import NkdRecordItemsList from '~/components/v1/organisms/NkdRecordItemsList/NkdRecordItemsList.vue'
 import NkdDrawerTasksInput from '@/components/v1/organisms/NkdDrawerTasksInput/NkdDrawerTasksInput.vue'
 import TaskPageStoreKey from '@/components/v1/storeKeys/TaskPageStoreKey'
 import EpicTasksStoreKey from '@/components/v1/storeKeys/EpicTasksStoreKey'
@@ -43,6 +47,7 @@ export default defineComponent({
     NkdTextArea,
     NkdSubTaskItemsList,
     NkdTasksDrawerHeader,
+    NkdRecordItemsList,
   },
   setup(props, context) {
     const taskPageStore = inject(TaskPageStoreKey)

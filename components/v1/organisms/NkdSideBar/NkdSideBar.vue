@@ -37,7 +37,6 @@ export default defineComponent({
       { title: 'マイタスク', to: '/tasks', icon: 'task' },
       { title: '分析', to: '/graph', icon: 'graph' },
     ])
-    console.log(listItems)
     return { listItems }
   },
 })

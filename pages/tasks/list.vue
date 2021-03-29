@@ -9,7 +9,7 @@
 import { defineComponent, inject, reactive } from '@vue/composition-api'
 import TasksPage from '@/components/v1/templates/Tasks/TasksPage.vue'
 import TasksStoreKey from '@/components/v1/storeKeys/TasksStoreKey'
-import TaskPageStoreKey from '@/components/v1/storeKeys/TaskPageStoreKey.ts'
+import TaskPageStoreKey from '@/components/v1/storeKeys/TaskPageStoreKey'
 import TasksList from '@/components/v1/templates/Tasks/Contents/TasksList.vue'
 
 export default defineComponent({
@@ -21,7 +21,6 @@ export default defineComponent({
     context.root.$axios
       .get('/api/v1/sub_tasks')
       .then((res) => {
-        console.log(`${res.data}`)
         tasksStore.setTasks(res.data)
       })
       .catch((e) => {

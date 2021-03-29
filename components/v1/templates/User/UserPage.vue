@@ -46,8 +46,6 @@ export default defineComponent({
   setup(props, context) {
     const followBoolean = ref(false)
     const current_user_id = context.root.$auth.user.id
-    console.log(props?.user?.id)
-    console.log(props.userId)
 
     context.root.$axios
       .post('api/v1/users/followings', {
@@ -57,7 +55,6 @@ export default defineComponent({
         },
       })
       .then((res) => {
-        console.log(`${res.data.boolean}`)
         followBoolean.value = res.data.boolean
       })
       .catch((e) => {

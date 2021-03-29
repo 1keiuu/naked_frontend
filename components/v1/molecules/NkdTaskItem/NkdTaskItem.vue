@@ -126,7 +126,6 @@ export default defineComponent({
     }
 
     const inputDate = (event: any) => {
-      console.log(event)
       context.root.$axios
         .patch(`/api/v1/tasks/${props.task?.id}`, {
           starts_date: event.start,
