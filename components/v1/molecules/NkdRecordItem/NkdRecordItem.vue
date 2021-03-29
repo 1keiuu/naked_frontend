@@ -32,9 +32,9 @@ export default defineComponent({
   },
   setup(props, context) {
     const startTime = computed(() => {
-      return moment(props.record?.starts_time).format('YYYY-MM-DD')
+      return moment(props.record?.starts_time).format('YYYY/MM/DD HH:mm')
     })
-    return {}
+    return { startTime }
   },
 })
 </script>
