@@ -2,14 +2,14 @@
   <div>
     <div id="task-card" class="task-card" @click="onCardClick">
       <div class="task-card__inner">
-        <h3 class="text-lg">{{ task.title }}</h3>
+        <h3 class="text-lg" id="task-card">{{ task.title }}</h3>
       </div>
       <div v-if="task.starts_date == task.due_date" class="date__wrapper">
-        <p class="starts-date">{{ task.starts_date }}</p>
+        <p class="starts-date" id="task-card">{{ task.starts_date }}</p>
       </div>
       <div v-else-if="task.starts_date || task.due_date" class="date__wrapper">
-        <p class="starts-date">{{ task.starts_date }} ~</p>
-        <p class="due-date">{{ task.due_date }}</p>
+        <p class="starts-date" id="task-card">{{ task.starts_date }} ~</p>
+        <p class="due-date" id="task-card">{{ task.due_date }}</p>
       </div>
       <button @click="createRecord" class="open-play__button">
         <NkdIcon type="play" color="grey" />
@@ -17,7 +17,7 @@
       <button @click="openCalender" class="open-calendar__button">
         <NkdIcon type="calendar" color="grey" />
       </button>
-      <p class="ml-2 task-card__time">{{taskPageStore.isDrawerOpen}}</p>
+      <p class="ml-2 task-card__time" id="task-card">{{record_time}}</p>
       <v-date-picker
         v-if="isCalenderOpen"
         class="calendar"
@@ -38,6 +38,7 @@ import {
   inject,
   ref,
   watch,
+  computed,
 } from '@vue/composition-api'
 import TaskPageStoreKey from '@/components/v1/storeKeys/TaskPageStoreKey'
 import NkdIcon from '@/components/v1/atoms/NkdIcon/NkdIcon.vue'
@@ -63,17 +64,15 @@ export default defineComponent({
       const isDrawerOpen = taskPageStore.isDrawerOpen
       if (isDrawerOpen) {
         taskPageStore.closeDrawer()
-        console.log(taskPageStore.isDrawerOpen)
         return
       }
       if (isCalenderOpen.value == true) {
         taskPageStore.closeDrawer()
         return
       }
+      taskPageStore.openDrawer()
       taskPageStore.selectTask(props.task)
       taskPageStore.selectSubTasks(props.task?.sub_tasks)
-      taskPageStore.openDrawer()
-      console.log(taskPageStore.isDrawerOpen)
     }
     watch(selectedDate, (date) => {
       isCalenderOpen.value = false
@@ -136,6 +135,7 @@ export default defineComponent({
         })
         .then((res) => {
           const record = res.data.record
+          context.root.$router.go(0)
         })
         .catch((e) => {})
     }
