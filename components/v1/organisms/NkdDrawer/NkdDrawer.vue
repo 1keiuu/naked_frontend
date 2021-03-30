@@ -5,11 +5,12 @@
     id="task-drawer"
   >
     <slot />
+    {{isActive}}
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@vue/composition-api'
+import { defineComponent, onMounted } from '@vue/composition-api'
 
 export default defineComponent({
   props: {
@@ -17,6 +18,11 @@ export default defineComponent({
       type: Boolean,
       required: true,
     },
+  },
+  setup(props, context) {
+    onMounted(() => {
+      console.log(props.isActive)
+    })
   },
 })
 </script>

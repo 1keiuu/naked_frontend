@@ -17,7 +17,7 @@
       <button @click="openCalender" class="open-calendar__button">
         <NkdIcon type="calendar" color="grey" />
       </button>
-      <p class="ml-2 task-card__time">{{record_time}}</p>
+      <p class="ml-2 task-card__time">{{taskPageStore.isDrawerOpen}}</p>
       <v-date-picker
         v-if="isCalenderOpen"
         class="calendar"
@@ -63,6 +63,7 @@ export default defineComponent({
       const isDrawerOpen = taskPageStore.isDrawerOpen
       if (isDrawerOpen) {
         taskPageStore.closeDrawer()
+        console.log(taskPageStore.isDrawerOpen)
         return
       }
       if (isCalenderOpen.value == true) {
@@ -72,6 +73,7 @@ export default defineComponent({
       taskPageStore.selectTask(props.task)
       taskPageStore.selectSubTasks(props.task?.sub_tasks)
       taskPageStore.openDrawer()
+      console.log(taskPageStore.isDrawerOpen)
     }
     watch(selectedDate, (date) => {
       isCalenderOpen.value = false
@@ -121,6 +123,7 @@ export default defineComponent({
         })
         .then((res) => {
           const record = res.data.record
+          context.root.$router.go(0)
         })
         .catch((e) => {})
     }

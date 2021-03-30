@@ -16,6 +16,7 @@
         @onClickEpicDeleteButton="deleteEpic"
       />
     </NkdDrawer>
+    {{taskPageStore.isDrawerOpen}}
   </div>
 </template>
 
