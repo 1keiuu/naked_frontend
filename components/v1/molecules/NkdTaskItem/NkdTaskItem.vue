@@ -1,5 +1,6 @@
 <template>
   <div>
+    <!-- idのtask-cardを変えるときは注意 -->
     <div id="task-card" class="task-card" @click="onCardClick">
       <div class="task-card__inner">
         <h3 class="text-lg" id="task-card">{{ task.title }}</h3>

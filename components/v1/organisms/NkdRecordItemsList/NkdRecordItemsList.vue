@@ -1,6 +1,9 @@
 <template>
   <div>
     <!-- なぜかキャメルケースだとエラーが起きる -->
+    <div class="text-xl mb-3">
+      記録
+    </div>
     <nkd-record-item
       v-for="record in records"
       :key="'record' + record.id + type"

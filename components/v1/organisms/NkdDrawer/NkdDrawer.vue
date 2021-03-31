@@ -5,7 +5,6 @@
     id="task-drawer"
   >
     <slot />
-    {{isActive}}
   </div>
 </template>
 
@@ -18,11 +17,6 @@ export default defineComponent({
       type: Boolean,
       required: true,
     },
-  },
-  setup(props, context) {
-    onMounted(() => {
-      console.log(props.isActive)
-    })
   },
 })
 </script>

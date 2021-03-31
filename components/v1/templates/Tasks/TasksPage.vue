@@ -16,7 +16,6 @@
         @onClickEpicDeleteButton="deleteEpic"
       />
     </NkdDrawer>
-    {{taskPageStore.isDrawerOpen}}
   </div>
 </template>
 
@@ -58,8 +57,6 @@ export default defineComponent({
     })
 
     const onTasksPageClick = (e: Event) => {
-      console.log(e.target)
-      console.log((e.target as HTMLInputElement).id)
       if (
         !(e.target as HTMLInputElement).closest('.nkd-drawer') &&
         (e.target as HTMLInputElement).id !== 'task-card' &&

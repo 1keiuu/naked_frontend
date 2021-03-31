@@ -1,10 +1,7 @@
 <template>
   <div>
-    <div>
-      {{startTime}}
-    </div>
-    <div>
-      {{record.finish_time}}
+    <div class="mb-1">
+      {{startTime}}~{{finishTime}}
     </div>
   </div>
 </template>
@@ -34,7 +31,10 @@ export default defineComponent({
     const startTime = computed(() => {
       return moment(props.record?.starts_time).format('YYYY/MM/DD HH:mm')
     })
-    return { startTime }
+    const finishTime = computed(() => {
+      return moment(props.record?.finish_time).format('HH:mm')
+    })
+    return { startTime, finishTime }
   },
 })
 </script>

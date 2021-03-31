@@ -18,9 +18,9 @@
         @onTextAreaInput="onTextAreaInput"
         @onTextAreaBlur="onTextAreaBlur"
       />
-      <!-- <NkdRecordItemsList
+      <NkdRecordItemsList
         :records="task.records"
-      /> -->
+      />
       <NkdDrawerTasksInput @onInputBlur="createSubTask" />
     </div>
   </div>
