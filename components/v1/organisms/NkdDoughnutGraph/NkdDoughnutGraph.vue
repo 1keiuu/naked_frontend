@@ -17,19 +17,33 @@ import { Doughnut } from 'vue-chartjs'
 
 export default defineComponent({
   props: {
-    datasets: {
-      type: Object,
-    },
+    labels: Array,
+    data: Array,
+    backgroundColor: Array,
     options: Object,
   },
   components: { Doughnut },
   extends: Doughnut,
   setup(props, context) {
+    console.log(props)
+
     const doughnut = ref()
+    //refの関係上graphpageでdatasetsを設定するとグラフが表示されない
+    const datasets = reactive({
+      labels: props.labels,
+      // 表示するデータ
+      datasets: [
+        {
+          data: props.data,
+          backgroundColor: props.backgroundColor,
+        },
+      ],
+    })
+    console.log(datasets)
 
     onMounted(() => {
       // the DOM element will be assigned to the ref after initial render
-      doughnut.value.renderChart(props.datasets, props.options)
+      doughnut.value.renderChart(datasets, props.options)
     })
 
     return { doughnut }
