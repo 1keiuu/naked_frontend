@@ -1,6 +1,6 @@
 <template>
-  <div class="mt-16 pt-12 pl-56 h-screen overflow-scroll">
-    <Doughnut ref="doughnut"></Doughnut>
+  <div class="h-screen overflow-scroll">
+    <Pie ref="doughnut"></Pie>
   </div>
 </template>
 
@@ -13,7 +13,7 @@ import {
   PropType,
   onMounted,
 } from '@vue/composition-api'
-import { Doughnut } from 'vue-chartjs'
+import { Pie } from 'vue-chartjs'
 
 export default defineComponent({
   props: {
@@ -22,11 +22,9 @@ export default defineComponent({
     backgroundColor: Array,
     options: Object,
   },
-  components: { Doughnut },
-  extends: Doughnut,
+  components: { Pie },
+  extends: Pie,
   setup(props, context) {
-    console.log(props)
-
     const doughnut = ref()
     //refの関係上graphpageでdatasetsを設定するとグラフが表示されない
     const datasets = reactive({
@@ -39,14 +37,29 @@ export default defineComponent({
         },
       ],
     })
-    console.log(datasets)
+    console.log(doughnut)
+    // doughnut.value.$refs.canvas.clientHeight = 500
+    // doughnut.value.$refs.canvas.clientHeight = 500
 
     onMounted(() => {
       // the DOM element will be assigned to the ref after initial render
+      // doughnut.value.$refs.canvas.clientHeight = 500
+      // doughnut.value.$refs.canvas.clientHeight = 500
       doughnut.value.renderChart(datasets, props.options)
+      // doughnut.value.$refs.canvas.clientHeight = 500
+      // doughnut.value.$refs.canvas.clientHeight = 500
+      // doughnut.value.height = 500
+      // doughnut.value.width = 500
+      console.log(doughnut)
     })
+    // doughnut.value.$refs.canvas.offsetHeight = 500
+    // doughnut.value.$refs.canvas.offsetWidth = 500
+    // doughnut.value.$refs.canvas.height = 500
+    // doughnut.value.$refs.canvas.width = 500
 
     return { doughnut }
   },
 })
 </script>
+<style scoped lang="scss">
+</style>

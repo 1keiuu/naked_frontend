@@ -1,13 +1,13 @@
 <template>
   <div class="mt-16 pt-12 pl-56 h-screen overflow-scroll">
     <!-- <Doughnut ref="doughnut"></Doughnut> -->
-    <NkdDoughnutGraph
-      v-if="loaded"
-      :options = "options"
-      :labels = "taskTitles"
-      :data = "timeRationals"
-      :backgroundColor = "taskColors"
-    />
+      <NkdDoughnutGraph
+        v-if="loaded"
+        :options = "options"
+        :labels = "taskTitles"
+        :data = "timeRationals"
+        :backgroundColor = "taskColors"
+      />
   </div>
 </template>
 
@@ -46,26 +46,6 @@ export default defineComponent({
       .catch((e) => {
         console.error(e)
       })
-    console.log(taskColors)
-    console.log(timeRationals.value)
-
-    // const datasets = reactive({
-    //   // labels: taskTitles,
-    //   // datasets: [
-    //   //   {
-    //   //     data: timeRationals,
-    //   //     backgroundColor: taskColors,
-    //   //   },
-    //   // ],
-    //   labels: taskTitles,
-    //   // 表示するデータ
-    //   datasets: [
-    //     {
-    //       data: timeRationals.value,
-    //       backgroundColor: ['#e11ba4', '#ab0ea', '#edf8a2'],
-    //     },
-    //   ],
-    // })
     const options = reactive({
       responsive: true,
     })
@@ -74,3 +54,6 @@ export default defineComponent({
   },
 })
 </script>
+
+<style scoped lang="scss">
+</style>
