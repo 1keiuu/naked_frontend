@@ -17,38 +17,19 @@ import { Doughnut } from 'vue-chartjs'
 
 export default defineComponent({
   props: {
-    user: {
-      type: Object as PropType<User>,
+    datasets: {
+      type: Object,
     },
-    userId: String,
+    options: Object,
   },
   components: { Doughnut },
   extends: Doughnut,
   setup(props, context) {
-    var randomColor = require('random-color')
-    const labels = ref(['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'])
-    const current_user_id = context.root.$auth.user.id
     const doughnut = ref()
-    const datasets = reactive({
-      labels: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
-      // 表示するデータ
-      datasets: [
-        {
-          data: [10, 15, 6, 22, 11, 49, 32],
-          backgroundColor: [
-            '#' + ((Math.random() * 0xffffff) << 0).toString(16),
-            '#' + ((Math.random() * 0xffffff) << 0).toString(16),
-          ],
-        },
-      ],
-    })
-    const options = reactive({
-      responsive: true,
-    })
 
     onMounted(() => {
       // the DOM element will be assigned to the ref after initial render
-      doughnut.value.renderChart(datasets, options)
+      doughnut.value.renderChart(props.datasets, props.options)
     })
 
     return { doughnut }

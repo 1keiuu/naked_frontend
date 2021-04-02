@@ -100,7 +100,6 @@ export default defineComponent({
       if (tasksStore.currentTask.id !== null)
         context.root.$axios
           .patch(`/api/v1/records/${tasksStore.currentTask.record.id}`, {
-            task_id: props.task?.id,
             user_id: context.root.$auth.user.id,
           })
           .then((res) => {
