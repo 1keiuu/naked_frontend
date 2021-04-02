@@ -37,25 +37,10 @@ export default defineComponent({
         },
       ],
     })
-    console.log(doughnut)
-    // doughnut.value.$refs.canvas.clientHeight = 500
-    // doughnut.value.$refs.canvas.clientHeight = 500
 
     onMounted(() => {
-      // the DOM element will be assigned to the ref after initial render
-      // doughnut.value.$refs.canvas.clientHeight = 500
-      // doughnut.value.$refs.canvas.clientHeight = 500
       doughnut.value.renderChart(datasets, props.options)
-      // doughnut.value.$refs.canvas.clientHeight = 500
-      // doughnut.value.$refs.canvas.clientHeight = 500
-      // doughnut.value.height = 500
-      // doughnut.value.width = 500
-      console.log(doughnut)
     })
-    // doughnut.value.$refs.canvas.offsetHeight = 500
-    // doughnut.value.$refs.canvas.offsetWidth = 500
-    // doughnut.value.$refs.canvas.height = 500
-    // doughnut.value.$refs.canvas.width = 500
 
     return { doughnut }
   },

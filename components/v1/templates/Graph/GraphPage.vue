@@ -47,7 +47,7 @@ export default defineComponent({
         console.error(e)
       })
     const options = reactive({
-      responsive: true,
+      responsive: false,
     })
 
     return { options, loaded, taskTitles, timeRationals, taskColors }
