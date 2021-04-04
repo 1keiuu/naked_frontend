@@ -8,9 +8,9 @@
         :data = "timeRationals"
         :backgroundColor = "taskColors"
       />
-      <!-- <GraphToday
+      <GraphToday
         :today="tasksStore.todayTasks"
-      /> -->
+      />
   </div>
 </template>
 

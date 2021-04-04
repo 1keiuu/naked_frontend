@@ -1,5 +1,5 @@
 <template>
-  <div class="h-screen overflow-scroll">
+  <div class="overflow-scroll">
     <Pie ref="doughnut"></Pie>
   </div>
 </template>
