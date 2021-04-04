@@ -20,7 +20,7 @@ import TasksStoreKey from '@/components/v1/storeKeys/TasksStoreKey'
 import TaskPageStoreKey from '@/components/v1/storeKeys/TaskPageStoreKey'
 
 export default defineComponent({
-  components: { TasksPage },
+  components: { TasksPage, TasksIndex },
   setup(_props, context) {
     const tasksStore = inject(TasksStoreKey)
     const taskPageStore = inject(TaskPageStoreKey)

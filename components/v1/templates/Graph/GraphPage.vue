@@ -8,6 +8,9 @@
         :data = "timeRationals"
         :backgroundColor = "taskColors"
       />
+      <!-- <GraphToday
+        :today="tasksStore.todayTasks"
+      /> -->
   </div>
 </template>
 
@@ -24,10 +27,11 @@ import {
 import NkdDoughnutGraph from '@/components/v1/organisms/NkdDoughnutGraph/NkdDoughnutGraph.vue'
 import TasksStoreKey from '@/components/v1/storeKeys/TasksStoreKey'
 import TaskPageStoreKey from '@/components/v1/storeKeys/TaskPageStoreKey'
+import GraphToday from '@/components/v1/templates/Graph/Contents/GraphToday.vue'
 
 export default defineComponent({
   props: {},
-  components: { NkdDoughnutGraph },
+  components: { NkdDoughnutGraph, GraphToday },
   setup(props, context) {
     const tasksStore = inject(TasksStoreKey)
     const taskPageStore = inject(TaskPageStoreKey)
@@ -41,6 +45,7 @@ export default defineComponent({
         timeRationals.value = res.data.time_rational
         taskTitles.value = res.data.task_title
         taskColors.value = res.data.color
+        tasksStore.setTodayTasks(res.data.today_tasks)
         loaded.value = true
       })
       .catch((e) => {
@@ -50,7 +55,14 @@ export default defineComponent({
       responsive: false,
     })
 
-    return { options, loaded, taskTitles, timeRationals, taskColors }
+    return {
+      options,
+      loaded,
+      taskTitles,
+      timeRationals,
+      taskColors,
+      tasksStore,
+    }
   },
 })
 </script>
