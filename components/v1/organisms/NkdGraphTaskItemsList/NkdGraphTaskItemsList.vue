@@ -4,23 +4,33 @@
       v-for="task in tasks"
       :key="'task' + task.id + type"
       :task="task"
+      :timeRational="timeRational"
     />
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, PropType } from '@vue/composition-api'
+import {
+  computed,
+  defineComponent,
+  PropType,
+  reactive,
+  ref,
+} from '@vue/composition-api'
 import NkdGraphItem from '@/components/v1/molecules/NkdGraphItem/NkdGraphItem.vue'
 
 export default defineComponent({
   props: {
-    tasks: {
-      type: Array as PropType<Task[]>,
-    },
-    type: { type: String },
+    tasks: Array,
+    timeRationals: Array,
   },
   components: { NkdGraphItem },
-  setup(_props, context) {
-    return {}
+  setup(props, context) {
+    const items = reactive({
+      tasks: props.tasks,
+      timeRationals: props.timeRationals,
+    })
+    console.log(items)
+    return { items }
   },
 })
 </script>

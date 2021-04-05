@@ -6,6 +6,7 @@
         <div class="task-card__color mr-5" :style="style"></div>
         <h3 class="text-lg" id="task-card">{{ task.title }}</h3>
       </div>
+      <p class="mr-11 task-card__time" id="task-card">{{timeRational}}</p>
       <p class="mr-11 task-card__time" id="task-card">{{record_time}}</p>
     </div>
   </div>
@@ -30,6 +31,7 @@ export default defineComponent({
     task: {
       type: Object,
     },
+    timeRational: String,
   },
   setup(props, context) {
     const record_time = ref(Number)

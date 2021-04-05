@@ -6,6 +6,7 @@
       <NkdGraphTaskItemsList
         v-else-if="today.length >= 1"
         :tasks="today"
+        :timeRationals="timeRationals"
       />
     </div>
   </div>
@@ -20,6 +21,7 @@ export default defineComponent({
       type: Array as PropType<Task[]>,
       required: false,
     },
+    timeRationals: Array,
   },
   components: {
     NkdGraphTaskItemsList,
