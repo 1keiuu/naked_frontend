@@ -4,7 +4,6 @@
       v-for="task in tasks"
       :key="'task' + task.id + type"
       :task="task"
-      :timeRational="timeRational"
     />
   </div>
 </template>
@@ -21,16 +20,10 @@ import NkdGraphItem from '@/components/v1/molecules/NkdGraphItem/NkdGraphItem.vu
 export default defineComponent({
   props: {
     tasks: Array,
-    timeRationals: Array,
   },
   components: { NkdGraphItem },
   setup(props, context) {
-    const items = reactive({
-      tasks: props.tasks,
-      timeRationals: props.timeRationals,
-    })
-    console.log(items)
-    return { items }
+    return {}
   },
 })
 </script>

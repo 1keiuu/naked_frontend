@@ -10,7 +10,6 @@
       />
       <GraphToday
         :today="tasksStore.todayTasks"
-        :timeRationals="timeRationals"
       />
   </div>
 </template>
