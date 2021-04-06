@@ -3,7 +3,7 @@
     <!-- idのtask-cardを変えるときは注意 -->
     <div class="task-card">
       <div class="task-card__inner">
-        <div class="task-card__color mr-5" :style="style"></div>
+        <div class="task-card__color mr-5" :style="style"/>
         <h3 class="text-lg" id="task-card">{{ task.title }}</h3>
       </div>
       <p class="mr-11 task-card__time" id="task-card">{{task.time_rational}}%</p>

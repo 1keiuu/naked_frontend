@@ -1,6 +1,6 @@
 <template>
   <div class="overflow-scroll">
-    <Pie ref="doughnut"></Pie>
+    <Pie ref="doughnut"/>
   </div>
 </template>
 
