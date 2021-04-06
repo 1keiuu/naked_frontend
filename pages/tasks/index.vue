@@ -45,7 +45,7 @@ export default defineComponent({
           .post('/api/v1/tasks', {
             title: inputValue,
             user_id: context.root.$auth.user.id,
-            color: '#' + ((Math.random() * 0xffffff) << 0).toString(16),
+            color: '#' + Math.floor(Math.random() * 16777215).toString(16),
           })
           .then((res) => {
             const task = res.data.task
