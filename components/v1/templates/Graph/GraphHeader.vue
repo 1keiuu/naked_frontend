@@ -25,8 +25,8 @@ export default defineComponent({
   components: { NkdTDoughnutSubHeader },
   setup(props, context) {
     const contents = reactive([
-      { id: 1, title: '直近のタスク', route: '/graph' },
-      { id: 2, title: 'リスト', route: '/tasks/list' },
+      { id: 1, title: '今日', route: '/graph' },
+      { id: 2, title: '今週', route: '/graph/week' },
     ])
     const currentPage = context.root.$route.path
     const changeContent = (id: number, route: string) => {
@@ -34,8 +34,8 @@ export default defineComponent({
         case '/graph':
           context.root.$router.push('/graph')
           break
-        case '/tasks/list':
-          context.root.$router.push('/tasks/list')
+        case '/graph/week':
+          context.root.$router.push('/graph/week')
           break
       }
     }

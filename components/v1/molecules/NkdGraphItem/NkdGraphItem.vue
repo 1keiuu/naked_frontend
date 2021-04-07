@@ -34,7 +34,6 @@ export default defineComponent({
   },
   setup(props, context) {
     const record_time = ref(Number)
-    const taskColor = ref()
     const style = computed(() => {
       return { '--task-color': props.task?.color }
     })

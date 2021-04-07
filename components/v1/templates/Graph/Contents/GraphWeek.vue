@@ -1,11 +1,11 @@
 <template>
   <div class="min-h-full tasks-group">
     <div class="epic-tasks__group ml-5 mb-5">
-      <h2 class="text-xl mb-3 mt-2">今日</h2>
-      <p v-if="today.length <= 0" class="pl-10">タスクはありません</p>
+      <h2 class="text-xl mb-3 mt-2">今週</h2>
+      <p v-if="week.length <= 0" class="pl-10">タスクはありません</p>
       <NkdGraphTaskItemsList
-        v-else-if="today.length >= 1"
-        :tasks="today"
+        v-else-if="week.length >= 1"
+        :tasks="week"
       />
     </div>
   </div>
@@ -16,7 +16,7 @@ import NkdGraphTaskItemsList from '@/components/v1/organisms/NkdGraphTaskItemsLi
 import taskPageStoreKey from '@/components/v1/storeKeys/TaskPageStoreKey'
 export default defineComponent({
   props: {
-    today: {
+    week: {
       type: Array as PropType<Task[]>,
       required: false,
     },
@@ -25,7 +25,7 @@ export default defineComponent({
     NkdGraphTaskItemsList,
   },
   setup(props, context) {
-    console.log('hello')
+    console.log(props.week)
     const taskPageStore = inject(taskPageStoreKey)
     return { taskPageStore }
   },

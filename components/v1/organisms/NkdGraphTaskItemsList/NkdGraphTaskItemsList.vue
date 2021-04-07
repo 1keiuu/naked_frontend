@@ -2,7 +2,7 @@
   <div>
     <NkdGraphItem
       v-for="task in tasks"
-      :key="'task' + task.id + type"
+      :key="'task' + task.id"
       :task="task"
     />
   </div>

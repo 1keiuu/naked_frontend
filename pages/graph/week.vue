@@ -2,7 +2,7 @@
   <div class="task-page w-full h-full">
     <GraphHeader
     />
-    <GraphPage/>
+    <GraphWeekPage/>
   </div>
 </template>
 <script lang="ts">
@@ -15,13 +15,13 @@ import {
   onMounted,
   inject,
 } from '@vue/composition-api'
-import GraphPage from '@/components/v1/templates/Graph/GraphPage.vue'
+import GraphWeekPage from '@/components/v1/templates/Graph/GraphWeekPage.vue'
 import GraphHeader from '@/components/v1/templates/Graph/GraphHeader.vue'
 
 export default defineComponent({
   props: {},
   components: {
-    GraphPage,
+    GraphWeekPage,
     GraphHeader,
   },
   setup(props, context) {},

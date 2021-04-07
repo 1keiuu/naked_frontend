@@ -30,8 +30,6 @@ export default defineComponent({
     },
   },
   setup(props, context) {
-    console.log(props.tabs)
-    console.log(props.currentPage)
     const taskPageStore = inject(TaskPageStoreKey)
 
     const onTabClick = (id: number, route: string) => {

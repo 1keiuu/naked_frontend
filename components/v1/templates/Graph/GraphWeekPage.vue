@@ -7,8 +7,8 @@
         :data = "timeRationals"
         :backgroundColor = "taskColors"
       />
-      <GraphToday
-        :today="tasksStore.todayTasks"
+      <GraphWeek
+        :week="tasksStore.weekTasks"
       />
   </div>
 </template>
@@ -26,11 +26,11 @@ import {
 import NkdDoughnutGraph from '@/components/v1/organisms/NkdDoughnutGraph/NkdDoughnutGraph.vue'
 import TasksStoreKey from '@/components/v1/storeKeys/TasksStoreKey'
 import TaskPageStoreKey from '@/components/v1/storeKeys/TaskPageStoreKey'
-import GraphToday from '@/components/v1/templates/Graph/Contents/GraphToday.vue'
+import GraphWeek from '@/components/v1/templates/Graph/Contents/GraphWeek.vue'
 
 export default defineComponent({
   props: {},
-  components: { NkdDoughnutGraph, GraphToday },
+  components: { NkdDoughnutGraph, GraphWeek },
   setup(props, context) {
     const tasksStore = inject(TasksStoreKey)
     const taskPageStore = inject(TaskPageStoreKey)
@@ -40,12 +40,12 @@ export default defineComponent({
     const loaded = ref(false)
 
     context.root.$axios
-      .get('/api/v1/tasks/today_graph_task')
+      .get('/api/v1/tasks/week_graph_task')
       .then((res) => {
         timeRationals.value = res.data.time_rational
         taskTitles.value = res.data.task_title
         taskColors.value = res.data.color
-        tasksStore.setTodayTasks(res.data.today_tasks)
+        tasksStore.setWeekTasks(res.data.week_tasks)
         loaded.value = true
       })
       .catch((e) => {
