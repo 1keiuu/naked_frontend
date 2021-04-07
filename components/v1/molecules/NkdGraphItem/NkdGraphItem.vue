@@ -6,8 +6,8 @@
         <div class="task-card__color mr-5" :style="style"/>
         <h3 class="text-lg" id="task-card">{{ task.title }}</h3>
       </div>
-      <p class="mr-11 task-card__time" id="task-card">{{task.time_rational}}%</p>
       <p class="mr-11 task-card__time" id="task-card">{{record_time}}</p>
+      <p class="mr-11 task-card__time-rational" id="task-card">{{task.time_rational}}%</p>
     </div>
   </div>
 </template>
@@ -60,6 +60,7 @@ export default defineComponent({
   &__inner {
     display: flex;
     align-items: center;
+    flex: 1;
   }
   &__color {
     width: 20px;
@@ -69,6 +70,12 @@ export default defineComponent({
   &__time {
     color: gray;
     font-size: 13px;
+    flex: 2;
+  }
+  &__time-rational {
+    color: gray;
+    font-size: 15px;
+    flex: auto;
   }
 }
 </style>
