@@ -1,6 +1,10 @@
 <template>
   <div class="mt-16 pt-12 pl-56 h-screen overflow-scroll">
-    <!-- <Doughnut ref="doughnut"></Doughnut> -->
+      <!-- <NkdDoughnutSubHeader
+        :tabs="contents"
+        @onTabClick="changeContent"
+        :currentPage="currentPage"
+      /> -->
       <NkdDoughnutGraph
         v-if="loaded"
         :options = "options"
@@ -28,10 +32,11 @@ import NkdDoughnutGraph from '@/components/v1/organisms/NkdDoughnutGraph/NkdDoug
 import TasksStoreKey from '@/components/v1/storeKeys/TasksStoreKey'
 import TaskPageStoreKey from '@/components/v1/storeKeys/TaskPageStoreKey'
 import GraphToday from '@/components/v1/templates/Graph/Contents/GraphToday.vue'
+import NkdTDoughnutSubHeader from '@/components/v1/organisms/NkdDoughnutSubHeader/NkdDoughnutSubHeader.vue'
 
 export default defineComponent({
   props: {},
-  components: { NkdDoughnutGraph, GraphToday },
+  components: { NkdDoughnutGraph, GraphToday, NkdTDoughnutSubHeader },
   setup(props, context) {
     const tasksStore = inject(TasksStoreKey)
     const taskPageStore = inject(TaskPageStoreKey)
@@ -39,6 +44,11 @@ export default defineComponent({
     const taskTitles = ref([])
     const taskColors = ref([])
     const loaded = ref(false)
+    const contents = reactive([
+      { id: 1, title: '直近のタスク', route: '/graph' },
+      { id: 2, title: 'リスト', route: '/tasks/list' },
+    ])
+    const currentPage = context.root.$route.path
     context.root.$axios
       .get('/api/v1/tasks/today_graph_task')
       .then((res) => {
@@ -55,6 +65,17 @@ export default defineComponent({
       responsive: false,
     })
 
+    const changeContent = (id: number, route: string) => {
+      switch (route) {
+        case '/graph':
+          context.root.$router.push('/graph')
+          break
+        case '/tasks/list':
+          context.root.$router.push('/tasks/list')
+          break
+      }
+    }
+
     return {
       options,
       loaded,
@@ -62,6 +83,9 @@ export default defineComponent({
       timeRationals,
       taskColors,
       tasksStore,
+      contents,
+      currentPage,
+      changeContent,
     }
   },
 })

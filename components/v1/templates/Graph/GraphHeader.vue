@@ -1,8 +1,10 @@
 <template>
   <div class="task-page w-full h-full">
-    <GraphHeader
+    <NkdDoughnutSubHeader
+      :tabs="contents"
+      @onTabClick="changeContent"
+      :currentPage="currentPage"
     />
-    <GraphPage/>
   </div>
 </template>
 <script lang="ts">
@@ -15,23 +17,12 @@ import {
   onMounted,
   inject,
 } from '@vue/composition-api'
-import NkdDoughnutGraph from '@/components/v1/organisms/NkdDoughnutGraph/NkdDoughnutGraph.vue'
-import TasksStoreKey from '@/components/v1/storeKeys/TasksStoreKey'
-import TaskPageStoreKey from '@/components/v1/storeKeys/TaskPageStoreKey'
-import GraphToday from '@/components/v1/templates/Graph/Contents/GraphToday.vue'
+
 import NkdTDoughnutSubHeader from '@/components/v1/organisms/NkdDoughnutSubHeader/NkdDoughnutSubHeader.vue'
-import GraphPage from '@/components/v1/templates/Graph/GraphPage.vue'
-import GraphHeader from '@/components/v1/templates/Graph/GraphHeader.vue'
 
 export default defineComponent({
   props: {},
-  components: {
-    NkdDoughnutGraph,
-    GraphToday,
-    NkdTDoughnutSubHeader,
-    GraphPage,
-    GraphHeader,
-  },
+  components: { NkdTDoughnutSubHeader },
   setup(props, context) {
     const contents = reactive([
       { id: 1, title: '直近のタスク', route: '/graph' },
