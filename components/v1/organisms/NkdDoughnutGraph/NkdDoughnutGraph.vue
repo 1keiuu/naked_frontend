@@ -38,8 +38,6 @@ export default defineComponent({
       ],
     })
 
-    console.log(datasets)
-
     onMounted(() => {
       doughnut.value.renderChart(datasets, props.options)
     })

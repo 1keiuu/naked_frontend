@@ -25,7 +25,6 @@ export default defineComponent({
     NkdGraphTaskItemsList,
   },
   setup(props, context) {
-    console.log('hello')
     const taskPageStore = inject(taskPageStoreKey)
     return { taskPageStore }
   },
