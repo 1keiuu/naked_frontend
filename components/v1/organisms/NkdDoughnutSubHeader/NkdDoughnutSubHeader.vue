@@ -13,9 +13,6 @@
         <p :class="{ '--active': currentPage == tab.route }">{{ tab.title }}</p>
       </button>
     </div>
-    <button class="mr-5" @click="onCreateTaskBtnClick">
-      <p>タスクを作成</p>
-    </button>
   </div>
 </template>
 
@@ -38,11 +35,8 @@ export default defineComponent({
     const onTabClick = (id: number, route: string) => {
       context.emit('onTabClick', id, route)
     }
-    const onCreateTaskBtnClick = () => {
-      taskPageStore.startCreateTask()
-    }
 
-    return { onTabClick, onCreateTaskBtnClick }
+    return { onTabClick }
   },
 })
 </script>

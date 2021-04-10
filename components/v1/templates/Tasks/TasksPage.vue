@@ -1,6 +1,6 @@
 <template>
   <div
-    class="mt-16 pt-12 pl-56 h-screen overflow-scroll"
+    class="mt-16 pt-12 pl-56 h-screen overflow-scroll root"
     @click="onTasksPageClick"
   >
     <NkdTaskSubHeader
@@ -9,7 +9,7 @@
       :currentPage="currentPage"
     />
     <slot />
-    <NkdDrawer id="task-drawer" :isActive="taskPageStore.isDrawerOpen">
+    <NkdDrawer ref='root' :isActive="taskPageStore.isDrawerOpen">
       <NkdTasksDrawerContent
         :task="taskPageStore.selectedTask"
         :subTasks="taskPageStore.selectedSubTasks"
@@ -27,10 +27,11 @@ import {
   PropType,
   inject,
   computed,
+  onMounted,
 } from '@vue/composition-api'
 import NkdTaskSubHeader from '@/components/v1/organisms/NkdTasksSubHeader/NkdTasksSubHeader.vue'
 import NkdDrawer from '@/components/v1/organisms/NkdDrawer/NkdDrawer.vue'
-import TaskPageStoreKey from '@/components/v1/storeKeys/TaskPageStoreKey.ts'
+import TaskPageStoreKey from '@/components/v1/storeKeys/TaskPageStoreKey'
 import NkdTasksDrawerContent from '@/components/v1/organisms/NkdTasksDrawerContent/NkdTasksDrawerContent.vue'
 import EpicTasksStoreKey from '@/components/v1/storeKeys/EpicTasksStoreKey'
 
@@ -45,16 +46,25 @@ export default defineComponent({
       { id: 1, title: '直近のタスク', route: '/tasks' },
       { id: 2, title: 'リスト', route: '/tasks/list' },
     ])
+    const root = ref(null)
     const currentPage = context.root.$route.path
     const taskPageStore = inject(TaskPageStoreKey)
     const epicTasksStore = inject(EpicTasksStoreKey)
 
+    onMounted(() => {
+      // the DOM element will be assigned to the ref after initial render
+      console.log(root.value) // <div/>
+    })
+
     const onTasksPageClick = (e: Event) => {
       if (
         !(e.target as HTMLInputElement).closest('.nkd-drawer') &&
-        (e.target as HTMLInputElement).id !== 'task-card'
+        (e.target as HTMLInputElement).id !== 'task-card' &&
+        taskPageStore.isDrawerOpen == true
       ) {
         taskPageStore.closeDrawer()
+        //リアルタイム同期はできないがdrawerとurl変えることになるので強制リダイレクト
+        // context.root.$router.go(0)
       }
     }
 
@@ -109,6 +119,7 @@ export default defineComponent({
       onTasksPageClick,
       epicTasksStore,
       deleteEpic,
+      root,
     }
   },
 })

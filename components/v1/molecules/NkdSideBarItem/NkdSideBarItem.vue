@@ -3,7 +3,7 @@
     <div
       class="nkd-sidebar__list-item hover:bg-gray-800 hover:bg-opacity-25 h-10 pl-4 py-3 flex items-center"
     >
-      <NkdSideBarIcon :type="item.icon" />
+      <NkdSideBarIcon :type="item.icon" color="grey"/>
       <p class="ml-3 text-white text-sm">{{ item.title }}</p>
     </div>
   </nuxt-link>

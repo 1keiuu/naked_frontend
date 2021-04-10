@@ -1,7 +1,7 @@
 <template>
-  <div class="epic-tasks__input" v-if="taskPageStore.isCreatingTask">
+  <div v-if="taskPageStore.isCreatingTask">
     <input
-      class="text-lg"
+      class="text-lg tasks-input"
       @blur="onBlur"
       @keydown="onKeyDown"
       ref="inputRef"
@@ -53,3 +53,17 @@ export default defineComponent({
   },
 })
 </script>
+<style scoped lang="scss">
+.tasks-input {
+  height: 60px;
+  width: 95%;
+  outline: none;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+  padding: 8px 12px;
+}
+
+.tasks-input:focus {
+  border: 1px solid#b5d9f0;
+}
+</style>

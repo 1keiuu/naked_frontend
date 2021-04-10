@@ -1,6 +1,8 @@
 <template>
   <div class="bg-gray-100 min-h-screen">
-    <NkdHeader :loggedIn="loggedIn" :avatarUrl="avatarUrl" />
+    <TasksProvider>
+      <NkdHeader :loggedIn="loggedIn" :avatarUrl="avatarUrl" />
+    </TasksProvider>
     <div class="flex h-full">
       <NkdSideBar :loggedIn="loggedIn" />
       <TasksProvider>

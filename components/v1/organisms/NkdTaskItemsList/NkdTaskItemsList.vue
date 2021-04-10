@@ -2,7 +2,7 @@
   <div>
     <NkdTaskItem
       v-for="task in tasks"
-      :key="'task' + task.id + type"
+      :key="'task' + task.id"
       :task="task"
       @onInputBlur="dispatchEvent"
     />
@@ -13,11 +13,13 @@ import { defineComponent, PropType } from '@vue/composition-api'
 import NkdTaskItem from '@/components/v1/molecules/NkdTaskItem/NkdTaskItem.vue'
 
 export default defineComponent({
+  components: {
+    NkdTaskItem,
+  },
   props: {
     tasks: {
       type: Array as PropType<Task[]>,
     },
-    type: { type: String },
   },
   setup(_props, context) {
     const onCreateTaskBtnClick = () => {

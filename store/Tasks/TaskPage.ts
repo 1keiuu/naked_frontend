@@ -48,7 +48,7 @@ export default function TaskPageStore() {
         },      
         closeDrawer() {
             state.isDrawerOpen = false
-        },         
+        },
         // タスクの作成/更新中のフラグ
         get isCreatingTask() {
             return state.isCreatingTask

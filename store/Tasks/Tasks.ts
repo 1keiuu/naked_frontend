@@ -6,6 +6,9 @@ export default function TasksStore() {
     todayTasks: <Task[]>[],
     tomorrowTasks: <Task[]>[],
     noDateTasks: <Task[]>[],
+    weekTasks: <Task[]>[],
+    monthTasks: <Task[]>[],
+    currentTask: <Task>{}
   })
 
   const replaceTask = (tasks: Task[], task: Task) => {
@@ -28,6 +31,15 @@ export default function TasksStore() {
     },
     get noDateTasks() {
       return state.noDateTasks
+    },
+    get currentTask() {
+      return state.currentTask
+    },
+    get weekTasks() {
+      return state.weekTasks
+    },
+    get monthTasks() {
+      return state.monthTasks
     },
     setTasks(array:Task[]) {
       state.tasks = array
@@ -70,6 +82,9 @@ export default function TasksStore() {
     setNoDateTasks(array:Task[]) {
       state.noDateTasks = array
     },
+    appendToNoDateTask(payload: Task) {
+      state.noDateTasks.push(payload)
+    },
     deleteNoDateTasks(payload: Number) {
       const target = state.noDateTasks.find((item:Task) => {
         return item.id == payload
@@ -78,6 +93,18 @@ export default function TasksStore() {
         const targetIndex = state.noDateTasks.indexOf(target)
         state.noDateTasks.splice(targetIndex, 1)
       }
+    },
+    //current
+    setCurrentTask(object:Task) {
+      state.currentTask = object
+    },
+    //week
+    setWeekTasks(array:Task[]) {
+      state.weekTasks = array
+    },
+    //month
+    setMonthTasks(array:Task[]) {
+      state.monthTasks = array
     },
   }
 }

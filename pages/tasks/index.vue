@@ -5,6 +5,7 @@
         :today="tasksStore.todayTasks"
         :tomorrow="tasksStore.tomorrowTasks"
         :noDate="tasksStore.noDateTasks"
+        :current="tasksStore.currentTask"
         @onInputBlur="createTask"
         @updateTaskDate="updateTask"
       />
@@ -16,13 +17,14 @@ import { defineComponent, reactive, inject } from '@vue/composition-api'
 import TasksPage from '@/components/v1/templates/Tasks/TasksPage.vue'
 import TasksIndex from '@/components/v1/templates/Tasks/Contents/TasksIndex.vue'
 import TasksStoreKey from '@/components/v1/storeKeys/TasksStoreKey'
-import TaskPageStoreKey from '@/components/v1/storeKeys/TaskPageStoreKey.ts'
+import TaskPageStoreKey from '@/components/v1/storeKeys/TaskPageStoreKey'
 
 export default defineComponent({
-  components: { TasksPage },
+  components: { TasksPage, TasksIndex },
   setup(_props, context) {
     const tasksStore = inject(TasksStoreKey)
     const taskPageStore = inject(TaskPageStoreKey)
+    tasksStore.setCurrentTask(null)
 
     context.root.$axios
       .get('/api/v1/tasks')
@@ -30,6 +32,7 @@ export default defineComponent({
         tasksStore.setTodayTasks(res.data.today)
         tasksStore.setTomorrowTasks(res.data.tomorrow)
         tasksStore.setNoDateTasks(res.data.no_date)
+        tasksStore.setCurrentTask(res.data.current)
       })
       .catch((e) => {
         console.error(e)
@@ -42,12 +45,11 @@ export default defineComponent({
           .post('/api/v1/tasks', {
             title: inputValue,
             user_id: context.root.$auth.user.id,
+            color: '#' + Math.floor(Math.random() * 16777215).toString(16),
           })
           .then((res) => {
             const task = res.data.task
-            tasksStore.appendTasks({
-              task: { id: task.id, title: task.title },
-            })
+            tasksStore.appendToNoDateTask(task)
           })
           .catch((e) => {})
       }

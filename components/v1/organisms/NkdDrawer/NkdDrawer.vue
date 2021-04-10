@@ -2,13 +2,14 @@
   <div
     class="nkd-drawer h-screen overflow-y-scroll bg-gray-100 border-l-2 border-gray-300 flex flex-col items-center fixed right-0 top-0 z-10"
     :class="{ '--active': isActive }"
+    id="task-drawer"
   >
     <slot />
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@vue/composition-api'
+import { defineComponent, onMounted } from '@vue/composition-api'
 
 export default defineComponent({
   props: {

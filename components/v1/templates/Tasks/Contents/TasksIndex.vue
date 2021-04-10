@@ -1,7 +1,7 @@
 <template>
-  <div class="min-h-full">
-    <div class="epic-tasks__group">
-      <h2 class="ml-5 text-xl">今日</h2>
+  <div class="min-h-full tasks-group">
+    <div class="epic-tasks__group ml-5 mb-5">
+      <h2 class="text-xl mb-3 mt-2">今日</h2>
       <p v-if="today.length <= 0" class="pl-10">タスクはありません</p>
       <NkdTaskItemsList
         v-else-if="today.length >= 1"
@@ -9,8 +9,8 @@
         @updateTaskDate="updateTaskDate"
       />
     </div>
-    <div class="epic-tasks__group">
-      <h2 class="ml-5 text-xl">明日</h2>
+    <div class="epic-tasks__group ml-5 mb-5">
+      <h2 class="text-xl mb-3">明日</h2>
       <p v-if="tomorrow.length <= 0" class="pl-10">タスクはありません</p>
       <NkdTaskItemsList
         v-else-if="tomorrow.length >= 1"
@@ -18,8 +18,8 @@
         @updateTaskDate="updateTaskDate"
       />
     </div>
-    <div class="epic-tasks__group">
-      <h2 class="ml-5 text-xl">期日未設定</h2>
+    <div class="tasks-group ml-5">
+      <h2 class="text-xl mb-3 tasks-group__day">期日未設定</h2>
       <p
         v-if="noDate.length <= 0 && !taskPageStore.isCreatingEpic"
         class="pl-10"
@@ -31,16 +31,21 @@
         :tasks="noDate"
         @updateTaskDate="updateTaskDate"
       />
-      <NkdEpicTasksInput @onInputBlur="dispatchEvent" />
+      <NkdTasksInput @onInputBlur="dispatchEvent" />
     </div>
   </div>
 </template>
 <script lang="ts">
 import { defineComponent, PropType, inject } from '@vue/composition-api'
 import NkdTaskItemsList from '@/components/v1/organisms/NkdTaskItemsList/NkdTaskItemsList.vue'
+import NkdTaskItem from '@/components/v1/molecules/NkdTaskItem/NkdTaskItem.vue'
 import taskPageStoreKey from '@/components/v1/storeKeys/TaskPageStoreKey'
+import NkdTasksInput from '@/components/v1/organisms/NkdTasksInput/NkdTasksInput.vue'
 export default defineComponent({
   props: {
+    current: {
+      type: Object as PropType<Task>,
+    },
     today: {
       type: Array as PropType<Task[]>,
       required: false,
@@ -56,6 +61,8 @@ export default defineComponent({
   },
   components: {
     NkdTaskItemsList,
+    NkdTasksInput,
+    NkdTaskItem,
   },
   setup(props, context) {
     const dispatchEvent = (inputValue: string) => {
@@ -69,3 +76,14 @@ export default defineComponent({
   },
 })
 </script>
+<style scoped lang="scss">
+.tasks-group__day {
+  z-index: 10;
+}
+
+.tasks-group::after {
+  content: '';
+  height: 50px;
+  display: block;
+}
+</style>

@@ -5,11 +5,15 @@
   >
     <div class="search">
       <input class="search__input" type="text" placeholder="ユーザーを検索してください" @keyup.enter="trigger" v-model="state.username"/>
+
       <div class="search__icon h-10">
         <NkdIcon type="search" color="#666"/>
       </div>
     </div>
-    <!-- <input id="sbox2" name="s" type="text" placeholder="フリーワードを入力"/> -->
+    <NkdHeaderTask
+      v-if="tasksStore.currentTask !== null"
+      :task="tasksStore.currentTask"
+    />
     <img
       :src="avatarUrl"
       v-if="avatarUrl"
@@ -37,11 +41,15 @@ import {
   defineComponent,
   reactive,
   ref,
+  inject,
+  provide,
   computed,
   PropType,
 } from '@vue/composition-api'
 import HeaderItemList from '@/components/v1/organisms/NkdHeaderItemList/NkdHeaderItemList.vue'
 import NkdIcon from '@/components/v1/atoms/NkdIcon/NkdIcon.vue'
+import NkdHeaderTask from '../../molecules/NkdHeaderTask/NkdHeaderTask.vue'
+import TasksStoreKey from '@/components/v1/storeKeys/TasksStoreKey'
 
 export default defineComponent({
   name: 'NkdHeader',
@@ -58,11 +66,27 @@ export default defineComponent({
   components: {
     HeaderItemList,
     NkdIcon,
+    NkdHeaderTask,
   },
+
   setup(_props, context) {
     const state = reactive({
       username: '',
     })
+
+    const tasksStore = inject(TasksStoreKey)
+    tasksStore.setCurrentTask(null)
+
+    context.root.$axios
+      .get('/api/v1/tasks')
+      .then((res) => {
+        if (res.data.current.id !== null)
+          tasksStore.setCurrentTask(res.data.current)
+        else return
+      })
+      .catch((e) => {
+        console.error(e)
+      })
     const user = ref([])
     const trigger = (event: any) => {
       context.root.$router.push(`/users/search?username=${state.username}`)
@@ -114,6 +138,7 @@ export default defineComponent({
       state,
       trigger,
       user,
+      tasksStore,
     }
   },
 })
@@ -150,16 +175,4 @@ export default defineComponent({
     font-size: 20px;
   }
 }
-
-// #sbox2 {
-
-//   height: 50px;
-//   /* padding: 0 10px; */
-//   /* position: absolute; */
-//   /* left: 0; */
-//   /* top: 0; */
-//   border-radius: 2px;
-//   outline: 0;
-//   background: #eee;
-// }
 </style>
