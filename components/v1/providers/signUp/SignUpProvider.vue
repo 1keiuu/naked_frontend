@@ -7,12 +7,10 @@
 import { defineComponent, provide } from '@vue/composition-api'
 import SignUpStore from '~/store/SignUp/SignUp'
 import SignUpStoreKey from '../../storeKeys/SignUpStoreKey'
-import TaskPageStoreKey from '../../storeKeys/TaskPageStoreKey'
 
 export default defineComponent({
   setup(_props, context) {
     provide(SignUpStoreKey, SignUpStore())
-    // provide(TaskPageStoreKey, TaskPageStore())
     return {}
   },
 })

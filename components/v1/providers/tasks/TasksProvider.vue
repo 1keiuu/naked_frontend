@@ -11,6 +11,7 @@ import EpicTasksStore from '~/store/EpicTasks/EpicTasks'
 import TaskPageStoreKey from '../../storeKeys/TaskPageStoreKey'
 import TasksStoreKey from '../../storeKeys/TasksStoreKey'
 import EpicTasksStoreKey from '../../storeKeys/EpicTasksStoreKey'
+import ReportPageStore from '~/store/Reports/ReportPage'
 import ReportPageStoreKey from '../../storeKeys/ReportPageStoreKey'
 
 export default defineComponent({
@@ -18,7 +19,7 @@ export default defineComponent({
     provide(TasksStoreKey, TaskStore())
     provide(TaskPageStoreKey, TaskPageStore())
     provide(EpicTasksStoreKey, EpicTasksStore())
-    // provide(ReportPageStoreKey, ReportPageStore())
+    provide(ReportPageStoreKey, ReportPageStore())
 
     return {}
   },
