@@ -23,13 +23,13 @@ import ReportPageStoreKey from '@/components/v1/storeKeys/ReportPageStoreKey'
 export default defineComponent({
   props: {},
   setup(props, context) {
-    // const reportPageStore = inject(ReportPageStoreKey)
+    const reportPageStore = inject(ReportPageStoreKey)
 
-    // const onCreateTaskBtnClick = () => {
-    //   reportPageStore.startCreateReport()
-    // }
+    const onCreateTaskBtnClick = () => {
+      reportPageStore?.startCreateReport()
+    }
 
-    return {}
+    return { onCreateTaskBtnClick }
   },
 })
 </script>
@@ -59,17 +59,6 @@ export default defineComponent({
     color: rgb(255, 255, 255);
     margin-left: 10px;
     border: 1px solid #a4cef9;
-  }
-}
-.tab {
-  outline: 0;
-  &.--active {
-    border-bottom: 2px solid black;
-  }
-}
-p {
-  &.--active {
-    font-weight: bold;
   }
 }
 </style>
