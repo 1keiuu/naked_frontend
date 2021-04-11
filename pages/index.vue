@@ -2,7 +2,7 @@
   <div class="w-full h-full">
     <ReportHeader
     />
-    <!-- <GraphPage/> -->
+    <ReportPage/>
   </div>
 </template>
 <script lang="ts">
@@ -15,13 +15,13 @@ import {
   onMounted,
   inject,
 } from '@vue/composition-api'
-import GraphPage from '@/components/v1/templates/Graph/GraphPage.vue'
+import ReportPage from '@/components/v1/templates/Report/ReportPage.vue'
 import ReportHeader from '@/components/v1/templates/Report/ReportHeader.vue'
 
 export default defineComponent({
   props: {},
   components: {
-    GraphPage,
+    ReportPage,
     ReportHeader,
   },
   setup(props, context) {},

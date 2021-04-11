@@ -5,26 +5,31 @@
     <div class="report__sub-header__group h-full">
       最近の活動
     </div>
-    <button class="mr-5 report__sub-header__button" @click="onCreateTaskBtnClick">
-      <p>日報を作成</p>
-    </button>
+    <div class="flex">
+      <button class="report__sub-header__button" @click="onCreateTaskBtnClick">
+        <p>日報を作成</p>
+      </button>
+      <button class="mr-5 report__sub-header__button" @click="onCreateTaskBtnClick">
+        <p>予定を作成</p>
+      </button>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, inject } from '@vue/composition-api'
-import TaskPageStoreKey from '@/components/v1/storeKeys/TaskPageStoreKey'
+import ReportPageStoreKey from '@/components/v1/storeKeys/ReportPageStoreKey'
 
 export default defineComponent({
   props: {},
   setup(props, context) {
-    const taskPageStore = inject(TaskPageStoreKey)
+    // const reportPageStore = inject(ReportPageStoreKey)
 
-    const onCreateTaskBtnClick = () => {
-      taskPageStore.startCreateTask()
-    }
+    // const onCreateTaskBtnClick = () => {
+    //   reportPageStore.startCreateReport()
+    // }
 
-    return { onCreateTaskBtnClick }
+    return {}
   },
 })
 </script>
