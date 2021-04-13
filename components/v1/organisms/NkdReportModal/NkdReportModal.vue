@@ -8,9 +8,7 @@
         今日やったこと
       </div>
       <ul style="list-style: circle;">
-        <li v-for="task in tasksStore.todayTasks">
-          {{task.title}}
-        </li>
+        <NkdRecordItemsList :tasks="tasksStore.todayTasks"/>
       </ul>
     </div>
 
@@ -28,11 +26,11 @@ import {
 import ReportPageStoreKey from '@/components/v1/storeKeys/ReportPageStoreKey'
 import ReportsStoreKey from '@/components/v1/storeKeys/ReportsStoreKey'
 import TasksStoreKey from '@/components/v1/storeKeys/TasksStoreKey'
-import NkdIcon from '../../atoms/NkdIcon/NkdIcon.vue'
+import NkdReportTasksList from '@/components/v1/organisms/NkdReportTasksList/NkdReportTasksList.vue'
 
 export default defineComponent({
   components: {
-    NkdIcon,
+    NkdReportTasksList,
   },
   props: {},
   setup(props, context) {
