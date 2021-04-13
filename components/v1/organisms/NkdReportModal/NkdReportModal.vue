@@ -8,8 +8,9 @@
         今日やったこと
       </div>
       <ul style="list-style: circle;">
-        <li>hello</li>
-        <li>hello2</li>
+        <li v-for="task in tasksStore.todayTasks">
+          {{task.title}}
+        </li>
       </ul>
     </div>
 
@@ -25,6 +26,8 @@ import {
   watch,
 } from '@vue/composition-api'
 import ReportPageStoreKey from '@/components/v1/storeKeys/ReportPageStoreKey'
+import ReportsStoreKey from '@/components/v1/storeKeys/ReportsStoreKey'
+import TasksStoreKey from '@/components/v1/storeKeys/TasksStoreKey'
 import NkdIcon from '../../atoms/NkdIcon/NkdIcon.vue'
 
 export default defineComponent({
@@ -34,12 +37,23 @@ export default defineComponent({
   props: {},
   setup(props, context) {
     const reportPageStore = inject(ReportPageStoreKey)
+    const reportsStore = inject(ReportsStoreKey)
+    const tasksStore = inject(TasksStoreKey)
+
+    context.root.$axios
+      .get('/api/v1/tasks')
+      .then((res) => {
+        tasksStore.setTodayTasks(res.data.today)
+      })
+      .catch((e) => {
+        console.error(e)
+      })
 
     const clickCloseClick = () => {
       reportPageStore?.stopCreateReport()
     }
 
-    return { reportPageStore, clickCloseClick }
+    return { reportPageStore, clickCloseClick, tasksStore }
   },
 })
 </script>
