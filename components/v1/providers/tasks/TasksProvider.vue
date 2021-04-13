@@ -13,6 +13,8 @@ import TasksStoreKey from '../../storeKeys/TasksStoreKey'
 import EpicTasksStoreKey from '../../storeKeys/EpicTasksStoreKey'
 import ReportPageStore from '~/store/Reports/ReportPage'
 import ReportPageStoreKey from '../../storeKeys/ReportPageStoreKey'
+import ReportStore from '~/store/Reports/Reports'
+import ReportsStoreKey from '../../storeKeys/ReportsStoreKey'
 
 export default defineComponent({
   setup(_props, context) {
@@ -20,6 +22,7 @@ export default defineComponent({
     provide(TaskPageStoreKey, TaskPageStore())
     provide(EpicTasksStoreKey, EpicTasksStore())
     provide(ReportPageStoreKey, ReportPageStore())
+    provide(ReportsStoreKey, ReportStore())
 
     return {}
   },
