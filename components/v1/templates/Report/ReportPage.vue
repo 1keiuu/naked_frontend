@@ -28,6 +28,7 @@ export default defineComponent({
   components: { NkdReportModal, GraphToday },
   setup(props, context) {
     const reportPageStore = inject(ReportPageStoreKey)
+
     return { reportPageStore }
   },
 })
