@@ -8,6 +8,7 @@
         <p class="starts-date" id="task-card">{{ task.starts_date }}</p>
       </div>
       <p class="ml-2 task-card__time" id="task-card">{{record_time}}</p>
+    </div>
   </div>
 </template>
 <script lang="ts">

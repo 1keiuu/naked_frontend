@@ -7,9 +7,7 @@
       <div>
         今日やったこと
       </div>
-      <ul style="list-style: circle;">
-        <NkdRecordItemsList :tasks="tasksStore.todayTasks"/>
-      </ul>
+      <NkdReportTasksList :tasks="tasksStore.todayTasks"/>
     </div>
 
   </div>
@@ -42,6 +40,7 @@ export default defineComponent({
       .get('/api/v1/tasks')
       .then((res) => {
         tasksStore.setTodayTasks(res.data.today)
+        console.log(tasksStore.todayTasks)
       })
       .catch((e) => {
         console.error(e)
