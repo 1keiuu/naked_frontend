@@ -1,13 +1,10 @@
 <template>
   <div>
-    <div id="task-card" class="task-card">
-      <div class="task-card__inner">
-        <h3 class="text-lg" id="task-card">{{ task.title }}</h3>
+    <div id="report-card" class="report-card">
+      <div class="report-card__inner">
+        <h3 class="text-lg" id="report-card">{{ task.title }}</h3>
       </div>
-      <div v-if="task.starts_date == task.due_date" class="date__wrapper">
-        <p class="starts-date" id="task-card">{{ task.starts_date }}</p>
-      </div>
-      <p class="ml-2 task-card__time" id="task-card">{{record_time}}</p>
+      <p class="report-card__time" id="report-card">{{record_time}}</p>
     </div>
   </div>
 </template>
@@ -47,4 +44,19 @@ export default defineComponent({
 })
 </script>
 <style scoped lang="scss">
+.report-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  width: 550px;
+  &__inner {
+    font-weight: 350;
+    flex: 1;
+  }
+  &__time {
+    color: gray;
+    font-size: 13px;
+  }
+}
 </style>
