@@ -11,6 +11,7 @@
       <div class=report-body__text>
         <NkdLabel name="report-description" value="コメント" class="mt-10" />
         <NkdTextArea
+          @onTextAreaBlur="setReport"
           :isOutLined="true"
           name="report-description"
         />
@@ -21,7 +22,6 @@
         <p>日報を送信する</p>
       </button>
     </div>
-
   </div>
 </template>
 <script lang="ts">
@@ -47,6 +47,11 @@ export default defineComponent({
     const reportPageStore = inject(ReportPageStoreKey)
     const reportsStore = inject(ReportsStoreKey)
     const tasksStore = inject(TasksStoreKey)
+    const reportDescription = ref()
+
+    const setReport = (inputValue: string) => {
+      reportDescription.value = inputValue
+    }
 
     context.root.$axios
       .get('/api/v1/tasks')
@@ -62,7 +67,7 @@ export default defineComponent({
       reportPageStore?.stopCreateReport()
     }
 
-    return { reportPageStore, clickCloseClick, tasksStore }
+    return { reportPageStore, clickCloseClick, tasksStore, setReport }
   },
 })
 </script>
