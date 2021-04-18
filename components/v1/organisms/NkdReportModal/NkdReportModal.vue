@@ -18,7 +18,7 @@
       </div>
     </div>
     <div class="report-bottom">
-      <button class="report-bottom__button" @click="onCreateTaskBtnClick">
+      <button class="report-bottom__button" @click="onCreateReportBtnClick">
         <p>日報を送信する</p>
       </button>
     </div>
@@ -53,11 +53,25 @@ export default defineComponent({
       reportDescription.value = inputValue
     }
 
+    const onCreateReportBtnClick = () => {
+      reportPageStore?.stopCreateReport()
+      context.root.$axios
+        .post('/api/v1/reports', {
+          description: reportDescription.value,
+          user_id: context.root.$auth.user.id,
+          task_ids: tasksStore.todayTasks.map((task: any) => task.id),
+        })
+        .then((res) => {
+          const report = res.data.report
+          // tasksStore.appendToNoDateTask(task)
+        })
+        .catch((e) => {})
+    }
+
     context.root.$axios
       .get('/api/v1/tasks')
       .then((res) => {
         tasksStore.setTodayTasks(res.data.today.slice(0, 4))
-        console.log(tasksStore.todayTasks)
       })
       .catch((e) => {
         console.error(e)
@@ -67,7 +81,13 @@ export default defineComponent({
       reportPageStore?.stopCreateReport()
     }
 
-    return { reportPageStore, clickCloseClick, tasksStore, setReport }
+    return {
+      reportPageStore,
+      clickCloseClick,
+      tasksStore,
+      setReport,
+      onCreateReportBtnClick,
+    }
   },
 })
 </script>
