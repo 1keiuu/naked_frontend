@@ -5,13 +5,13 @@
     <div class="report__sub-header__group h-full">
       最近の活動
     </div>
-    <div class="flex">
+    <div class="flex mr-2">
       <button class="report__sub-header__button" @click="onCreateTaskBtnClick">
         <p>日報を作成</p>
       </button>
-      <button class="mr-5 report__sub-header__button" @click="onCreateTaskBtnClick">
+      <!-- <button class="mr-5 report__sub-header__button" @click="onCreateTaskBtnClick">
         <p>予定を作成</p>
-      </button>
+      </button> -->
     </div>
   </div>
 </template>

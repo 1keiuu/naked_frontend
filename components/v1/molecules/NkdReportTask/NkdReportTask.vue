@@ -6,12 +6,6 @@
       </div>
       <p class="report-card__time" id="report-card">{{record_time}}</p>
     </div>
-    <NkdLabel name="task-description" value="コメント" class="mt-8" />
-    <NkdTextArea
-      :isOutLined="true"
-      :value="task.description"
-      name="task-description"
-    />
   </div>
 </template>
 <script lang="ts">

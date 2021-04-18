@@ -8,6 +8,18 @@
         今日やったこと
       </div>
       <NkdReportTasksList :tasks="tasksStore.todayTasks"/>
+      <div class=report-body__text>
+        <NkdLabel name="report-description" value="コメント" class="mt-10" />
+        <NkdTextArea
+          :isOutLined="true"
+          name="report-description"
+        />
+      </div>
+    </div>
+    <div class="report-bottom">
+      <button class="report-bottom__button" @click="onCreateTaskBtnClick">
+        <p>日報を送信する</p>
+      </button>
     </div>
 
   </div>
@@ -39,7 +51,7 @@ export default defineComponent({
     context.root.$axios
       .get('/api/v1/tasks')
       .then((res) => {
-        tasksStore.setTodayTasks(res.data.today)
+        tasksStore.setTodayTasks(res.data.today.slice(0, 4))
         console.log(tasksStore.todayTasks)
       })
       .catch((e) => {
@@ -69,5 +81,33 @@ export default defineComponent({
   position: absolute;
   left: 15px;
   top: 50px;
+  &__text {
+    margin-top: 20px;
+  }
+}
+
+.report-bottom {
+  position: absolute;
+  left: 15px;
+  top: 530px;
+  &__button {
+    position: relative;
+    cursor: pointer;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    background-color: #50bfff;
+    height: 50px;
+    width: 540px;
+    padding: 0px 12px;
+    border-radius: 100px;
+    font-size: 13px;
+    font-weight: 500;
+    color: rgb(255, 255, 255);
+    margin-left: 10px;
+    border: 1px solid #a4cef9;
+  }
 }
 </style>
