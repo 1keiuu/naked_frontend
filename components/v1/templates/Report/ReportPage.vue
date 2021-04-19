@@ -1,6 +1,7 @@
 <template>
   <div class="mt-16 pt-12 pl-56 h-screen overflow-scroll">
     <div class="report-card" :class="{ '--active': reportPageStore.isCreatingReport }">
+      <NkdReportItemsList/>
       <div class="report-card__modal" :class="{ '--active': reportPageStore.isCreatingReport }">
         <NkdReportModal/>
       </div>
@@ -19,13 +20,14 @@ import {
   inject,
 } from '@vue/composition-api'
 import NkdReportModal from '@/components/v1/organisms/NkdReportModal/NkdReportModal.vue'
+import NkdReportItemsList from '@/components/v1/organisms/NkdReportItemsList/NkdReportItemsList.vue'
 import TasksStoreKey from '@/components/v1/storeKeys/TasksStoreKey'
 import ReportPageStoreKey from '@/components/v1/storeKeys/ReportPageStoreKey'
 import GraphToday from '@/components/v1/templates/Graph/Contents/GraphToday.vue'
 
 export default defineComponent({
   props: {},
-  components: { NkdReportModal, GraphToday },
+  components: { NkdReportModal, GraphToday, NkdReportItemsList },
   setup(props, context) {
     const reportPageStore = inject(ReportPageStoreKey)
 
