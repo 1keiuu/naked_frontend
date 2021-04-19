@@ -1,6 +1,7 @@
 <template>
   <div class="report-card">
     <div class="report-card__inner">
+      <NkdReportTasksList :tasks="report.tasks"/>
       {{report.description}}
     </div>
   </div>

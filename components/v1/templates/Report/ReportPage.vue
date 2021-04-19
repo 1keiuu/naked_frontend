@@ -1,7 +1,7 @@
 <template>
   <div class="mt-16 pt-12 pl-56 h-screen overflow-scroll">
+    <NkdReportItemsList :reports="reportsStore.reports"/>
     <div class="report-card" :class="{ '--active': reportPageStore.isCreatingReport }">
-      <NkdReportItemsList :reports="reportsStore.reports"/>
       <div class="report-card__modal" :class="{ '--active': reportPageStore.isCreatingReport }">
         <NkdReportModal/>
       </div>
