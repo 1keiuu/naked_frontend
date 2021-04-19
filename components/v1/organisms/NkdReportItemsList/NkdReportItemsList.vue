@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="mt-10">
     <NkdReportItem
       v-for="report in reports"
       :key="'report' + report.id"

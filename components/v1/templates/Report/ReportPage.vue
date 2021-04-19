@@ -1,7 +1,7 @@
 <template>
   <div class="mt-16 pt-12 pl-56 h-screen overflow-scroll">
     <div class="report-card" :class="{ '--active': reportPageStore.isCreatingReport }">
-      <NkdReportItemsList/>
+      <NkdReportItemsList :reports="reportsStore.reports"/>
       <div class="report-card__modal" :class="{ '--active': reportPageStore.isCreatingReport }">
         <NkdReportModal/>
       </div>
@@ -23,6 +23,7 @@ import NkdReportModal from '@/components/v1/organisms/NkdReportModal/NkdReportMo
 import NkdReportItemsList from '@/components/v1/organisms/NkdReportItemsList/NkdReportItemsList.vue'
 import TasksStoreKey from '@/components/v1/storeKeys/TasksStoreKey'
 import ReportPageStoreKey from '@/components/v1/storeKeys/ReportPageStoreKey'
+import ReportsStoreKey from '@/components/v1/storeKeys/ReportsStoreKey'
 import GraphToday from '@/components/v1/templates/Graph/Contents/GraphToday.vue'
 
 export default defineComponent({
@@ -30,8 +31,19 @@ export default defineComponent({
   components: { NkdReportModal, GraphToday, NkdReportItemsList },
   setup(props, context) {
     const reportPageStore = inject(ReportPageStoreKey)
+    const reportsStore = inject(ReportsStoreKey)
 
-    return { reportPageStore }
+    context.root.$axios
+      .get('/api/v1/reports')
+      .then((res) => {
+        reportsStore.setReports(res.data.reports)
+        console.log(reportsStore.reports)
+      })
+      .catch((e) => {
+        console.error(e)
+      })
+
+    return { reportPageStore, reportsStore }
   },
 })
 </script>

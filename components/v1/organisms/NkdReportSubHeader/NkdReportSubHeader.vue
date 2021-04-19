@@ -1,6 +1,6 @@
 <template>
   <div
-    class="report__sub-header w-full left-0 h-12 pl-56 bg-white fixed flex items-center justify-between"
+    class="report__sub-header w-full left-0 h-12 pl-56 fixed flex items-center justify-between"
   >
     <div class="report__sub-header__group h-full">
       最近の活動
