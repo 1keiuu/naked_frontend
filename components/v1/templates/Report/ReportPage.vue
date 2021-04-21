@@ -49,6 +49,9 @@ export default defineComponent({
 </script>
 
 <style scoped lang="scss">
+.report-item {
+  font-size: 15px;
+}
 .report-card {
   &.--active {
     position: fixed;

@@ -1,8 +1,14 @@
 <template>
   <div class="report-card">
     <div class="report-card__inner">
+      <div class="report-card__inner__item">今日のタスク</div>
       <NkdReportTasksList :tasks="report.tasks"/>
-      {{report.description}}
+      <div class="report-card__inner__item mt-5">
+        コメント
+      </div>
+      <div class="report-card__inner__description">
+        {{report.description}}
+      </div>
     </div>
   </div>
 </template>
@@ -39,6 +45,15 @@ export default defineComponent({
   margin: 5px auto 24px;
   &__inner {
     padding: 24px;
+    &__item {
+      font-weight: 600;
+      font-size: 16px;
+      margin-bottom: 6px;
+    }
+    &__description {
+      font-weight: 350;
+      padding: 8px 12px;
+    }
   }
 }
 </style>

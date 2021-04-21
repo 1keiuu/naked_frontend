@@ -3,24 +3,29 @@
     <div class="report-header" @click="clickCloseClick">
       <NkdIcon type="close" color="black" class="report-header__close"/>
     </div>
-    <div class="report-body">
-      <div>
-        今日やったこと
-      </div>
-      <NkdReportTasksList :tasks="tasksStore.todayTasks"/>
-      <div class=report-body__text>
-        <NkdLabel name="report-description" value="コメント" class="mt-10" />
-        <NkdTextArea
-          @onTextAreaBlur="setReport"
-          :isOutLined="true"
-          name="report-description"
-        />
-      </div>
+    <div v-if="tasksStore.todayTasks.length <= 0" class="report-body">
+      今日のタスクを作成してください
     </div>
-    <div class="report-bottom">
-      <button class="report-bottom__button" @click="onCreateReportBtnClick">
-        <p>日報を送信する</p>
-      </button>
+    <div v-else>
+      <div class="report-body">
+        <div>
+          今日やったこと
+        </div>
+        <NkdReportTasksList :tasks="tasksStore.todayTasks"/>
+        <div class=report-body__text>
+          <NkdLabel name="report-description" value="コメント" class="mt-10" />
+          <NkdTextArea
+            @onTextAreaBlur="setReport"
+            :isOutLined="true"
+            name="report-description"
+          />
+        </div>
+      </div>
+      <div class="report-bottom">
+        <button class="report-bottom__button" @click="onCreateReportBtnClick">
+          <p>日報を送信する</p>
+        </button>
+      </div>
     </div>
   </div>
 </template>
