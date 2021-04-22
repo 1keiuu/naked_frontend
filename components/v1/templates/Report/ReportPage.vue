@@ -1,5 +1,5 @@
 <template>
-  <div class="mt-16 pt-12 pl-56 h-screen overflow-scroll">
+  <div class="mt-16 pt-12 pl-56 h-screen overflow-scroll report-group">
     <NkdReportItemsList :reports="reportsStore.reports"/>
     <div class="report-card" :class="{ '--active': reportPageStore.isCreatingReport }">
       <div class="report-card__modal" :class="{ '--active': reportPageStore.isCreatingReport }">
@@ -51,6 +51,11 @@ export default defineComponent({
 <style scoped lang="scss">
 .report-item {
   font-size: 15px;
+}
+.report-group::after {
+  content: '';
+  height: 100px;
+  display: block;
 }
 .report-card {
   &.--active {

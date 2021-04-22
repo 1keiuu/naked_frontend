@@ -97,10 +97,10 @@ export default defineComponent({
         title: 'ログアウト',
         type: 'signOut',
       },
-      {
-        title: '詳細ページ',
-        type: 'show',
-      },
+      // {
+      //   title: '詳細ページ',
+      //   type: 'show',
+      // },
     ])
 
     const isItemListActive = ref(false)
