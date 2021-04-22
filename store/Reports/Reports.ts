@@ -20,11 +20,11 @@ export default function ReportsStore() {
     setReports(array:Report[]) {
       state.reports = array
     },
-    appendReport(report: Report) {
-      state.reports.push(report)
-    },
     updateReport(report: Report) {
       replaceReport(state.reports,report)
+    },
+    appendToReports(payload: Report) {
+      state.reports.unshift(payload)
     },
     deleteReports(payload: Number) {
       const target = state.reports.find((item:Report) => {

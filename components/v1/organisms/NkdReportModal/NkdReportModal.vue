@@ -68,7 +68,8 @@ export default defineComponent({
         })
         .then((res) => {
           const report = res.data.report
-          // tasksStore.appendToNoDateTask(task)
+          reportsStore.appendToReports(report)
+          console.log(reportsStore.reports)
         })
         .catch((e) => {})
     }

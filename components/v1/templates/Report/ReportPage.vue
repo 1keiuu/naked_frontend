@@ -37,7 +37,6 @@ export default defineComponent({
       .get('/api/v1/reports')
       .then((res) => {
         reportsStore.setReports(res.data.reports)
-        console.log(reportsStore.reports)
       })
       .catch((e) => {
         console.error(e)
