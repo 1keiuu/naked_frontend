@@ -130,8 +130,8 @@ export default defineComponent({
     const inputDate = (event: any) => {
       context.root.$axios
         .patch(`/api/v1/tasks/${props.task?.id}`, {
-          starts_date: event.start,
-          due_date: event.end,
+          starts_date: event.start + 1,
+          due_date: event.end + 1,
         })
         .then((res) => {
           const record = res.data.record
