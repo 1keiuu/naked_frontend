@@ -1,6 +1,14 @@
 <template>
   <div class="report-card">
+    <div class="report-card__img">
+      <img
+        src="~/assets/images/avatar.jpg"
+        id="avatar"
+        class="rounded-full h-12 mr-2 cursor-pointer w-12 object-cover"
+      />
+    </div>
     <div class="report-card__inner">
+      <div class="report-card__inner__name">{{report.user.name}}</div>
       <div class="report-card__inner__item">今日のタスク</div>
       <NkdReportTasksList :tasks="report.tasks"/>
       <div class="report-card__inner__item mt-5">
@@ -30,6 +38,7 @@ export default defineComponent({
     },
   },
   setup(props, context) {
+    console.log(props.report)
     return {}
   },
 })
@@ -43,12 +52,25 @@ export default defineComponent({
   position: relative;
   width: 90%;
   margin: 5px auto 24px;
+  display: flex;
+  &__img {
+    padding-top: 24px;
+    padding-left: 24px;
+  }
   &__inner {
-    padding: 24px;
+    padding-top: 24px;
+    padding-left: 4px;
+    &__name {
+      // color: gray;
+      font-weight: 500;
+      font-size: 16px;
+      margin-bottom: 3px;
+    }
     &__item {
       font-weight: 600;
       font-size: 16px;
       margin-bottom: 6px;
+      color: #232323;
     }
     &__description {
       font-weight: 350;
