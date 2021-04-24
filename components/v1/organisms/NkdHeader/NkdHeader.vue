@@ -75,6 +75,7 @@ export default defineComponent({
     })
 
     const tasksStore = inject(TasksStoreKey)
+
     tasksStore.setCurrentTask(null)
 
     context.root.$axios

@@ -5,7 +5,6 @@
         :today="tasksStore.todayTasks"
         :tomorrow="tasksStore.tomorrowTasks"
         :noDate="tasksStore.noDateTasks"
-        :current="tasksStore.currentTask"
         @onInputBlur="createTask"
         @updateTaskDate="updateTask"
       />
@@ -24,7 +23,6 @@ export default defineComponent({
   setup(_props, context) {
     const tasksStore = inject(TasksStoreKey)
     const taskPageStore = inject(TaskPageStoreKey)
-    tasksStore.setCurrentTask(null)
 
     context.root.$axios
       .get('/api/v1/tasks')
@@ -32,7 +30,6 @@ export default defineComponent({
         tasksStore.setTodayTasks(res.data.today)
         tasksStore.setTomorrowTasks(res.data.tomorrow)
         tasksStore.setNoDateTasks(res.data.no_date)
-        tasksStore.setCurrentTask(res.data.current)
       })
       .catch((e) => {
         console.error(e)

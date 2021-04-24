@@ -97,7 +97,7 @@ export default defineComponent({
     }
 
     const createRecord = () => {
-      if (tasksStore.currentTask.id !== null)
+      if (tasksStore.currentTask !== null)
         context.root.$axios
           .patch(`/api/v1/records/${tasksStore.currentTask.record.id}`, {
             user_id: context.root.$auth.user.id,
@@ -121,7 +121,8 @@ export default defineComponent({
           user_id: context.root.$auth.user.id,
         })
         .then((res) => {
-          const record = res.data.record
+          const task = res.data.current_task
+          // tasksStore.setCurrentTask(task)
           context.root.$router.go(0)
         })
         .catch((e) => {})
