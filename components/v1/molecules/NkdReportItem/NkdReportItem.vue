@@ -13,7 +13,7 @@
       </div>
       <div class="report-card__inner__name">{{userName}}</div>
       <div class="report-card__inner__item">今日のタスク</div>
-      <NkdReportTasksList :tasks="report.tasks"/>
+      <NkdReportTasksList :tasks="reportTasks"/>
       <div class="report-card__inner__item mt-5">
         コメント
       </div>
@@ -34,6 +34,7 @@ import {
 } from '@vue/composition-api'
 import NkdIcon from '@/components/v1/atoms/NkdIcon/NkdIcon.vue'
 import ReportPageStoreKey from '@/components/v1/storeKeys/ReportPageStoreKey'
+import TasksStoreKey from '@/components/v1/storeKeys/TasksStoreKey'
 
 export default defineComponent({
   components: { NkdIcon },
@@ -43,6 +44,12 @@ export default defineComponent({
     },
   },
   setup(props, context) {
+    const tasksStore = inject(TasksStoreKey)
+    const reportTasks =
+      props?.report?.tasks == null
+        ? ref(tasksStore.todayTasks)
+        : ref(props?.report?.tasks)
+
     const userName =
       props?.report?.user == null
         ? ref(context.root.$auth.user.name)
@@ -56,7 +63,7 @@ export default defineComponent({
         context.emit('onClickReportDelete')
       }
     }
-    return { userId, onClickReportDelete, userName }
+    return { userId, onClickReportDelete, userName, reportTasks }
   },
 })
 </script>
