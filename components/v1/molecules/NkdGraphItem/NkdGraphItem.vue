@@ -75,7 +75,7 @@ export default defineComponent({
   &__time-rational {
     color: gray;
     font-size: 15px;
-    flex: auto;
+    flex: 3;
   }
 }
 </style>
