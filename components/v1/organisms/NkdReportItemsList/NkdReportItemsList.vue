@@ -5,6 +5,7 @@
       :key="'report' + report.id"
       :report="report"
       @onInputBlur="dispatchEvent"
+      @onClickReportDelete="onClickReportDelete"
     />
   </div>
 </template>
@@ -28,9 +29,13 @@ export default defineComponent({
     const dispatchEvent = (obj: Report) => {
       context.emit('onReportInputBlur', obj)
     }
+    const onClickReportDelete = () => {
+      context.emit('onClickReportDelete')
+    }
     return {
       onCreateReportBtnClick,
       dispatchEvent,
+      onClickReportDelete,
     }
   },
 })

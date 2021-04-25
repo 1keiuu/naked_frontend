@@ -8,7 +8,7 @@
       />
     </div>
     <div class="report-card__inner">
-      <div v-if="report.user.id == userId" class="report-card__inner__trash">
+      <div v-if="report.user.id == userId" class="report-card__inner__trash" @click="onClickReportDelete">
         <NkdIcon type="trash" color="rgb(149 150 152)"/>
       </div>
       <div class="report-card__inner__name">{{report.user.name}}</div>
@@ -33,6 +33,7 @@ import {
   computed,
 } from '@vue/composition-api'
 import NkdIcon from '@/components/v1/atoms/NkdIcon/NkdIcon.vue'
+import ReportPageStoreKey from '@/components/v1/storeKeys/ReportPageStoreKey'
 
 export default defineComponent({
   components: { NkdIcon },
@@ -43,7 +44,14 @@ export default defineComponent({
   },
   setup(props, context) {
     const userId = ref(context.root.$auth.user.id)
-    return { userId }
+    const reportPageStore = inject(ReportPageStoreKey)
+    const onClickReportDelete = () => {
+      if (window.confirm('削除してもよろしいですか？')) {
+        reportPageStore?.selectReport(props?.report)
+        context.emit('onClickReportDelete')
+      }
+    }
+    return { userId, onClickReportDelete }
   },
 })
 </script>

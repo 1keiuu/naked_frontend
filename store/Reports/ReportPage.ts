@@ -4,11 +4,18 @@ import { reactive } from '@vue/composition-api'
 export default function reportPageStore() {
     const state = reactive({
         isCreatingReport: false,
-        isUpdatingReport: false
+        isUpdatingReport: false,
+        selectedReport: <Report>{},
     })
     
     return {
-        // タスクの作成/更新中のフラグ
+        get selectedReport() {
+            return state.selectedReport
+        },
+        selectReport(payload:any) {
+            state.selectedReport = payload
+        },
+        // レポートの作成/更新中のフラグ
         get isCreatingReport() {
             return state.isCreatingReport
         },

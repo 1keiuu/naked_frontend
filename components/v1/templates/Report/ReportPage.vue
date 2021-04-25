@@ -1,6 +1,6 @@
 <template>
   <div class="mt-16 pt-12 pl-56 h-screen overflow-scroll report-group">
-    <NkdReportItemsList :reports="reportsStore.reports"/>
+    <NkdReportItemsList :reports="reportsStore.reports" @onClickReportDelete="onClickReportDelete"/>
     <div class="report-card" :class="{ '--active': reportPageStore.isCreatingReport }">
       <div class="report-card__modal" :class="{ '--active': reportPageStore.isCreatingReport }">
         <NkdReportModal/>
@@ -33,6 +33,18 @@ export default defineComponent({
     const reportPageStore = inject(ReportPageStoreKey)
     const reportsStore = inject(ReportsStoreKey)
 
+    const onClickReportDelete = () => {
+      const reportId = reportPageStore?.selectedReport.id
+      console.log(reportId)
+      context.root.$axios
+        .delete(`/api/v1/reports/${reportId}`)
+        .then((res) => {
+          // TODO: storeの削除系まとめたい
+          reportsStore.deleteReports(reportId)
+        })
+        .catch((e) => {})
+    }
+
     context.root.$axios
       .get('/api/v1/reports')
       .then((res) => {
@@ -42,7 +54,7 @@ export default defineComponent({
         console.error(e)
       })
 
-    return { reportPageStore, reportsStore }
+    return { reportPageStore, reportsStore, onClickReportDelete }
   },
 })
 </script>
