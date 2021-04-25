@@ -8,10 +8,10 @@
       />
     </div>
     <div class="report-card__inner">
-      <div v-if="report.user.id == userId" class="report-card__inner__trash" @click="onClickReportDelete">
+      <div v-if="report.user_id == userId" class="report-card__inner__trash" @click="onClickReportDelete">
         <NkdIcon type="trash" color="rgb(149 150 152)"/>
       </div>
-      <div class="report-card__inner__name">{{report.user.name}}</div>
+      <div class="report-card__inner__name">{{userName}}</div>
       <div class="report-card__inner__item">今日のタスク</div>
       <NkdReportTasksList :tasks="report.tasks"/>
       <div class="report-card__inner__item mt-5">
@@ -43,6 +43,11 @@ export default defineComponent({
     },
   },
   setup(props, context) {
+    const userName =
+      props?.report?.user == null
+        ? ref(context.root.$auth.user.name)
+        : ref(props?.report?.user.name)
+
     const userId = ref(context.root.$auth.user.id)
     const reportPageStore = inject(ReportPageStoreKey)
     const onClickReportDelete = () => {
@@ -51,7 +56,7 @@ export default defineComponent({
         context.emit('onClickReportDelete')
       }
     }
-    return { userId, onClickReportDelete }
+    return { userId, onClickReportDelete, userName }
   },
 })
 </script>

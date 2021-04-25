@@ -94,6 +94,7 @@ export default function TasksStore() {
         state.noDateTasks.splice(targetIndex, 1)
       }
     },
+    //Report
     //current
     setCurrentTask(object:Task) {
       state.currentTask = object

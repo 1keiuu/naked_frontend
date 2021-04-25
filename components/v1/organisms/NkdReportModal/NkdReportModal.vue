@@ -60,7 +60,7 @@ export default defineComponent({
 
     const onCreateReportBtnClick = () => {
       reportPageStore?.stopCreateReport()
-      console.log(tasksStore.todayTasks)
+
       context.root.$axios
         .post('/api/v1/reports', {
           description: reportDescription.value,
