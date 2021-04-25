@@ -8,6 +8,9 @@
       />
     </div>
     <div class="report-card__inner">
+      <div v-if="report.user.id == userId" class="report-card__inner__trash">
+        <NkdIcon type="trash" color="rgb(149 150 152)"/>
+      </div>
       <div class="report-card__inner__name">{{report.user.name}}</div>
       <div class="report-card__inner__item">今日のタスク</div>
       <NkdReportTasksList :tasks="report.tasks"/>
@@ -29,17 +32,18 @@ import {
   watch,
   computed,
 } from '@vue/composition-api'
+import NkdIcon from '@/components/v1/atoms/NkdIcon/NkdIcon.vue'
 
 export default defineComponent({
-  components: {},
+  components: { NkdIcon },
   props: {
     report: {
       type: Object,
     },
   },
   setup(props, context) {
-    console.log(props.report)
-    return {}
+    const userId = ref(context.root.$auth.user.id)
+    return { userId }
   },
 })
 </script>
@@ -60,6 +64,22 @@ export default defineComponent({
   &__inner {
     padding-top: 24px;
     padding-left: 4px;
+    &__trash {
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      width: 36px;
+      height: 36px;
+      -webkit-box-align: center;
+      align-items: center;
+      -webkit-box-pack: center;
+      justify-content: center;
+      border-radius: 50%;
+      cursor: pointer;
+      background: rgb(243, 250, 255);
+      display: flex;
+      border: 1px solid rgba(0, 0, 0, 0.12);
+    }
     &__name {
       // color: gray;
       font-weight: 500;
