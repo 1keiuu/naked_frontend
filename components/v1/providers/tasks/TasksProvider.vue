@@ -15,6 +15,8 @@ import ReportPageStore from '~/store/Reports/ReportPage'
 import ReportPageStoreKey from '../../storeKeys/ReportPageStoreKey'
 import ReportStore from '~/store/Reports/Reports'
 import ReportsStoreKey from '../../storeKeys/ReportsStoreKey'
+import RecordStore from '~/store/Records/Records'
+import RecordsStoreKey from '../../storeKeys/RecordsStoreKey'
 
 export default defineComponent({
   setup(_props, context) {
@@ -23,6 +25,7 @@ export default defineComponent({
     provide(EpicTasksStoreKey, EpicTasksStore())
     provide(ReportPageStoreKey, ReportPageStore())
     provide(ReportsStoreKey, ReportStore())
+    provide(RecordsStoreKey, RecordStore())
 
     return {}
   },
