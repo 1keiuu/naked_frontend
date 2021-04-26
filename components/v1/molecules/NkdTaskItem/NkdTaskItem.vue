@@ -114,6 +114,7 @@ export default defineComponent({
             const record = res.data.record
             tasksStore.setCurrentTask(null)
             recordsStore?.setRecord(null)
+            context.root.$router.go(0)
           })
           .catch((e) => {})
 
