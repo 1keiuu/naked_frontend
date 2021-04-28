@@ -11,13 +11,22 @@ import EpicTasksStore from '~/store/EpicTasks/EpicTasks'
 import TaskPageStoreKey from '../../storeKeys/TaskPageStoreKey'
 import TasksStoreKey from '../../storeKeys/TasksStoreKey'
 import EpicTasksStoreKey from '../../storeKeys/EpicTasksStoreKey'
+import ReportPageStore from '~/store/Reports/ReportPage'
+import ReportPageStoreKey from '../../storeKeys/ReportPageStoreKey'
+import ReportStore from '~/store/Reports/Reports'
+import ReportsStoreKey from '../../storeKeys/ReportsStoreKey'
+import RecordStore from '~/store/Records/Records'
+import RecordsStoreKey from '../../storeKeys/RecordsStoreKey'
 
 export default defineComponent({
   setup(_props, context) {
     provide(TasksStoreKey, TaskStore())
     provide(TaskPageStoreKey, TaskPageStore())
     provide(EpicTasksStoreKey, EpicTasksStore())
-
+    provide(ReportPageStoreKey, ReportPageStore())
+    provide(ReportsStoreKey, ReportStore())
+    provide(RecordsStoreKey, RecordStore())
+    //これはコメントです
     return {}
   },
 })

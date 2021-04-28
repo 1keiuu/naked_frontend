@@ -2,13 +2,11 @@
   <div class="bg-gray-100 min-h-screen">
     <TasksProvider>
       <NkdHeader :loggedIn="loggedIn" :avatarUrl="avatarUrl" />
-    </TasksProvider>
-    <div class="flex h-full">
-      <NkdSideBar :loggedIn="loggedIn" />
-      <TasksProvider>
+      <div class="flex h-full">
+        <NkdSideBar :loggedIn="loggedIn" />
         <Nuxt />
-      </TasksProvider>
-    </div>
+      </div>
+    </TasksProvider>
   </div>
 </template>
 <script lang="ts">

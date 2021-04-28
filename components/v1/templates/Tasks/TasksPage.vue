@@ -34,6 +34,7 @@ import NkdDrawer from '@/components/v1/organisms/NkdDrawer/NkdDrawer.vue'
 import TaskPageStoreKey from '@/components/v1/storeKeys/TaskPageStoreKey'
 import NkdTasksDrawerContent from '@/components/v1/organisms/NkdTasksDrawerContent/NkdTasksDrawerContent.vue'
 import EpicTasksStoreKey from '@/components/v1/storeKeys/EpicTasksStoreKey'
+import TasksStoreKey from '@/components/v1/storeKeys/TasksStoreKey'
 
 export default defineComponent({
   components: {
@@ -50,6 +51,7 @@ export default defineComponent({
     const currentPage = context.root.$route.path
     const taskPageStore = inject(TaskPageStoreKey)
     const epicTasksStore = inject(EpicTasksStoreKey)
+    const tasksStore = inject(TasksStoreKey)
 
     onMounted(() => {
       // the DOM element will be assigned to the ref after initial render
@@ -86,10 +88,10 @@ export default defineComponent({
         .then((res) => {
           taskPageStore.closeDrawer()
           // TODO: storeの削除系まとめたい
-          epicTasksStore.deleteEpicTasks(targetId)
-          epicTasksStore.deleteTodayEpicTasks(targetId)
-          epicTasksStore.deleteTomorrowEpicTasks(targetId)
-          epicTasksStore.deleteNoDateEpicTasks(targetId)
+
+          tasksStore.deleteTodayTasks(targetId)
+          tasksStore.deleteTomorrowTasks(targetId)
+          tasksStore.deleteNoDateTasks(targetId)
         })
         .catch((e) => {})
     }

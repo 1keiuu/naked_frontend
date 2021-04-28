@@ -22,6 +22,10 @@ export default function TaskPageStore() {
         reSetSelectedTask() {
             state.selectedTask = {}
         },
+        updateSelectedTask(payload: Task) {
+            let target = state.selectedTask
+            target = payload
+        },
         // SelectedSubTask 選択中のサブタスク
         get selectedSubTasks() {
             return state.selectedSubTasks

@@ -13,7 +13,7 @@
         <p :class="{ '--active': currentPage == tab.route }">{{ tab.title }}</p>
       </button>
     </div>
-    <button class="mr-5" @click="onCreateTaskBtnClick">
+    <button class="mr-5 task__sub-header__button" @click="onCreateTaskBtnClick">
       <p>タスクを作成</p>
     </button>
   </div>
@@ -50,6 +50,24 @@ export default defineComponent({
 .task__sub-header {
   top: 4em;
   z-index: 2;
+  &__button {
+    position: relative;
+    cursor: pointer;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    background-color: #50bfff;
+    height: 32px;
+    padding: 0px 12px;
+    border-radius: 100px;
+    font-size: 13px;
+    font-weight: 500;
+    color: rgb(255, 255, 255);
+    margin-left: 10px;
+    border: 1px solid #a4cef9;
+  }
 }
 .tab {
   outline: 0;

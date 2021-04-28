@@ -8,6 +8,7 @@ export default function TasksStore() {
     noDateTasks: <Task[]>[],
     weekTasks: <Task[]>[],
     monthTasks: <Task[]>[],
+    reportTasks: <Task[]>[],
     currentTask: <Task>{}
   })
 
@@ -40,6 +41,9 @@ export default function TasksStore() {
     },
     get monthTasks() {
       return state.monthTasks
+    },
+    get reportTasks() {
+      return state.reportTasks
     },
     setTasks(array:Task[]) {
       state.tasks = array
@@ -93,6 +97,13 @@ export default function TasksStore() {
         const targetIndex = state.noDateTasks.indexOf(target)
         state.noDateTasks.splice(targetIndex, 1)
       }
+    },
+    //Report（使わないことになった,todayTaskを使えばいいので）
+    setReportTasks(array:Task[]) {
+      state.reportTasks = array
+    },
+    appendToReportTask(payload: Task) {
+      state.reportTasks.push(payload)
     },
     //current
     setCurrentTask(object:Task) {

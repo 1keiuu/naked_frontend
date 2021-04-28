@@ -58,6 +58,7 @@ export default defineComponent({
     background: transparent;
     border: 0;
     border-bottom: 2px solid rgb(195, 195, 195);
+    height: 200px;
   }
 }
 </style>

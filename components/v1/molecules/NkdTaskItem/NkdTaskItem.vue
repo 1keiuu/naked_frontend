@@ -44,6 +44,8 @@ import {
 import TaskPageStoreKey from '@/components/v1/storeKeys/TaskPageStoreKey'
 import NkdIcon from '@/components/v1/atoms/NkdIcon/NkdIcon.vue'
 import TasksStoreKey from '@/components/v1/storeKeys/TasksStoreKey'
+import RecordsStoreKey from '@/components/v1/storeKeys/RecordsStoreKey'
+
 export default defineComponent({
   components: {
     NkdIcon,
@@ -60,6 +62,7 @@ export default defineComponent({
     const isCalenderOpen = ref(false)
     const selectedDate = ref({ start: String, end: String })
     const tasksStore = inject(TasksStoreKey)
+    const recordsStore = inject(RecordsStoreKey)
 
     const onCardClick = () => {
       const isDrawerOpen = taskPageStore.isDrawerOpen
@@ -97,13 +100,21 @@ export default defineComponent({
     }
 
     const createRecord = () => {
-      if (tasksStore.currentTask.id !== null)
+      const recordId =
+        props?.task?.record?.id == null
+          ? ref(recordsStore?.record.id)
+          : ref(props?.task?.record?.id)
+
+      if (tasksStore.currentTask !== null)
         context.root.$axios
-          .patch(`/api/v1/records/${tasksStore.currentTask.record.id}`, {
+          .patch(`/api/v1/records/${recordId.value}`, {
             user_id: context.root.$auth.user.id,
           })
           .then((res) => {
             const record = res.data.record
+            tasksStore.setCurrentTask(null)
+            recordsStore?.setRecord(null)
+            context.root.$router.go(0)
           })
           .catch((e) => {})
 
@@ -121,8 +132,13 @@ export default defineComponent({
           user_id: context.root.$auth.user.id,
         })
         .then((res) => {
+          const task = res.data.current_task
           const record = res.data.record
-          context.root.$router.go(0)
+          tasksStore.setCurrentTask(task)
+          recordsStore.setRecord(record)
+          console.log(recordsStore.record.id)
+
+          // context.root.$router.go(0)
         })
         .catch((e) => {})
     }
@@ -130,8 +146,8 @@ export default defineComponent({
     const inputDate = (event: any) => {
       context.root.$axios
         .patch(`/api/v1/tasks/${props.task?.id}`, {
-          starts_date: event.start,
-          due_date: event.end,
+          starts_date: event.start + 1,
+          due_date: event.end + 1,
         })
         .then((res) => {
           const record = res.data.record

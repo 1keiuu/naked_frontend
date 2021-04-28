@@ -36,6 +36,7 @@ import NkdRecordItemsList from '~/components/v1/organisms/NkdRecordItemsList/Nkd
 import NkdDrawerTasksInput from '@/components/v1/organisms/NkdDrawerTasksInput/NkdDrawerTasksInput.vue'
 import TaskPageStoreKey from '@/components/v1/storeKeys/TaskPageStoreKey'
 import EpicTasksStoreKey from '@/components/v1/storeKeys/EpicTasksStoreKey'
+import TasksStoreKey from '@/components/v1/storeKeys/TasksStoreKey'
 
 export default defineComponent({
   props: {
@@ -51,6 +52,7 @@ export default defineComponent({
   },
   setup(props, context) {
     const taskPageStore = inject(TaskPageStoreKey)
+    const tasksStore = inject(TasksStoreKey)
     const taskTasksStore = inject(EpicTasksStoreKey)
     const onClickEpicDeleteButton = () => {
       context.emit('onClickEpicDeleteButton')
@@ -88,7 +90,7 @@ export default defineComponent({
         .patch(`/api/v1/tasks/${obj.id}`, obj)
         .then((res) => {
           const task = res.data.task
-          taskPageStore.updateSelectedTask(task)
+          tasksStore.updateTask(task)
         })
         .catch((e) => {
           console.log(e.response.message)

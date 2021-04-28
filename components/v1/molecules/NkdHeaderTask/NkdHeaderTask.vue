@@ -28,6 +28,9 @@ import {
 } from '@vue/composition-api'
 import TaskPageStoreKey from '@/components/v1/storeKeys/TaskPageStoreKey'
 import NkdIcon from '@/components/v1/atoms/NkdIcon/NkdIcon.vue'
+import TasksStoreKey from '@/components/v1/storeKeys/TasksStoreKey'
+import RecordsStoreKey from '@/components/v1/storeKeys/RecordsStoreKey'
+
 export default defineComponent({
   components: {
     NkdIcon,
@@ -47,6 +50,8 @@ export default defineComponent({
     const diffTime = ref(0)
     const startTime = ref(0)
     const isRunning = ref(false)
+    const tasksStore = inject(TasksStoreKey)
+    const recordsStore = inject(RecordsStoreKey)
 
     const setSubtractStartTime = (time: number) => {
       var time = typeof time !== 'undefined' ? time : 0
@@ -59,10 +64,13 @@ export default defineComponent({
       ;(function loop() {
         nowTime.value = Math.floor(performance.now())
         // nowTime.value = Math.floor(props?.task?.record_time)
+        const recordTime =
+          props?.task?.record_time == null
+            ? ref(1)
+            : ref(props?.task?.record_time)
+
         diffTime.value =
-          Math.floor(props?.task?.record_time * 1000) +
-          nowTime.value -
-          startTime.value
+          Math.floor(recordTime.value * 1000) + nowTime.value - startTime.value
         animateFrame.value = requestAnimationFrame(loop)
       })()
     }
@@ -72,13 +80,22 @@ export default defineComponent({
     }
 
     const updateRecord = () => {
+      const recordId =
+        props?.task?.record?.id == null
+          ? ref(recordsStore?.record.id)
+          : ref(props?.task?.record?.id)
+      console.log(recordsStore.record.id)
+      console.log(recordId)
+
       context.root.$axios
-        .patch(`/api/v1/records/${props.task?.record?.id}`, {
+        .patch(`/api/v1/records/${recordId.value}`, {
           task_id: props.task?.id,
           user_id: context.root.$auth.user.id,
         })
         .then((res) => {
           const record = res.data.record
+          tasksStore.setCurrentTask(null)
+          recordsStore?.setRecord(null)
           context.root.$router.go(0)
         })
         .catch((e) => {})

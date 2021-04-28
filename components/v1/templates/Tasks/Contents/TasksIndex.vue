@@ -43,9 +43,6 @@ import taskPageStoreKey from '@/components/v1/storeKeys/TaskPageStoreKey'
 import NkdTasksInput from '@/components/v1/organisms/NkdTasksInput/NkdTasksInput.vue'
 export default defineComponent({
   props: {
-    current: {
-      type: Object as PropType<Task>,
-    },
     today: {
       type: Array as PropType<Task[]>,
       required: false,
