@@ -123,7 +123,7 @@ export default defineComponent({
           id: props.task?.id,
         })
         .then((res) => {
-          const record = res.data.record
+          const task = res.data.task
         })
         .catch((e) => {})
       context.root.$axios

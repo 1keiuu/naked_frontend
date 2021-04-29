@@ -1,6 +1,7 @@
 <template>
   <div class="follow-card">
-    <button v-if="followBoolean  == true" class="mr-5 follow-card__button" @click="onUnFollowBtnClick">
+    <div v-if="current_user_id == user.id"/>
+    <button v-else-if="followBoolean  == true" class="mr-5 follow-card__button" @click="onUnFollowBtnClick">
       <p>フォローを外す</p>
     </button>
     <button v-else class="mr-5 follow-card__button2" @click="onFollowBtnClick">
