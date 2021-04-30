@@ -90,8 +90,21 @@ export default defineComponent({
       })
     const user = ref([])
     const trigger = (event: any) => {
+      if (event.keyCode !== 13) return
       context.root.$router.push(`/users/search?username=${state.username}`)
-      // if (event.keyCode !== 13) return
+      const query = ref(context.root.$route.query.username)
+      context.root.$axios
+        .post('api/v1/users/search', {
+          q: query,
+        })
+        .then((res) => {
+          // users.value = res.data
+        })
+        .catch((e) => {
+          console.error(e)
+        })
+
+      context.root.$router.go(1)
     }
     const items = reactive<HeaderItem[]>([
       {
