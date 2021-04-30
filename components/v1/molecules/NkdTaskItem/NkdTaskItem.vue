@@ -136,7 +136,6 @@ export default defineComponent({
           const record = res.data.record
           tasksStore.setCurrentTask(task)
           recordsStore.setRecord(record)
-          console.log(recordsStore.record.id)
 
           // context.root.$router.go(0)
         })

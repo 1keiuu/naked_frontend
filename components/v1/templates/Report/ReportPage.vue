@@ -35,7 +35,6 @@ export default defineComponent({
 
     const onClickReportDelete = () => {
       const reportId = reportPageStore?.selectedReport.id
-      console.log(reportId)
       context.root.$axios
         .delete(`/api/v1/reports/${reportId}`)
         .then((res) => {

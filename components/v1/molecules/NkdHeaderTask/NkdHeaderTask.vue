@@ -84,8 +84,6 @@ export default defineComponent({
         props?.task?.record?.id == null
           ? ref(recordsStore?.record.id)
           : ref(props?.task?.record?.id)
-      console.log(recordsStore.record.id)
-      console.log(recordId)
 
       context.root.$axios
         .patch(`/api/v1/records/${recordId.value}`, {

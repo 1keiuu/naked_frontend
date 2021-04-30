@@ -41,7 +41,6 @@ export default defineComponent({
       let g = Math.floor(Math.random() * 255)
       let b = Math.floor(Math.random() * 255)
       let color = `rgb(${r},${g},${b})`
-      console.log(color)
       if (inputValue) {
         context.root.$axios
           .post('/api/v1/tasks', {
