@@ -50,6 +50,7 @@ import HeaderItemList from '@/components/v1/organisms/NkdHeaderItemList/NkdHeade
 import NkdIcon from '@/components/v1/atoms/NkdIcon/NkdIcon.vue'
 import NkdHeaderTask from '../../molecules/NkdHeaderTask/NkdHeaderTask.vue'
 import TasksStoreKey from '@/components/v1/storeKeys/TasksStoreKey'
+import UsersStoreKey from '@/components/v1/storeKeys/UsersStoreKey'
 
 export default defineComponent({
   name: 'NkdHeader',
@@ -75,6 +76,7 @@ export default defineComponent({
     })
 
     const tasksStore = inject(TasksStoreKey)
+    const usersStore = inject(UsersStoreKey)
 
     tasksStore.setCurrentTask(null)
 
@@ -92,13 +94,13 @@ export default defineComponent({
     const trigger = (event: any) => {
       if (event.keyCode !== 13) return
       context.root.$router.push(`/users/search?username=${state.username}`)
-      const query = ref(context.root.$route.query.username)
+      const query = ref(state.username)
       context.root.$axios
         .post('api/v1/users/search', {
-          q: query,
+          q: query.value,
         })
         .then((res) => {
-          // users.value = res.data
+          usersStore.setUsers(res.data)
         })
         .catch((e) => {
           console.error(e)

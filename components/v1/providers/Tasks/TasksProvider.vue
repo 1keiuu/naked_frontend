@@ -17,6 +17,8 @@ import ReportStore from '~/store/Reports/Reports'
 import ReportsStoreKey from '../../storeKeys/ReportsStoreKey'
 import RecordStore from '~/store/Records/Records'
 import RecordsStoreKey from '../../storeKeys/RecordsStoreKey'
+import UserStore from '~/store/Users/Users'
+import UsersStoreKey from '../../storeKeys/UsersStoreKey'
 
 export default defineComponent({
   setup(_props, context) {
@@ -26,7 +28,7 @@ export default defineComponent({
     provide(ReportPageStoreKey, ReportPageStore())
     provide(ReportsStoreKey, ReportStore())
     provide(RecordsStoreKey, RecordStore())
-    //これはコメントです
+    provide(UsersStoreKey, UserStore())
     return {}
   },
 })
