@@ -235,6 +235,7 @@ export default defineComponent({
     top: 100%;
     right: 0;
     z-index: 5;
+    height: 320px;
   }
   &__time {
     color: gray;
