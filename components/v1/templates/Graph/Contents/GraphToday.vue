@@ -6,6 +6,7 @@
       <NkdGraphTaskItemsList
         v-else-if="today.length >= 1"
         :tasks="today"
+        :graphType="'today'"
       />
     </div>
   </div>

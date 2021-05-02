@@ -4,6 +4,7 @@
       v-for="task in tasks"
       :key="'task' + task.id"
       :task="task"
+      :graphType="graphType"
     />
   </div>
 </template>
@@ -20,6 +21,7 @@ import NkdGraphItem from '@/components/v1/molecules/NkdGraphItem/NkdGraphItem.vu
 export default defineComponent({
   props: {
     tasks: Array,
+    graphType: String,
   },
   components: { NkdGraphItem },
   setup(props, context) {

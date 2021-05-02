@@ -6,6 +6,7 @@
       <NkdGraphTaskItemsList
         v-else-if="week.length >= 1"
         :tasks="week"
+        :graphType="'week'"
       />
     </div>
   </div>

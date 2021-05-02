@@ -31,20 +31,40 @@ export default defineComponent({
     task: {
       type: Object,
     },
+    graphType: String,
   },
   setup(props, context) {
     const record_time = ref(Number)
     const style = computed(() => {
       return { '--task-color': props.task?.color }
     })
-    context.root.$axios
-      .post('/api/v1/records/time', {
-        task_id: props.task?.id,
-      })
-      .then((res) => {
-        record_time.value = res.data.record_time
-      })
-      .catch((e) => {})
+    if (props.graphType == 'today')
+      context.root.$axios
+        .post('/api/v1/records/today_time', {
+          task_id: props.task?.id,
+        })
+        .then((res) => {
+          record_time.value = res.data.record_time
+        })
+        .catch((e) => {})
+    else if (props.graphType == 'week')
+      context.root.$axios
+        .post('/api/v1/records/week_time', {
+          task_id: props.task?.id,
+        })
+        .then((res) => {
+          record_time.value = res.data.record_time
+        })
+        .catch((e) => {})
+    else if (props.graphType == 'month')
+      context.root.$axios
+        .post('/api/v1/records/month_time', {
+          task_id: props.task?.id,
+        })
+        .then((res) => {
+          record_time.value = res.data.record_time
+        })
+        .catch((e) => {})
     return { record_time, style }
   },
 })
