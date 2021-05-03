@@ -88,7 +88,7 @@ export default defineComponent({
         .then((res) => {
           taskPageStore.closeDrawer()
           // TODO: storeの削除系まとめたい
-
+          tasksStore.deleteTasks(targetId)
           tasksStore.deleteTodayTasks(targetId)
           tasksStore.deleteTomorrowTasks(targetId)
           tasksStore.deleteNoDateTasks(targetId)

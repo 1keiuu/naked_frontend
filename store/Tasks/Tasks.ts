@@ -56,6 +56,15 @@ export default function TasksStore() {
       replaceTask(state.tomorrowTasks,task)
       replaceTask(state.noDateTasks,task)
     },
+    deleteTasks(payload: Number) {
+      const target = state.tasks.find((item:Task) => {
+        return item.id == payload
+      })
+      if (target) {
+        const targetIndex = state.tasks.indexOf(target)
+        state.tasks.splice(targetIndex, 1)
+      }
+    },
     // today
     setTodayTasks(array:Task[]) {
       state.todayTasks = array
