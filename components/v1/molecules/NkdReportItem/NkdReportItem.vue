@@ -14,7 +14,7 @@
       <div class="report-card__inner__name">{{userName}}</div>
       <div class="report-card__inner__item">今日のタスク</div>
       <NkdReportTasksList :tasks="reportTasks"/>
-      <div class="report-card__inner__item mt-5">
+      <div class="report-card__inner__item-description mt-5">
         コメント
       </div>
       <div class="report-card__inner__description">
@@ -112,9 +112,16 @@ export default defineComponent({
       margin-bottom: 6px;
       color: #232323;
     }
+    &__item-description {
+      font-weight: 600;
+      font-size: 16px;
+      color: #232323;
+    }
     &__description {
       font-weight: 350;
-      padding: 8px 12px;
+      padding: 0px 12px;
+      padding-bottom: 8px;
+      white-space: pre-line;
     }
   }
 }
