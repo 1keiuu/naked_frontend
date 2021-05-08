@@ -5,7 +5,14 @@
       <div class="box pt-3">
         <div class="box__card">
           <img
+            :src="avatarUrl"
+            v-if="avatarUrl"
+            id="avatar"
+            class="rounded-full h-12 mr-2 cursor-pointer w-12 object-cover"
+          />
+          <img
           src="~/assets/images/avatar.jpg"
+          v-else
           id="avatar"
           class="rounded-full h-12 mr-2 cursor-pointer w-12 object-cover mb-2"
           />
@@ -36,6 +43,10 @@ import NkdFollowItem from '@/components/v1/molecules/NkdFollowItem/NkdFollowItem
 export default defineComponent({
   props: {
     users: {},
+    avatarUrl: {
+      type: String,
+      required: false,
+    },
   },
   components: {
     NkdFollowItem,
