@@ -2,7 +2,6 @@
   <div class="task-page w-full h-full">
     <UserSearch
       :users="usersStore.users"
-      :avatarUrl="avatarUrl"
     />
   </div>
 </template>
@@ -26,12 +25,6 @@ export default defineComponent({
     const query = context.root.$route.query.username
     const usersStore = inject(UsersStoreKey)
 
-    const avatarUrl = ref('')
-
-    watchEffect(() => {
-      avatarUrl.value = context.root.$auth.state.user?.avatar_url
-    })
-
     context.root.$axios
       .post('api/v1/users/search', {
         q: query,
@@ -43,7 +36,7 @@ export default defineComponent({
         console.error(e)
       })
 
-    return { query, usersStore, avatarUrl }
+    return { query, usersStore }
   },
 })
 </script>
