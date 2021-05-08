@@ -42,7 +42,7 @@ export default defineComponent({
           user: {
             email: SignUpStore.email,
             password: SignUpStore.password,
-            name: 'user',
+            name: SignUpStore.name,
           },
         })
         .then((response) => {

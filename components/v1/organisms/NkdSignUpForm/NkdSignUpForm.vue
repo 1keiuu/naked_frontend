@@ -1,6 +1,12 @@
 <template>
   <form @submit.prevent="onNkdButtonClick()" class="flex flex-col w-full">
     <NkdTextField
+      type="name"
+      name="name"
+      placeholder="name"
+      @onTextFieldInput="onInputTextField"
+    />
+    <NkdTextField
       type="email"
       name="email"
       placeholder="email"
@@ -30,6 +36,9 @@ export default defineComponent({
     password: {
       type: String,
     },
+    name: {
+      type: String,
+    },
   },
   setup(props, context) {
     const SignUpStore = inject(SignUpStoreKey)
@@ -47,6 +56,8 @@ export default defineComponent({
         SignUpStore.setEmail(val)
       } else if (type == 'password') {
         SignUpStore.setPassword(val)
+      } else if (type == 'name') {
+        SignUpStore.setName(val)
       }
     }
 
