@@ -2,7 +2,14 @@
   <div class="report-card">
     <div class="report-card__img">
       <img
+        :src="report.user.avatar_url"
+        v-if="report.user.avatar_url"
+        id="avatar"
+        class="rounded-full h-12 mr-2 cursor-pointer w-12 object-cover"
+      />
+      <img
         src="~/assets/images/avatar.jpg"
+        v-else
         id="avatar"
         class="rounded-full h-12 mr-2 cursor-pointer w-12 object-cover"
       />
