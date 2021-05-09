@@ -5,7 +5,8 @@
       <v-date-picker
         class="calendar"
         mode="datetime"
-        @input="inputDate"
+        v-model="selectedDateTime"
+        @input="inputDateTime"
         is-range
       />
     </div>
@@ -34,26 +35,32 @@ export default defineComponent({
     },
   },
   setup(props, context) {
+    const selectedDateTime = ref({ start: String, end: String })
+    selectedDateTime.value = {
+      start: props.record?.starts_time,
+      end: props.record?.finish_time,
+    }
+
     const startTime = computed(() => {
       return moment(props.record?.starts_time).format('YYYY/MM/DD HH:mm')
     })
     const finishTime = computed(() => {
       return moment(props.record?.finish_time).format('HH:mm')
     })
-    const inputDate = (event: any) => {
+    const inputDateTime = (event: any) => {
       console.log(event)
-      // context.root.$axios
-      //   .patch(`/api/v1/records/${props.record?.id}`, {
-      //     starts_date: event.start + 1,
-      //     due_date: event.end + 1,
-      //   })
-      //   .then((res) => {
-      //     const record = res.data.record
-      //     context.root.$router.go(0)
-      //   })
-      //   .catch((e) => {})
+      context.root.$axios
+        .patch(`/api/v1/records/${props.record?.id}`, {
+          starts_date: event.start,
+          due_date: event.end,
+        })
+        .then((res) => {
+          const record = res.data.record
+          context.root.$router.go(0)
+        })
+        .catch((e) => {})
     }
-    return { startTime, finishTime, inputDate }
+    return { startTime, finishTime, inputDateTime, selectedDateTime }
   },
 })
 </script>
