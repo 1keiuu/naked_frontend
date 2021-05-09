@@ -1,12 +1,20 @@
 <template>
   <div>
-    <div class="mb-1">
-      {{startTime}}~{{finishTime}}
+    <div class="mb-3">
+      <div class="record-time">
+        <div class="mr-3">{{startTime}}~{{finishTime}}</div>
+        <button @click="openRecord" class="open-play__button">
+          編集
+        </button>
+      </div>
+
       <v-date-picker
+        v-if="isRecordOpen"
         class="calendar"
         mode="datetime"
         v-model="selectedDateTime"
         @input="inputDateTime"
+        v-click-outside="clickCalendarOutside"
         is-range
       />
     </div>
@@ -35,10 +43,23 @@ export default defineComponent({
     },
   },
   setup(props, context) {
+    const isRecordOpen = ref(false)
     const selectedDateTime = ref({ start: String, end: String })
     selectedDateTime.value = {
       start: props.record?.starts_time,
       end: props.record?.finish_time,
+    }
+
+    const openRecord = () => {
+      isRecordOpen.value = true
+    }
+
+    const closeRecord = () => {
+      isRecordOpen.value = false
+    }
+
+    const clickCalendarOutside = () => {
+      closeRecord()
     }
 
     const startTime = computed(() => {
@@ -48,11 +69,10 @@ export default defineComponent({
       return moment(props.record?.finish_time).format('HH:mm')
     })
     const inputDateTime = (event: any) => {
-      console.log(event)
       context.root.$axios
         .patch(`/api/v1/records/${props.record?.id}`, {
-          starts_date: event.start,
-          due_date: event.end,
+          starts_time: event.start,
+          finish_time: event.end,
         })
         .then((res) => {
           const record = res.data.record
@@ -60,9 +80,28 @@ export default defineComponent({
         })
         .catch((e) => {})
     }
-    return { startTime, finishTime, inputDateTime, selectedDateTime }
+    return {
+      startTime,
+      finishTime,
+      inputDateTime,
+      selectedDateTime,
+      openRecord,
+      isRecordOpen,
+      clickCalendarOutside,
+    }
   },
 })
 </script>
 <style scoped lang="scss">
+.record-time {
+  display: flex;
+  padding: 8px 12px;
+  box-sizing: border-box;
+  border-bottom: 1px solid #efefef;
+}
+.calendar {
+  position: absolute;
+  left: 100px;
+  z-index: 5;
+}
 </style>
