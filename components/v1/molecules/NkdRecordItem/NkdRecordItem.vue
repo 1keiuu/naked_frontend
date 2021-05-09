@@ -2,6 +2,12 @@
   <div>
     <div class="mb-1">
       {{startTime}}~{{finishTime}}
+      <v-date-picker
+        class="calendar"
+        mode="datetime"
+        @input="inputDate"
+        is-range
+      />
     </div>
   </div>
 </template>
@@ -34,7 +40,20 @@ export default defineComponent({
     const finishTime = computed(() => {
       return moment(props.record?.finish_time).format('HH:mm')
     })
-    return { startTime, finishTime }
+    const inputDate = (event: any) => {
+      console.log(event)
+      // context.root.$axios
+      //   .patch(`/api/v1/records/${props.record?.id}`, {
+      //     starts_date: event.start + 1,
+      //     due_date: event.end + 1,
+      //   })
+      //   .then((res) => {
+      //     const record = res.data.record
+      //     context.root.$router.go(0)
+      //   })
+      //   .catch((e) => {})
+    }
+    return { startTime, finishTime, inputDate }
   },
 })
 </script>

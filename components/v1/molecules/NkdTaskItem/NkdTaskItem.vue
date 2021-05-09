@@ -78,15 +78,20 @@ export default defineComponent({
       taskPageStore.selectTask(props.task)
       taskPageStore.selectSubTasks(props.task?.sub_tasks)
     }
-    watch(selectedDate, (date) => {
-      isCalenderOpen.value = false
-      const data = {
-        id: props.task?.id,
-        starts_date: date.start,
-        due_date: date.end,
-      }
-      context.emit('updateTaskDate', data)
-    })
+    selectedDate.value = {
+      start: props.task?.starts_date,
+      end: props.task?.due_date,
+    }
+
+    // watch(selectedDate, (date) => {
+    //   isCalenderOpen.value = false
+    //   const data = {
+    //     id: props.task?.id,
+    //     starts_date: date.start,
+    //     due_date: date.end,
+    //   }
+    //   context.emit('updateTaskDate', data)
+    // })
 
     const openCalender = () => {
       isCalenderOpen.value = true
