@@ -18,7 +18,7 @@
       <button @click="openCalender" class="open-calendar__button">
         <NkdIcon type="calendar" color="grey" />
       </button>
-      <p class="ml-2 task-card__time" id="task-card">{{record_time}}</p>
+      <p class="ml-2 task-card__time">{{ record_time }}</p>
       <v-date-picker
         v-if="isCalenderOpen"
         class="calendar"
@@ -33,14 +33,7 @@
   </div>
 </template>
 <script lang="ts">
-import {
-  defineComponent,
-  PropType,
-  inject,
-  ref,
-  watch,
-  computed,
-} from '@vue/composition-api'
+import { defineComponent, inject, ref, Ref } from '@vue/composition-api'
 import TaskPageStoreKey from '@/components/v1/storeKeys/TaskPageStoreKey'
 import NkdIcon from '@/components/v1/atoms/NkdIcon/NkdIcon.vue'
 import TasksStoreKey from '@/components/v1/storeKeys/TasksStoreKey'
@@ -57,10 +50,13 @@ export default defineComponent({
   },
   setup(props, context) {
     const date = ref(new Date())
-    const record_time = ref(Number)
+    const record_time: Ref = ref('')
     const taskPageStore = inject(TaskPageStoreKey)
     const isCalenderOpen = ref(false)
-    const selectedDate = ref({ start: String, end: String })
+    const selectedDate: Ref<{ start: String; end: String }> = ref({
+      start: '',
+      end: '',
+    })
     const tasksStore = inject(TasksStoreKey)
     const recordsStore = inject(RecordsStoreKey)
 
@@ -168,7 +164,6 @@ export default defineComponent({
         record_time.value = res.data.record_time
       })
       .catch((e) => {})
-
     return {
       onCardClick,
       openCalender,
