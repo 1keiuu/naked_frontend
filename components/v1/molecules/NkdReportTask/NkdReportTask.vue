@@ -24,18 +24,33 @@ export default defineComponent({
     task: {
       type: Object,
     },
+    report: {
+      type: Object,
+    },
   },
   setup(props, context) {
     const record_time = ref(Number)
 
-    context.root.$axios
-      .post('/api/v1/records/time', {
-        task_id: props.task?.id,
-      })
-      .then((res) => {
-        record_time.value = res.data.record_time
-      })
-      .catch((e) => {})
+    if (props.report) {
+      context.root.$axios
+        .post('/api/v1/records/report_time', {
+          task_id: props.task?.id,
+          report_id: props.report?.id,
+        })
+        .then((res) => {
+          record_time.value = res.data.record_time
+        })
+        .catch((e) => {})
+    } else {
+      context.root.$axios
+        .post('/api/v1/records/today_time', {
+          task_id: props.task?.id,
+        })
+        .then((res) => {
+          record_time.value = res.data.record_time
+        })
+        .catch((e) => {})
+    }
 
     return {
       record_time,

@@ -4,6 +4,7 @@
       v-for="task in tasks"
       :key="'task' + task.id"
       :task="task"
+      :report="report"
     />
   </div>
 </template>
@@ -18,6 +19,9 @@ export default defineComponent({
   props: {
     tasks: {
       type: Array as PropType<Task[]>,
+    },
+    report: {
+      type: Object,
     },
   },
   setup(_props, context) {
