@@ -93,8 +93,8 @@ export default defineComponent({
         .then((res) => {
           const record = res.data.record
           tasksStore.setCurrentTask(null)
-          // recordsStore?.setRecord(null)
-          // context.root.$router.go(0)
+          recordsStore?.setRecord(null)
+          context.root.$router.go(0)
         })
         .catch((e) => {})
     }
