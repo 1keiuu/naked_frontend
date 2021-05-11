@@ -20,7 +20,7 @@
       </div>
       <div class="report-card__inner__name">{{userName}}</div>
       <div class="report-card__inner__item">今日のタスク</div>
-      <NkdReportTasksList :tasks="reportTasks"/>
+      <NkdReportTasksList :tasks="reportTasks" :report="report"/>
       <div class="report-card__inner__item-description mt-5">
         コメント
       </div>

@@ -16,6 +16,7 @@ import {
   ref,
   watch,
   computed,
+  Ref,
 } from '@vue/composition-api'
 
 export default defineComponent({
@@ -29,7 +30,7 @@ export default defineComponent({
     },
   },
   setup(props, context) {
-    const record_time = ref(Number)
+    const record_time: Ref<string> = ref('')
 
     if (props.report) {
       context.root.$axios

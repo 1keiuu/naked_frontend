@@ -19,6 +19,7 @@ import {
   ref,
   watch,
   computed,
+  Ref,
 } from '@vue/composition-api'
 import TaskPageStoreKey from '@/components/v1/storeKeys/TaskPageStoreKey'
 import NkdIcon from '@/components/v1/atoms/NkdIcon/NkdIcon.vue'
@@ -34,7 +35,7 @@ export default defineComponent({
     graphType: String,
   },
   setup(props, context) {
-    const record_time = ref(Number)
+    const record_time: Ref<string> = ref('')
     const style = computed(() => {
       return { '--task-color': props.task?.color }
     })
