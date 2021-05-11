@@ -47,6 +47,9 @@ export default defineComponent({
     task: {
       type: Object,
     },
+    type: {
+      type: String,
+    },
   },
   setup(props, context) {
     const date = ref(new Date())
@@ -105,7 +108,7 @@ export default defineComponent({
         props?.task?.record?.id == null
           ? ref(recordsStore?.record.id)
           : ref(props?.task?.record?.id)
-
+      //curretTaskがある場合そのTaskを停止させる必要がある
       if (tasksStore.currentTask !== null)
         context.root.$axios
           .patch(`/api/v1/records/${recordId.value}`, {
@@ -156,14 +159,26 @@ export default defineComponent({
         .catch((e) => {})
     }
 
-    context.root.$axios
-      .post('/api/v1/records/time', {
-        task_id: props.task?.id,
-      })
-      .then((res) => {
-        record_time.value = res.data.record_time
-      })
-      .catch((e) => {})
+    if (props.type == 'list') {
+      context.root.$axios
+        .post('/api/v1/records/time', {
+          task_id: props.task?.id,
+        })
+        .then((res) => {
+          record_time.value = res.data.record_time
+        })
+        .catch((e) => {})
+    } else if (props.type == 'index') {
+      context.root.$axios
+        .post('/api/v1/records/today_time', {
+          task_id: props.task?.id,
+        })
+        .then((res) => {
+          record_time.value = res.data.record_time
+        })
+        .catch((e) => {})
+    }
+
     return {
       onCardClick,
       openCalender,

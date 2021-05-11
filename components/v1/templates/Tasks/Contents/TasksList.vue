@@ -2,7 +2,7 @@
   <div class="min-h-full tasks-group">
     <div class="tasks-group ml-5 mt-3">
       <h2 class="text-xl mb-3">タスク一覧</h2>
-      <NkdTaskItemsList :tasks="tasksArray" />
+      <NkdTaskItemsList :tasks="tasksArray" :type="'list'"/>
       <NkdTasksInput @onInputBlur="dispatchEvent" />
     </div>
   </div>

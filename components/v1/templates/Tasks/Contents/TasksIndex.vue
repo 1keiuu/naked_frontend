@@ -7,6 +7,7 @@
         v-else-if="today.length >= 1"
         :tasks="today"
         @updateTaskDate="updateTaskDate"
+        :type="'index'"
       />
     </div>
     <div class="epic-tasks__group ml-5 mb-5">
@@ -16,6 +17,7 @@
         v-else-if="tomorrow.length >= 1"
         :tasks="tomorrow"
         @updateTaskDate="updateTaskDate"
+        :type="'index'"
       />
     </div>
     <div class="tasks-group ml-5">
@@ -30,6 +32,7 @@
         v-else-if="noDate.length >= 1"
         :tasks="noDate"
         @updateTaskDate="updateTaskDate"
+        :type="'index'"
       />
       <NkdTasksInput @onInputBlur="dispatchEvent" />
     </div>

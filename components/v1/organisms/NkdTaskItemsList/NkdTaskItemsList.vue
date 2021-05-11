@@ -4,6 +4,7 @@
       v-for="task in tasks"
       :key="'task' + task.id"
       :task="task"
+      :type="type"
       @onInputBlur="dispatchEvent"
     />
   </div>
@@ -19,6 +20,9 @@ export default defineComponent({
   props: {
     tasks: {
       type: Array as PropType<Task[]>,
+    },
+    type: {
+      type: String,
     },
   },
   setup(_props, context) {
