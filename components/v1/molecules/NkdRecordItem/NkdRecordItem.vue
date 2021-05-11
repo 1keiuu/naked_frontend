@@ -60,6 +60,7 @@ export default defineComponent({
 
     const clickCalendarOutside = () => {
       closeRecord()
+      context.root.$router.go(0)
     }
 
     const startTime = computed(() => {
@@ -76,7 +77,6 @@ export default defineComponent({
         })
         .then((res) => {
           const record = res.data.record
-          context.root.$router.go(0)
         })
         .catch((e) => {})
     }

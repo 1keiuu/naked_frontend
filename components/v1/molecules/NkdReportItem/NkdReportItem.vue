@@ -2,8 +2,8 @@
   <div class="report-card">
     <div class="report-card__img">
       <img
-        :src="report.user.avatar_url"
-        v-if="report.user.avatar_url"
+        :src="avatarUrl"
+        v-if="avatarUrl"
         id="avatar"
         class="rounded-full h-12 mr-2 cursor-pointer w-12 object-cover"
       />
@@ -57,6 +57,11 @@ export default defineComponent({
         ? ref(tasksStore.todayTasks)
         : ref(props?.report?.tasks)
 
+    const avatarUrl =
+      props?.report?.user == null
+        ? ref(context.root.$auth.user.avatar_url)
+        : ref(props?.report?.user.avatar_url)
+
     const userName =
       props?.report?.user == null
         ? ref(context.root.$auth.user.name)
@@ -70,7 +75,7 @@ export default defineComponent({
         context.emit('onClickReportDelete')
       }
     }
-    return { userId, onClickReportDelete, userName, reportTasks }
+    return { userId, onClickReportDelete, userName, reportTasks, avatarUrl }
   },
 })
 </script>
