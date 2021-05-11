@@ -50,7 +50,7 @@ export default defineComponent({
   },
   setup(props, context) {
     const date = ref(new Date())
-    const record_time: Ref = ref('')
+    const record_time: Ref<string> = ref('')
     const taskPageStore = inject(TaskPageStoreKey)
     const isCalenderOpen = ref(false)
     const selectedDate: Ref<{ start: String; end: String }> = ref({
