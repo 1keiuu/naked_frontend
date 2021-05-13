@@ -15,6 +15,7 @@
       />
     </div>
     <div class="report-card__inner">
+      <div class="report-card__inner__time">{{createTime}}</div>
       <div v-if="report.user_id == userId" class="report-card__inner__trash" @click="onClickReportDelete">
         <NkdIcon type="trash" color="rgb(149 150 152)"/>
       </div>
@@ -42,6 +43,7 @@ import {
 import NkdIcon from '@/components/v1/atoms/NkdIcon/NkdIcon.vue'
 import ReportPageStoreKey from '@/components/v1/storeKeys/ReportPageStoreKey'
 import TasksStoreKey from '@/components/v1/storeKeys/TasksStoreKey'
+import moment from 'moment'
 
 export default defineComponent({
   components: { NkdIcon },
@@ -51,6 +53,10 @@ export default defineComponent({
     },
   },
   setup(props, context) {
+    const createTime = computed(() => {
+      return moment(props.report?.created_at).format('YYYY/MM/DD')
+    })
+
     const tasksStore = inject(TasksStoreKey)
     const reportTasks =
       props?.report?.tasks == null
@@ -75,7 +81,14 @@ export default defineComponent({
         context.emit('onClickReportDelete')
       }
     }
-    return { userId, onClickReportDelete, userName, reportTasks, avatarUrl }
+    return {
+      userId,
+      onClickReportDelete,
+      userName,
+      reportTasks,
+      avatarUrl,
+      createTime,
+    }
   },
 })
 </script>
@@ -111,6 +124,13 @@ export default defineComponent({
       background: rgb(243, 250, 255);
       display: flex;
       border: 1px solid rgba(0, 0, 0, 0.12);
+    }
+    &__time {
+      position: absolute;
+      top: 8px;
+      right: 35px;
+      color: gray;
+      font-size: 13px;
     }
     &__name {
       // color: gray;
