@@ -107,7 +107,11 @@ export default {
             method: 'get',
             withCredentials: true,
           },
-          logout: false,
+          logout:  {
+            url: '/api/v1/users/logout',
+            method: 'post',
+            withCredentials: true,
+          },
         },
         // TODO: autoFetchにしたい
         // token: {
