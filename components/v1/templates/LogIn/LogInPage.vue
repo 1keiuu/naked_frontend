@@ -51,7 +51,6 @@ export default defineComponent({
         })
         .then((response) => {
           context.root.$auth.setUser(response.data.user)
-          context.root.$auth.setUserToken(response.data.user.token)
         })
         .catch((error) => {
           console.log(error.response)

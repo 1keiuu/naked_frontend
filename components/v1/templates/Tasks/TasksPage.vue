@@ -53,11 +53,6 @@ export default defineComponent({
     const epicTasksStore = inject(EpicTasksStoreKey)
     const tasksStore = inject(TasksStoreKey)
 
-    onMounted(() => {
-      // the DOM element will be assigned to the ref after initial render
-      console.log(root.value) // <div/>
-    })
-
     const onTasksPageClick = (e: Event) => {
       if (
         !(e.target as HTMLInputElement).closest('.nkd-drawer') &&

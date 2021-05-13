@@ -1,5 +1,5 @@
 export default function ({ store, query, redirect }) {
-  if (query.token) {
+  if (store.$auth.loggedIn) {
     store.$auth.setUserToken(query.token)
     redirect('/')
   }
