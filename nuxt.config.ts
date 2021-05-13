@@ -109,7 +109,7 @@ export default {
           },
           logout:  {
             url: '/api/v1/users/logout',
-            method: 'post',
+            method: 'delete',
             withCredentials: true,
           },
         },
