@@ -9,14 +9,14 @@ export default {
   target: 'static',
 
   server: {
-    port: 4000
+    port: 4000,
   },
 
   // Global page headers (https://go.nuxtjs.dev/config-head)
   head: {
     title: 'NAKED',
     htmlAttrs: {
-      lang: 'ja'
+      lang: 'ja',
     },
     meta: [
       { charset: 'utf-8' },
@@ -30,9 +30,10 @@ export default {
   css: [{ src: '~/assets/scss/global.scss', lang: 'scss' }],
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
-  plugins: ['@/plugins/composition-api',
+  plugins: [
+    '@/plugins/composition-api',
     { src: '@/plugins/v-calendar.ts', ssr: false },
-    { src: "@/plugins/v-click-outside.ts", ssr: false }
+    { src: '@/plugins/v-click-outside.ts', ssr: false },
   ],
 
   // Auto import components (https://go.nuxtjs.dev/config-components)
@@ -54,31 +55,34 @@ export default {
     // https://go.nuxtjs.dev/pwa
     '@nuxtjs/pwa',
     '@nuxtjs/auth-next',
-    "@nuxtjs/proxy",
+    '@nuxtjs/proxy',
   ],
   env: {
     NODE_ENV: process.env.NODE_ENV,
-    API_BASE_URL: process.env.API_BASE_URL
+    API_BASE_URL: process.env.API_BASE_URL,
   },
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
   axios: {
-    baseURL : process.env.API_BASE_URL
+    baseURL: process.env.API_BASE_URL,
+    credentials: true,
+
   },
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {
-    extend(config:any, isDev:boolean, isClient:boolean ) {
+    extend(config: any, isDev: boolean, isClient: boolean) {
       if (isDev && isClient) {
         config.module.rules.push({
-          enforce: "pre",
+          enforce: 'pre',
           test: /\.(js|ts|vue)$/,
-          loader: "eslint-loader",
-          exclude: /(node_modules)/
+          loader: 'eslint-loader',
+          exclude: /(node_modules)/,
         })
       }
-    }
+    },
   },
 
   auth: {
+    cookie: true,
     redirect: {
       login: '/login',
       logout: '/login',
@@ -87,14 +91,27 @@ export default {
     },
     strategies: {
       local: {
+        token: {
+          required: false,
+          type: false,
+          cookie: true,
+        },
         endpoints: {
           login: {
             url: '/api/v1/users/login',
             method: 'post',
-            propertyName: 'token',
+            withCredentials: true,
           },
-          user: { url: 'api/v1/users/current_user', method: 'get' },
-          logout: false,
+          user: {
+            url: '/api/v1/users/current_user',
+            method: 'get',
+            withCredentials: true,
+          },
+          logout:  {
+            url: '/api/v1/users/logout',
+            method: 'post',
+            withCredentials: true,
+          },
         },
         // TODO: autoFetchにしたい
         // token: {
@@ -109,8 +126,6 @@ export default {
     },
   },
   router: {
-    middleware: 'auth',
+    middleware: ['auth'],
   },
-
 }
-

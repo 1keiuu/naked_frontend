@@ -4,6 +4,9 @@
       type="name"
       name="name"
       placeholder="name"
+      :value="SignUpStore.name"
+      :maxLength="lengthRestrictions['name']"
+      :isCounter="true"
       @onTextFieldInput="onInputTextField"
     />
     <NkdTextField
@@ -16,6 +19,9 @@
       type="password"
       name="password"
       placeholder="password"
+      :value='SignUpStore.password'
+      :maxLength="lengthRestrictions['password']"
+            :isCounter="true"
       @onTextFieldInput="onInputTextField"
     />
     <NkdButton title="新規登録" type="submit" />
@@ -42,7 +48,10 @@ export default defineComponent({
   },
   setup(props, context) {
     const SignUpStore = inject(SignUpStoreKey)
-
+    const lengthRestrictions = {
+      name: 10,
+      password: 20,
+    }
     if (!SignUpStore) {
       throw new Error(`${SignUpStoreKey} is not provided`)
     }
@@ -55,13 +64,19 @@ export default defineComponent({
       if (type == 'email') {
         SignUpStore.setEmail(val)
       } else if (type == 'password') {
-        SignUpStore.setPassword(val)
+        if (val.length <= lengthRestrictions['password'])
+          SignUpStore.setPassword(val)
       } else if (type == 'name') {
-        SignUpStore.setName(val)
+        if (val.length <= lengthRestrictions['name']) SignUpStore.setName(val)
       }
     }
 
-    return { onNkdButtonClick, onInputTextField }
+    return {
+      SignUpStore,
+      lengthRestrictions,
+      onNkdButtonClick,
+      onInputTextField,
+    }
   },
 })
 </script>
