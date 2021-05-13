@@ -2,8 +2,8 @@
   <div>
     <div class="mb-3">
       <div class="record-time">
-        <div class="mr-3">{{startTime}}~{{finishTime}}</div>
-        <button @click="openRecord" class="open-play__button">
+        <div class="mr-3 record-time__time">{{startTime}}~{{finishTime}}</div>
+        <button @click="openRecord" class="record-time__edit">
           編集
         </button>
       </div>
@@ -98,6 +98,12 @@ export default defineComponent({
   padding: 8px 12px;
   box-sizing: border-box;
   border-bottom: 1px solid #efefef;
+  &__time {
+    flex: 1;
+  }
+  &__edit {
+    flex: 2;
+  }
 }
 .calendar {
   position: absolute;
