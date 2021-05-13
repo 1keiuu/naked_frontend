@@ -55,6 +55,7 @@ export default function TasksStore() {
       replaceTask(state.todayTasks,task)
       replaceTask(state.tomorrowTasks,task)
       replaceTask(state.noDateTasks,task)
+      replaceTask(state.tasks, task)
     },
     deleteTasks(payload: Number) {
       const target = state.tasks.find((item:Task) => {

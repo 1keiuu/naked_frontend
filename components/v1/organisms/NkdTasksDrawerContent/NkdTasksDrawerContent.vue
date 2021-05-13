@@ -122,7 +122,7 @@ export default defineComponent({
     const onTextFieldBlur = (inputValue: string) => {
       taskPageStore.stopUpdateTask()
       if (taskPageStore.selectedTask.title !== inputValue && props.task)
-        updateTask({
+        updateTaskTitle({
           id: props.task.id,
           title: inputValue,
         })
