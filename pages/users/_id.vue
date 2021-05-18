@@ -6,7 +6,7 @@
     />
     <div class="show-card" :class="{ '--active': userPageStore.isUpdatingUser }">
       <div class="show-card__modal" :class="{ '--active': userPageStore.isUpdatingUser }">
-        <NkdReportModal/>
+        <nkd-user-modal/>
       </div>
     </div>
   </div>
@@ -21,9 +21,10 @@ import {
 } from '@vue/composition-api'
 import UserPage from '@/components/v1/templates/User/UserPage.vue'
 import UserPageStoreKey from '@/components/v1/storeKeys/UserPageStoreKey'
+import NkdUserModal from '@/components/v1/organisms/NkdUserModal/NkdUserModal.vue'
 
 export default defineComponent({
-  components: { UserPage },
+  components: { UserPage, NkdUserModal },
   setup(_props, context) {
     const userPageStore = inject(UserPageStoreKey)
     const user = ref({})
