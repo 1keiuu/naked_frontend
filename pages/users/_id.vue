@@ -4,15 +4,28 @@
       :user="user"
       :userId="userId"
     />
+    <div class="show-card" :class="{ '--active': userPageStore.isUpdatingUser }">
+      <div class="show-card__modal" :class="{ '--active': userPageStore.isUpdatingUser }">
+        <NkdReportModal/>
+      </div>
+    </div>
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, reactive, ref, computed } from '@vue/composition-api'
+import {
+  defineComponent,
+  reactive,
+  ref,
+  computed,
+  inject,
+} from '@vue/composition-api'
 import UserPage from '@/components/v1/templates/User/UserPage.vue'
+import UserPageStoreKey from '@/components/v1/storeKeys/UserPageStoreKey'
 
 export default defineComponent({
   components: { UserPage },
   setup(_props, context) {
+    const userPageStore = inject(UserPageStoreKey)
     const user = ref({})
 
     const userId = context.root.$route.params.id
@@ -27,7 +40,42 @@ export default defineComponent({
         console.error(e)
       })
 
-    return { user, userId }
+    return { user, userId, userPageStore }
   },
 })
 </script>
+
+<style scoped lang="scss">
+.show-card {
+  &.--active {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    padding-top: 100px;
+    display: flex;
+    -webkit-box-pack: center;
+    justify-content: center;
+    top: 0px;
+    left: 0px;
+    overflow: hidden;
+    z-index: 99999;
+    background: rgba(0, 0, 0, 0.5);
+  }
+  &__modal {
+    &.--active {
+      font-weight: bold;
+      max-width: 600px;
+      overflow: visible;
+      transition: width 150ms ease 0s;
+      position: relative;
+      height: fit-content;
+      width: 100%;
+      background: rgb(251, 251, 253);
+      height: 600px;
+      border-radius: 16px;
+      z-index: 1;
+      max-height: calc(100vh - 140px);
+    }
+  }
+}
+</style>

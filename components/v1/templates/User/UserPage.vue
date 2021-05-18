@@ -11,7 +11,7 @@
       </div>
       <h1 class="show-page__name">{{ user.name }}</h1>
       <div v-if="current_user_id == user.id">
-        <button class="mr-5">
+        <button class="mr-5" @click="onUpdateUserBtnClick">
           <p>プロフィールの編集</p>
         </button>
       </div>
@@ -37,7 +37,9 @@ import {
   computed,
   PropType,
   onMounted,
+  inject,
 } from '@vue/composition-api'
+import UserPageStoreKey from '@/components/v1/storeKeys/UserPageStoreKey'
 
 export default defineComponent({
   props: {
@@ -48,6 +50,7 @@ export default defineComponent({
   },
   components: {},
   setup(props, context) {
+    const userPageStore = inject(UserPageStoreKey)
     const followBoolean = ref(false)
     const current_user_id = context.root.$auth.user.id
 
@@ -92,11 +95,17 @@ export default defineComponent({
           .catch((e) => {})
       }
     }
+
+    const onUpdateUserBtnClick = () => {
+      userPageStore?.startUpdateUser()
+    }
+
     return {
       current_user_id,
       onFollowBtnClick,
       onUnFollowBtnClick,
       followBoolean,
+      onUpdateUserBtnClick,
     }
   },
 })
