@@ -1,12 +1,15 @@
 <template>
   <div class="mt-16 pt-12 pl-56 h-screen overflow-scroll">
     <div class="show-page">
-      <img
+      <div class="show-page__image-add">
+        <img
         src="~/assets/images/avatar.jpg"
         id="avatar"
         class="rounded-full h-12 mr-2 cursor-pointer w-12 object-cover show-page__image"
-      />
-      <div>{{ user.name }}</div>
+        />
+        <input type="file" id="imageInput"/>
+      </div>
+      <h1 class="show-page__name">{{ user.name }}</h1>
       <div v-if="current_user_id == user.id">
         <button class="mr-5">
           <p>プロフィールの編集</p>
@@ -110,7 +113,28 @@ export default defineComponent({
   padding: 0px 30px;
   width: 100%;
   position: sticky;
-  top: 110px;
+  top: 30px;
+  &__name {
+    font-size: 22px;
+    font-weight: 550;
+    line-height: 29px;
+    margin: 0px 15px 0px 20px;
+  }
+  &__image-add {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    margin-right: 10px;
+    position: relative;
+    input {
+      opacity: 0;
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0%;
+    }
+  }
   &__image {
     border: 4px solid rgb(255, 255, 255);
     height: 180px;
