@@ -78,6 +78,7 @@ export default defineComponent({
     const uploadFile = () => {
       file.value = preview.value.files[0]
       url.value = URL.createObjectURL(file.value)
+      preview.value = ''
     }
 
     onMounted(() => {
