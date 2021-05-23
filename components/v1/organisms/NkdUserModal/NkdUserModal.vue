@@ -3,6 +3,11 @@
     <div class="user-header" @click="clickCloseClick">
       <NkdIcon type="close" color="black" class="user-header__close"/>
     </div>
+    <div class="user-body">
+      <img :src="url" v-if="url" class="rounded-full mr-2 cursor-pointer object-cover user-body__image">
+      <img src="~/assets/images/avatar.jpg" v-else class="rounded-full mr-2 cursor-pointer object-cover user-body__image">
+      <div class="user-body__file"><input type="file" ref="preview" @change="uploadFile">ファイルを添付する</div>
+    </div>
   </div>
 </template>
 <script lang="ts">
@@ -20,12 +25,22 @@ import TasksStoreKey from '@/components/v1/storeKeys/TasksStoreKey'
 
 export default defineComponent({
   components: {},
-  props: {},
+  props: {
+    user: {
+      type: Object as PropType<User>,
+    },
+  },
   setup(props, context) {
     const userPageStore = inject(UserPageStoreKey)
     const usersStore = inject(UsersStoreKey)
     const tasksStore = inject(TasksStoreKey)
     const userDescription = ref()
+    const preview = ref()
+    const file = ref()
+    const url = ref()
+    if (props.user?.avatar_url) {
+      url.value = props.user.avatar_url
+    }
 
     const setUser = (inputValue: string) => {
       userDescription.value = inputValue
@@ -57,8 +72,18 @@ export default defineComponent({
       })
 
     const clickCloseClick = () => {
-      userPageStore?.stopCreateUser()
+      userPageStore?.stopUpdateUser()
     }
+
+    const uploadFile = () => {
+      file.value = preview.value.files[0]
+      url.value = URL.createObjectURL(file.value)
+    }
+
+    onMounted(() => {
+      console.log(preview)
+      console.log(preview.value)
+    })
 
     return {
       userPageStore,
@@ -66,6 +91,10 @@ export default defineComponent({
       tasksStore,
       setUser,
       onCreateUserBtnClick,
+      preview,
+      file,
+      url,
+      uploadFile,
     }
   },
 })
@@ -85,8 +114,40 @@ export default defineComponent({
   position: absolute;
   left: 15px;
   top: 50px;
+  display: flex;
   &__text {
     margin-top: 20px;
+  }
+  &__image {
+    height: 150px;
+    width: 150px;
+  }
+  &__file {
+    display: inline-block;
+    position: absolute;
+    left: 180px;
+    top: 105px;
+    background: #757171;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 300;
+    padding: 10px 18px;
+    border-radius: 4px;
+    transition: all 0.3s;
+    height: 45px;
+    width: 200px;
+  }
+  &__file:hover {
+    background: #888;
+    transition: all 0.4s;
+  }
+  &__file input {
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
   }
 }
 

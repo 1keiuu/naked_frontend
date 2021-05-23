@@ -6,7 +6,7 @@
     />
     <div class="show-card" :class="{ '--active': userPageStore.isUpdatingUser }">
       <div class="show-card__modal" :class="{ '--active': userPageStore.isUpdatingUser }">
-        <nkd-user-modal/>
+        <nkd-user-modal :user="user"/>
       </div>
     </div>
   </div>
