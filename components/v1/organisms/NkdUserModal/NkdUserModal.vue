@@ -1,6 +1,7 @@
 <template>
   <div v-if="userPageStore.isUpdatingUser">
     <div class="user-header" @click="clickCloseClick">
+      <div class="user-header__profile">プロフィールの編集</div>
       <NkdIcon type="close" color="black" class="user-header__close"/>
     </div>
     <div class="user-body">
@@ -8,6 +9,21 @@
       <img src="~/assets/images/avatar.jpg" v-else class="rounded-full mr-2 cursor-pointer object-cover user-body__image">
       <div class="user-body__file"><input type="file" ref="preview" @change="uploadFile">ファイルを添付する</div>
     </div>
+    <div class="user-card">
+      <NkdLabel name="user-name" value="名前" />
+      <NkdTextField
+        :isOutLined="true"
+        :value="user.name"
+        name="user-name"
+        @onTextFieldInput="onTextFieldInput"
+        @onTextFieldBlur="onTextFieldBlur"
+      />
+    </div>
+    <div class="user-bottom">
+        <button class="user-bottom__button" @click="onCreateReportBtnClick">
+          <p>日報を送信する</p>
+        </button>
+      </div>
   </div>
 </template>
 <script lang="ts">
@@ -47,7 +63,7 @@ export default defineComponent({
     }
 
     const onCreateUserBtnClick = () => {
-      userPageStore?.stopCreateUser()
+      userPageStore?.stopUpdateUser()
 
       context.root.$axios
         .post('/api/v1/users', {
@@ -81,10 +97,23 @@ export default defineComponent({
       preview.value = ''
     }
 
-    onMounted(() => {
-      console.log(preview)
-      console.log(preview.value)
-    })
+    const onTextFieldBlur = (inputValue: string) => {
+      if (userPageStore?.selectedUser.name !== inputValue && props.user)
+        updateUserName({
+          id: props.user.id,
+          name: inputValue,
+        })
+    }
+
+    const updateUserName = (obj: User) => {
+      if (!props.user || !obj.name) return
+      if (obj.name.length > 20)
+        return alert('タイトルは20文字以内で入力してください')
+      const target = userPageStore.selectedUser
+      // 変更ない場合は弾く
+      if (!target || obj.title == target.title) return
+      updateTask({ id: obj.id, title: obj.title })
+    }
 
     return {
       userPageStore,
@@ -96,12 +125,18 @@ export default defineComponent({
       file,
       url,
       uploadFile,
+      onTextFieldBlur,
     }
   },
 })
 </script>
 <style scoped lang="scss">
 .user-header {
+  &__profile {
+    position: absolute;
+    top: 15px;
+    left: 230px;
+  }
   &__close {
     position: absolute;
     top: 15px;
@@ -150,6 +185,12 @@ export default defineComponent({
     width: 100%;
     height: 100%;
   }
+}
+
+.user-card {
+  position: absolute;
+  left: 15px;
+  top: 250px;
 }
 
 .user-bottom {

@@ -1,8 +1,8 @@
 declare type User = {
   id?: number
-  email: string
+  email?: string
   name: string
-  token: string
+  token?: string
   created_at?: Date
   updated_at?: Date
   avatar_url?: string
