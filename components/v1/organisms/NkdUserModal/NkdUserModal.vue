@@ -20,8 +20,8 @@
       />
     </div>
     <div class="user-bottom">
-        <button class="user-bottom__button" @click="onCreateReportBtnClick">
-          <p>日報を送信する</p>
+        <button class="user-bottom__button" @click="onEditUserBtnClick">
+          <p>完了</p>
         </button>
       </div>
   </div>
@@ -62,20 +62,21 @@ export default defineComponent({
       userDescription.value = inputValue
     }
 
-    const onCreateUserBtnClick = () => {
+    const onEditUserBtnClick = () => {
       userPageStore?.stopUpdateUser()
+      // console.log()
 
-      context.root.$axios
-        .post('/api/v1/users', {
-          description: userDescription.value,
-          user_id: context.root.$auth.user.id,
-          task_ids: tasksStore.todayTasks.map((task: any) => task.id),
-        })
-        .then((res) => {
-          const user = res.data.user
-          usersStore.appendToUsers(user)
-        })
-        .catch((e) => {})
+      // context.root.$axios
+      //   .post('/api/v1/users', {
+      //     description: userDescription.value,
+      //     user_id: context.root.$auth.user.id,
+      //     task_ids: tasksStore.todayTasks.map((task: any) => task.id),
+      //   })
+      //   .then((res) => {
+      //     const user = res.data.user
+      //     usersStore.appendToUsers(user)
+      //   })
+      //   .catch((e) => {})
     }
 
     context.root.$axios
@@ -95,6 +96,9 @@ export default defineComponent({
       file.value = preview.value.files[0]
       url.value = URL.createObjectURL(file.value)
       preview.value = ''
+      const target = userPageStore?.selectedUser
+      if (!target || url.value == target.avatar_url) return
+      target.avatar_url = url.value
     }
 
     const onTextFieldBlur = (inputValue: string) => {
@@ -109,10 +113,10 @@ export default defineComponent({
       if (!props.user || !obj.name) return
       if (obj.name.length > 20)
         return alert('タイトルは20文字以内で入力してください')
-      const target = userPageStore.selectedUser
+      const target = userPageStore?.selectedUser
       // 変更ない場合は弾く
-      if (!target || obj.title == target.title) return
-      updateTask({ id: obj.id, title: obj.title })
+      if (!target || obj.name == target.name) return
+      target.name = obj.name
     }
 
     return {
@@ -120,7 +124,7 @@ export default defineComponent({
       clickCloseClick,
       tasksStore,
       setUser,
-      onCreateUserBtnClick,
+      onEditUserBtnClick,
       preview,
       file,
       url,

@@ -1,7 +1,7 @@
 <template>
   <div class="task-page w-full h-full">
     <UserPage
-      :user="user"
+      :user="userPageStore.selectedUser"
       :userId="userId"
     />
     <div class="show-card" :class="{ '--active': userPageStore.isUpdatingUser }">
@@ -35,7 +35,8 @@ export default defineComponent({
     context.root.$axios
       .get(`api/v1/users/${userId}`)
       .then((res) => {
-        user.value = res.data.user
+        // user.value = res.data.user
+        userPageStore?.selectUser(res.data.user)
       })
       .catch((e) => {
         console.error(e)

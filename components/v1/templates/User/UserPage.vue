@@ -3,13 +3,20 @@
     <div class="show-page">
       <div class="show-page__image-add">
         <img
-        src="~/assets/images/avatar.jpg"
-        id="avatar"
-        class="rounded-full h-12 mr-2 cursor-pointer w-12 object-cover show-page__image"
+          :src="userPageStore.selectedUser.avatar_url"
+          v-if="userPageStore.selectedUser.avatar_url"
+          id="avatar"
+          class="rounded-full h-12 mr-2 cursor-pointer w-12 object-cover show-page__image"
+        />
+        <img
+          src="~/assets/images/avatar.jpg"
+          v-else
+          id="avatar"
+          class="rounded-full h-12 mr-2 cursor-pointer w-12 object-cover show-page__image"
         />
         <input type="file" id="imageInput"/>
       </div>
-      <h1 class="show-page__name">{{ user.name }}</h1>
+      <h1 class="show-page__name">{{ userPageStore.selectedUser.name }}</h1>
       <div v-if="current_user_id == user.id">
         <button class="mr-5" @click="onUpdateUserBtnClick">
           <p>プロフィールの編集</p>
@@ -101,6 +108,7 @@ export default defineComponent({
     }
 
     return {
+      userPageStore,
       current_user_id,
       onFollowBtnClick,
       onUnFollowBtnClick,
