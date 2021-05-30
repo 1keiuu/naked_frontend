@@ -5,7 +5,7 @@
       <NkdIcon type="close" color="black" class="user-header__close"/>
     </div>
     <div class="user-body">
-      <img :src="url" v-if="url" class="rounded-full mr-2 cursor-pointer object-cover user-body__image">
+      <img :src="userPageStore.selectedUser.avatar_url" v-if="userPageStore.selectedUser.avatar_url" class="rounded-full mr-2 cursor-pointer object-cover user-body__image">
       <img src="~/assets/images/avatar.jpg" v-else class="rounded-full mr-2 cursor-pointer object-cover user-body__image">
       <div class="user-body__file"><input type="file" ref="preview" @change="uploadFile">ファイルを添付する</div>
     </div>
@@ -13,17 +13,17 @@
       <NkdLabel name="user-name" value="名前" />
       <NkdTextField
         :isOutLined="true"
-        :value="user.name"
+        :value="userPageStore.selectedUser.name"
         name="user-name"
         @onTextFieldInput="onTextFieldInput"
         @onTextFieldBlur="onTextFieldBlur"
       />
     </div>
     <div class="user-bottom">
-        <button class="user-bottom__button" @click="onEditUserBtnClick">
-          <p>完了</p>
-        </button>
-      </div>
+      <button class="user-bottom__button" @click="onEditUserBtnClick">
+        <p>完了</p>
+      </button>
+    </div>
   </div>
 </template>
 <script lang="ts">
@@ -53,10 +53,10 @@ export default defineComponent({
     const userDescription = ref()
     const preview = ref()
     const file = ref()
-    const url = ref()
-    if (props.user?.avatar_url) {
-      url.value = props.user.avatar_url
-    }
+    // const url = ref()
+    // if (props.user?.avatar_url) {
+    //   userPageStore?.selectedUser.avatar_url = props.user.avatar_url
+    // }
 
     const setUser = (inputValue: string) => {
       userDescription.value = inputValue
@@ -93,12 +93,15 @@ export default defineComponent({
     }
 
     const uploadFile = () => {
-      file.value = preview.value.files[0]
-      url.value = URL.createObjectURL(file.value)
-      preview.value = ''
       const target = userPageStore?.selectedUser
-      if (!target || url.value == target.avatar_url) return
-      target.avatar_url = url.value
+      if (
+        !target ||
+        userPageStore?.selectedUser.avatar_url == target.avatar_url
+      )
+        return
+      file.value = preview.value.files[0]
+      target.avatar_url = URL.createObjectURL(file.value)
+      preview.value = ''
     }
 
     const onTextFieldBlur = (inputValue: string) => {
@@ -127,7 +130,6 @@ export default defineComponent({
       onEditUserBtnClick,
       preview,
       file,
-      url,
       uploadFile,
       onTextFieldBlur,
     }
