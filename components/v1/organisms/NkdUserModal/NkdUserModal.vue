@@ -15,7 +15,6 @@
         :isOutLined="true"
         :value="userPageStore.selectedUser.name"
         name="user-name"
-        @onTextFieldInput="onTextFieldInput"
         @onTextFieldBlur="onTextFieldBlur"
       />
     </div>
@@ -53,10 +52,6 @@ export default defineComponent({
     const userDescription = ref()
     const preview = ref()
     const file = ref()
-    // const url = ref()
-    // if (props.user?.avatar_url) {
-    //   userPageStore?.selectedUser.avatar_url = props.user.avatar_url
-    // }
 
     const setUser = (inputValue: string) => {
       userDescription.value = inputValue
@@ -94,11 +89,7 @@ export default defineComponent({
 
     const uploadFile = () => {
       const target = userPageStore?.selectedUser
-      if (
-        !target ||
-        userPageStore?.selectedUser.avatar_url == target.avatar_url
-      )
-        return
+      if (!target) return
       file.value = preview.value.files[0]
       target.avatar_url = URL.createObjectURL(file.value)
       preview.value = ''
