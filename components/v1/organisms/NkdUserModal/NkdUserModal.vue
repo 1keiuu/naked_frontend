@@ -5,15 +5,22 @@
       <NkdIcon type="close" color="black" class="user-header__close"/>
     </div>
     <div class="user-body">
-      <img :src="userPageStore.selectedUser.avatar_url" v-if="userPageStore.selectedUser.avatar_url" class="rounded-full mr-2 cursor-pointer object-cover user-body__image">
+      <!-- <img :src="userPageStore.selectedUser.avatar_url" v-if="userPageStore.selectedUser.avatar_url" class="rounded-full mr-2 cursor-pointer object-cover user-body__image"> -->
+      <img :src="url" v-if="url" class="rounded-full mr-2 cursor-pointer object-cover user-body__image">
       <img src="~/assets/images/avatar.jpg" v-else class="rounded-full mr-2 cursor-pointer object-cover user-body__image">
       <div class="user-body__file"><input type="file" ref="preview" @change="uploadFile">ファイルを添付する</div>
     </div>
     <div class="user-card">
       <NkdLabel name="user-name" value="名前" />
-      <NkdTextField
+      <!-- <NkdTextField
         :isOutLined="true"
         :value="userPageStore.selectedUser.name"
+        name="user-name"
+        @onTextFieldBlur="onTextFieldBlur"
+      /> -->
+      <NkdTextField
+        :isOutLined="true"
+        :value="userName"
         name="user-name"
         @onTextFieldBlur="onTextFieldBlur"
       />
@@ -52,6 +59,16 @@ export default defineComponent({
     const userDescription = ref()
     const preview = ref()
     const file = ref()
+    const url = ref()
+    const userName = ref(props.user?.name)
+    userName.value = props.user?.name
+    // console.log(props.user)
+    // console.log(props.user?.name)
+    // console.log(userPageStore?.selectedUser.name)
+    const setUserName = () => {
+      console.log(props.user)
+    }
+    setUserName
 
     const setUser = (inputValue: string) => {
       userDescription.value = inputValue
@@ -59,6 +76,10 @@ export default defineComponent({
 
     const onEditUserBtnClick = () => {
       userPageStore?.stopUpdateUser()
+      const target = userPageStore?.selectedUser
+      if (!target) return
+      target.avatar_url = url.value
+      target.name = userName.value
       // console.log()
 
       // context.root.$axios
@@ -74,24 +95,15 @@ export default defineComponent({
       //   .catch((e) => {})
     }
 
-    context.root.$axios
-      .get('/api/v1/tasks')
-      .then((res) => {
-        tasksStore.setTodayTasks(res.data.today.slice(0, 4))
-      })
-      .catch((e) => {
-        console.error(e)
-      })
-
     const clickCloseClick = () => {
       userPageStore?.stopUpdateUser()
     }
 
     const uploadFile = () => {
-      const target = userPageStore?.selectedUser
-      if (!target) return
+      // const target = userPageStore?.selectedUser
+      // if (!target) return
       file.value = preview.value.files[0]
-      target.avatar_url = URL.createObjectURL(file.value)
+      url.value = URL.createObjectURL(file.value)
       preview.value = ''
     }
 
@@ -110,7 +122,8 @@ export default defineComponent({
       const target = userPageStore?.selectedUser
       // 変更ない場合は弾く
       if (!target || obj.name == target.name) return
-      target.name = obj.name
+      // target.name = obj.name
+      userName.value = obj.name
     }
 
     return {
@@ -123,6 +136,8 @@ export default defineComponent({
       file,
       uploadFile,
       onTextFieldBlur,
+      userName,
+      url,
     }
   },
 })
