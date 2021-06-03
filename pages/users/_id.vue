@@ -6,7 +6,7 @@
     />
     <div class="show-card" :class="{ '--active': userPageStore.isUpdatingUser }">
       <div class="show-card__modal" :class="{ '--active': userPageStore.isUpdatingUser }">
-        <nkd-user-modal :user="user"/>
+        <nkd-user-modal :user="userPageStore.selectedUser"/>
       </div>
     </div>
   </div>
@@ -35,7 +35,6 @@ export default defineComponent({
     context.root.$axios
       .get(`api/v1/users/${userId}`)
       .then((res) => {
-        user.value = res.data.user
         userPageStore?.selectUser(res.data.user)
       })
       .catch((e) => {

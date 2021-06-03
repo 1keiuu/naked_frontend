@@ -40,6 +40,7 @@ import {
   ref,
   onMounted,
   watch,
+  computed,
 } from '@vue/composition-api'
 import UserPageStoreKey from '@/components/v1/storeKeys/UserPageStoreKey'
 import UsersStoreKey from '@/components/v1/storeKeys/UsersStoreKey'
@@ -61,14 +62,10 @@ export default defineComponent({
     const file = ref()
     const url = ref()
     const userName = ref(props.user?.name)
-    userName.value = props.user?.name
-    // console.log(props.user)
-    // console.log(props.user?.name)
-    // console.log(userPageStore?.selectedUser.name)
-    const setUserName = () => {
-      console.log(props.user)
+
+    if (props.user?.name) {
+      userName.value = props.user.name
     }
-    setUserName
 
     const setUser = (inputValue: string) => {
       userDescription.value = inputValue
