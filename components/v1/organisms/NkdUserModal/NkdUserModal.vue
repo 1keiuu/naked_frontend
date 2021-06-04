@@ -61,10 +61,15 @@ export default defineComponent({
     const preview = ref()
     const file = ref()
     const url = ref()
-    const userName = ref(props.user?.name)
+    const userName = ref()
+    userName.value = props.user?.name
 
     if (props.user?.name) {
       userName.value = props.user.name
+    }
+
+    if (props.user?.avatar_url) {
+      url.value = props.user.avatar_url
     }
 
     const setUser = (inputValue: string) => {
@@ -72,6 +77,7 @@ export default defineComponent({
     }
 
     const onEditUserBtnClick = () => {
+      //完了を押した時にstoreに入れる
       userPageStore?.stopUpdateUser()
       const target = userPageStore?.selectedUser
       if (!target) return
@@ -97,8 +103,6 @@ export default defineComponent({
     }
 
     const uploadFile = () => {
-      // const target = userPageStore?.selectedUser
-      // if (!target) return
       file.value = preview.value.files[0]
       url.value = URL.createObjectURL(file.value)
       preview.value = ''

@@ -6,7 +6,7 @@
     />
     <div class="show-card" :class="{ '--active': userPageStore.isUpdatingUser }">
       <div class="show-card__modal" :class="{ '--active': userPageStore.isUpdatingUser }">
-        <nkd-user-modal :user="userPageStore.selectedUser"/>
+        <nkd-user-modal :user="userPageStore.selectedUser" v-if="loaded"/>
       </div>
     </div>
   </div>
@@ -28,6 +28,7 @@ export default defineComponent({
   setup(_props, context) {
     const userPageStore = inject(UserPageStoreKey)
     const user = ref({})
+    const loaded = ref(false)
 
     const userId = context.root.$route.params.id
     //ここが違う、urlからidを持ってくる方法
@@ -36,12 +37,14 @@ export default defineComponent({
       .get(`api/v1/users/${userId}`)
       .then((res) => {
         userPageStore?.selectUser(res.data.user)
+        console.log(userPageStore?.selectedUser)
+        loaded.value = true
       })
       .catch((e) => {
         console.error(e)
       })
 
-    return { user, userId, userPageStore }
+    return { user, userId, userPageStore, loaded }
   },
 })
 </script>
