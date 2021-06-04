@@ -33,6 +33,9 @@
         </button>
       </div>
     </div>
+    <div class="show-report">
+      <NkdReportItemsList :reports="reportsStore.reports" @onClickReportDelete="onClickReportDelete"/>
+    </div>
   </div>
 </template>
 
@@ -47,6 +50,9 @@ import {
   inject,
 } from '@vue/composition-api'
 import UserPageStoreKey from '@/components/v1/storeKeys/UserPageStoreKey'
+import ReportsStoreKey from '@/components/v1/storeKeys/ReportsStoreKey'
+import ReportPageStoreKey from '@/components/v1/storeKeys/ReportPageStoreKey'
+import NkdReportItemsList from '@/components/v1/organisms/NkdReportItemsList/NkdReportItemsList.vue'
 
 export default defineComponent({
   props: {
@@ -60,6 +66,8 @@ export default defineComponent({
     const userPageStore = inject(UserPageStoreKey)
     const followBoolean = ref(false)
     const current_user_id = context.root.$auth.user.id
+    const reportsStore = inject(ReportsStoreKey)
+    const reportPageStore = inject(ReportPageStoreKey)
 
     context.root.$axios
       .post('api/v1/users/followings', {
@@ -103,6 +111,17 @@ export default defineComponent({
       }
     }
 
+    const onClickReportDelete = () => {
+      const reportId = reportPageStore?.selectedReport.id
+      context.root.$axios
+        .delete(`/api/v1/reports/${reportId}`)
+        .then((res) => {
+          // TODO: storeの削除系まとめたい
+          reportsStore.deleteReports(reportId)
+        })
+        .catch((e) => {})
+    }
+
     const onUpdateUserBtnClick = () => {
       userPageStore?.startUpdateUser()
     }
@@ -114,6 +133,9 @@ export default defineComponent({
       onUnFollowBtnClick,
       followBoolean,
       onUpdateUserBtnClick,
+      reportPageStore,
+      reportsStore,
+      onClickReportDelete,
     }
   },
 })
@@ -164,5 +186,10 @@ export default defineComponent({
     -webkit-box-pack: center;
     justify-content: center;
   }
+}
+.show-report {
+  margin-top: 100px;
+  width: 80%;
+  margin-left: 160px;
 }
 </style>

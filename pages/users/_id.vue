@@ -22,9 +22,12 @@ import {
 import UserPage from '@/components/v1/templates/User/UserPage.vue'
 import UserPageStoreKey from '@/components/v1/storeKeys/UserPageStoreKey'
 import NkdUserModal from '@/components/v1/organisms/NkdUserModal/NkdUserModal.vue'
+import ReportsStoreKey from '@/components/v1/storeKeys/ReportsStoreKey'
+import ReportPageStoreKey from '@/components/v1/storeKeys/ReportPageStoreKey'
+import NkdReportItemsList from '@/components/v1/organisms/NkdReportItemsList/NkdReportItemsList.vue'
 
 export default defineComponent({
-  components: { UserPage, NkdUserModal },
+  components: { UserPage, NkdUserModal, NkdReportItemsList },
   setup(_props, context) {
     const userPageStore = inject(UserPageStoreKey)
     const user = ref({})
@@ -32,19 +35,29 @@ export default defineComponent({
 
     const userId = context.root.$route.params.id
     //ここが違う、urlからidを持ってくる方法
+    const reportsStore = inject(ReportsStoreKey)
+    const reportPageStore = inject(ReportPageStoreKey)
 
     context.root.$axios
       .get(`api/v1/users/${userId}`)
       .then((res) => {
+        console.log(res.data)
         userPageStore?.selectUser(res.data.user)
-        console.log(userPageStore?.selectedUser)
+        reportsStore.setReports(res.data.reports)
         loaded.value = true
       })
       .catch((e) => {
         console.error(e)
       })
 
-    return { user, userId, userPageStore, loaded }
+    return {
+      user,
+      userId,
+      userPageStore,
+      loaded,
+      reportPageStore,
+      reportsStore,
+    }
   },
 })
 </script>
