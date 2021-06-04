@@ -5,19 +5,12 @@
       <NkdIcon type="close" color="black" class="user-header__close"/>
     </div>
     <div class="user-body">
-      <!-- <img :src="userPageStore.selectedUser.avatar_url" v-if="userPageStore.selectedUser.avatar_url" class="rounded-full mr-2 cursor-pointer object-cover user-body__image"> -->
-      <img :src="url" v-if="url" class="rounded-full mr-2 cursor-pointer object-cover user-body__image">
-      <img src="~/assets/images/avatar.jpg" v-else class="rounded-full mr-2 cursor-pointer object-cover user-body__image">
-      <div class="user-body__file"><input type="file" ref="preview" @change="uploadFile">ファイルを添付する</div>
+      <img :src="url" v-if="url" class="rounded-full mr-2 cursor-pointer object-cover user-body__image"/>
+      <img src="~/assets/images/avatar.jpg" v-else class="rounded-full mr-2 cursor-pointer object-cover user-body__image"/>
+      <div class="user-body__file"><input type="file" ref="preview" @change="uploadFile"/>ファイルを添付する</div>
     </div>
     <div class="user-card">
       <NkdLabel name="user-name" value="名前" />
-      <!-- <NkdTextField
-        :isOutLined="true"
-        :value="userPageStore.selectedUser.name"
-        name="user-name"
-        @onTextFieldBlur="onTextFieldBlur"
-      /> -->
       <NkdTextField
         :isOutLined="true"
         :value="userName"
