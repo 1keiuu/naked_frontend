@@ -22,7 +22,8 @@ export default defineComponent({
       type: Array as PropType<Report[]>,
     },
   },
-  setup(_props, context) {
+  setup(props, context) {
+    console.log(props.reports)
     const onCreateReportBtnClick = () => {
       context.emit('onCreateReportBtnClick')
     }

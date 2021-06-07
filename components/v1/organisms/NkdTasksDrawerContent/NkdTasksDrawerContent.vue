@@ -21,7 +21,7 @@
       <NkdRecordItemsList
         :records="task.records"
       />
-      <NkdDrawerTasksInput @onInputBlur="createSubTask" />
+      <!-- <NkdDrawerTasksInput @onInputBlur="createSubTask" /> -->
     </div>
   </div>
 </template>
@@ -35,7 +35,6 @@ import NkdTasksDrawerHeader from '@/components/v1/organisms/NkdTasksDrawerHeader
 import NkdRecordItemsList from '~/components/v1/organisms/NkdRecordItemsList/NkdRecordItemsList.vue'
 import NkdDrawerTasksInput from '@/components/v1/organisms/NkdDrawerTasksInput/NkdDrawerTasksInput.vue'
 import TaskPageStoreKey from '@/components/v1/storeKeys/TaskPageStoreKey'
-import EpicTasksStoreKey from '@/components/v1/storeKeys/EpicTasksStoreKey'
 import TasksStoreKey from '@/components/v1/storeKeys/TasksStoreKey'
 
 export default defineComponent({
@@ -53,29 +52,10 @@ export default defineComponent({
   setup(props, context) {
     const taskPageStore = inject(TaskPageStoreKey)
     const tasksStore = inject(TasksStoreKey)
-    const taskTasksStore = inject(EpicTasksStoreKey)
     const onClickEpicDeleteButton = () => {
       context.emit('onClickEpicDeleteButton')
     }
-    const onCreateSubTaskBtnClick = () => {
-      taskPageStore.startCreateSubTask()
-    }
-    const createSubTask = (inputValue: string) => {
-      taskPageStore.startCreateSubTask()
-      if (inputValue && props.task) {
-        context.root.$axios
-          .post('/api/v1/sub_tasks', {
-            title: inputValue,
-            task_id: props.task.id,
-          })
-          .then((res) => {
-            if (!props.task) return
-            const subTask = res.data.sub_task
-            taskPageStore.appendToSelectedSubTasks(subTask)
-          })
-          .catch((e) => {})
-      }
-    }
+
     const updateTaskTitle = (obj: Task) => {
       if (!props.task || !obj.title) return
       if (obj.title.length > 20)
@@ -95,28 +75,6 @@ export default defineComponent({
         .catch((e) => {
           console.log(e.response.message)
         })
-    }
-    const updateSubTask = (obj: Object) => {
-      taskPageStore.stopCreateTask()
-      if (props.task) {
-        context.root.$axios
-          .patch(`/api/v1/sub_tasks/${props.task.id}`, obj)
-          .then((res) => {
-            if (!props.task) return
-            const task = res.data.task
-            taskTasksStore.updateTask({
-              id: task.id,
-              title: task.title,
-              description: task.description,
-            })
-            taskPageStore.selectTask({
-              id: task.id,
-              title: task.title,
-              description: task.description,
-            })
-          })
-          .catch((e) => {})
-      }
     }
 
     const onTextFieldBlur = (inputValue: string) => {
@@ -143,9 +101,7 @@ export default defineComponent({
     }
     return {
       onClickEpicDeleteButton,
-      onCreateSubTaskBtnClick,
       dispatchEvent,
-      createSubTask,
       onTextFieldInput,
       onTextAreaInput,
       onTextFieldBlur,
