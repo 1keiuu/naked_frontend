@@ -3,8 +3,8 @@
     <div class="show-page">
       <div class="show-page__image-add">
         <img
-          :src="userPageStore.selectedUser.avatar_url"
-          v-if="userPageStore.selectedUser.avatar_url"
+          :src="userPageStore.selectedUser.avatar"
+          v-if="userPageStore.selectedUser.avatar"
           id="avatar"
           class="rounded-full h-12 mr-2 cursor-pointer w-12 object-cover show-page__image"
         />

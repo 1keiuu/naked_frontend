@@ -6,6 +6,7 @@ declare type User = {
   created_at?: Date
   updated_at?: Date
   avatar_url?: string
+  avatar?: string
   slack_user_id?: string
   tasks?: Task[]
   sub_tasks?: SubTask[]

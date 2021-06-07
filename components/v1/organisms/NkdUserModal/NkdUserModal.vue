@@ -61,8 +61,8 @@ export default defineComponent({
       userName.value = props.user.name
     }
 
-    if (props.user?.avatar_url) {
-      url.value = props.user.avatar_url
+    if (props.user?.avatar) {
+      url.value = props.user.avatar
     }
 
     const setUser = (inputValue: string) => {
@@ -77,18 +77,27 @@ export default defineComponent({
       target.avatar_url = url.value
       target.name = userName.value
       // console.log()
+      console.log(url.value)
+      console.log(file.value)
+      const params = {
+        name: userName.value,
+        avatar: file.value,
+      }
+      console.log(params)
 
-      // context.root.$axios
-      //   .post('/api/v1/users', {
-      //     description: userDescription.value,
-      //     user_id: context.root.$auth.user.id,
-      //     task_ids: tasksStore.todayTasks.map((task: any) => task.id),
-      //   })
-      //   .then((res) => {
-      //     const user = res.data.user
-      //     usersStore.appendToUsers(user)
-      //   })
-      //   .catch((e) => {})
+      let formData = new FormData()
+
+      Object.entries(params).forEach(([key, value]) =>
+        formData.append(key, value)
+      )
+
+      context.root.$axios
+        .patch(`/api/v1/users/${props.user?.id}`, formData)
+        .then((res) => {
+          const user = res.data.user
+          usersStore.appendToUsers(user)
+        })
+        .catch((e) => {})
     }
 
     const clickCloseClick = () => {
