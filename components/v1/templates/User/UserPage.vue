@@ -69,6 +69,8 @@ export default defineComponent({
     const reportsStore = inject(ReportsStoreKey)
     const reportPageStore = inject(ReportPageStoreKey)
 
+    console.log(reportsStore.reports)
+
     context.root.$axios
       .post('api/v1/users/followings', {
         follow: {
