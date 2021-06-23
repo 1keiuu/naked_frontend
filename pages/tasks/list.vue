@@ -1,7 +1,7 @@
 <template>
   <div class="task-page w-full h-full">
     <TasksPage>
-      <TasksList :tasksArray="tasksStore.tasks" @onInputBlur="createEpic" />
+      <TasksList :tasksArray="tasksStore.tasks" @onInputBlur="createTask" />
     </TasksPage>
   </div>
 </template>
@@ -26,13 +26,19 @@ export default defineComponent({
       .catch((e) => {
         console.error(e)
       })
-    const createEpic = (inputValue: string) => {
+
+    const createTask = (inputValue: string) => {
       taskPageStore.stopCreateTask()
+      let r = Math.floor(Math.random() * 255)
+      let g = Math.floor(Math.random() * 255)
+      let b = Math.floor(Math.random() * 255)
+      let color = `rgb(${r},${g},${b})`
       if (inputValue) {
         context.root.$axios
           .post('/api/v1/tasks', {
             title: inputValue,
             user_id: context.root.$auth.user.id,
+            color: color,
           })
           .then((res) => {
             const task = res.data.task
@@ -47,7 +53,7 @@ export default defineComponent({
 
     return {
       tasksStore,
-      createEpic,
+      createTask,
     }
   },
 })
