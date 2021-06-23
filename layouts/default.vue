@@ -1,7 +1,7 @@
 <template>
   <div class="bg-gray-100 min-h-screen">
     <TasksProvider>
-      <NkdHeader :loggedIn="loggedIn" :avatarUrl="avatarUrl" />
+      <NkdHeader :loggedIn="loggedIn"/>
       <div class="flex h-full">
         <NkdSideBar :loggedIn="loggedIn" />
         <Nuxt />
@@ -24,13 +24,13 @@ export default defineComponent({
 
   setup(_props, context) {
     const loggedIn = ref(false)
-    const avatarUrl = ref('')
+    // const avatarUrl = ref('')
 
     watchEffect(() => {
       loggedIn.value = context.root.$auth.state.loggedIn
-      avatarUrl.value = context.root.$auth.state.user?.avatar_url
+      // avatarUrl.value = context.root.$auth.state.user?.avatar_url
     })
-    return { loggedIn, avatarUrl }
+    return { loggedIn }
   },
 })
 </script>
