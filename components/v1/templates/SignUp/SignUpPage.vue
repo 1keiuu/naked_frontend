@@ -42,7 +42,8 @@ export default defineComponent({
           user: {
             email: SignUpStore.email,
             password: SignUpStore.password,
-            name: SignUpStore.name,
+            user_name: SignUpStore.userName,
+            company_name: SignUpStore.companyName,
           },
         })
         .then((response) => {

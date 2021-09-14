@@ -1,11 +1,20 @@
 <template>
   <form @submit.prevent="onNkdButtonClick()" class="flex flex-col w-full">
     <NkdTextField
-      type="name"
-      name="name"
-      placeholder="name"
-      :value="SignUpStore.name"
-      :maxLength="lengthRestrictions['name']"
+      type="companyName"
+      name="companyName"
+      placeholder="companyName"
+      :value="SignUpStore.companyName"
+      :maxLength="lengthRestrictions['companyName']"
+      :isCounter="true"
+      @onTextFieldInput="onInputTextField"
+    />
+    <NkdTextField
+      type="userName"
+      name="userName"
+      placeholder="userName"
+      :value="SignUpStore.userName"
+      :maxLength="lengthRestrictions['userName']"
       :isCounter="true"
       @onTextFieldInput="onInputTextField"
     />
@@ -42,15 +51,19 @@ export default defineComponent({
     password: {
       type: String,
     },
-    name: {
+    userName: {
+      type: String,
+    },
+    companyName: {
       type: String,
     },
   },
   setup(props, context) {
     const SignUpStore = inject(SignUpStoreKey)
     const lengthRestrictions = {
-      name: 10,
+      userName: 10,
       password: 20,
+      companyName: 20,
     }
     if (!SignUpStore) {
       throw new Error(`${SignUpStoreKey} is not provided`)
@@ -66,8 +79,12 @@ export default defineComponent({
       } else if (type == 'password') {
         if (val.length <= lengthRestrictions['password'])
           SignUpStore.setPassword(val)
-      } else if (type == 'name') {
-        if (val.length <= lengthRestrictions['name']) SignUpStore.setName(val)
+      } else if (type == 'userName') {
+        if (val.length <= lengthRestrictions['userName'])
+          SignUpStore.setUserName(val)
+      } else if (type == 'companyName') {
+        if (val.length <= lengthRestrictions['companyName'])
+          SignUpStore.setCompanyName(val)
       }
     }
 
