@@ -8,10 +8,11 @@
           type="email"
           name="email"
           placeholder="email"
+          @onTextFieldInput="onInputTextField"
         />
         </div>
-        <div class="box__search-card">
-          <button class="mr-5 search-card__button">
+        <div class="box__invitation-card">
+          <button class="mr-5 invitation-card__button" @click="onInviteBtnClick">
             <p>招待する</p>
           </button>
         </div>
@@ -36,25 +37,28 @@ export default defineComponent({
   components: { NkdTextField },
   setup(props, context) {
     const usersStore = inject(UsersStoreKey)
+    const userEmail = ref()
 
-    // context.root.$axios
-    //   .post('api/v1/users/search', {
-    //     q: query,
-    //   })
-    //   .then((res) => {
-    //     usersStore.setUsers(res.data)
-    //   })
-    //   .catch((e) => {
-    //     console.error(e)
-    //   })
+    const onInviteBtnClick = () => {
+      context.root.$axios
+        .post('api/v1/users/invite', {
+          invite: {
+            user_email: userEmail.value,
+          },
+        })
+        .then((res) => {
+          return
+        })
+        .catch((e) => {})
+    }
 
-    // const onInputTextField = (type: string, val: string) => {
-    //   if (type == 'email') {
-    //     SignUpStore.setEmail(val)
-    //   }
-    // }
+    const onInputTextField = (type: string, val: string) => {
+      if (type == 'email') {
+        userEmail.value = val
+      }
+    }
 
-    return { usersStore }
+    return { usersStore, onInputTextField, onInviteBtnClick }
   },
 })
 </script>
@@ -67,11 +71,11 @@ export default defineComponent({
     align-items: center;
     margin-left: 10px;
   }
-  &__search-card {
+  &__invitation-card {
     flex: 2;
   }
 }
-.search-card {
+.invitation-card {
   &__button {
     position: relative;
     cursor: pointer;
