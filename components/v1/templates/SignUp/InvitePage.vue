@@ -31,12 +31,13 @@ export default defineComponent({
     }
     // SignUpStore.setEmail(route.query.email)
     SignUpStore.setEmail(context.root.$route.query.email)
+    console.log(context.root.$route.query.email)
 
     const onSubmitButtonClick = async () => {
       errorMessages.splice(0, errorMessages.length)
 
       await context.root.$axios
-        .post('/api/v1/users/update_invite', {
+        .post('/api/v1/users/invite_update', {
           user: {
             email: SignUpStore.email,
             password: SignUpStore.password,

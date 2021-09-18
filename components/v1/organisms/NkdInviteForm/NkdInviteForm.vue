@@ -10,12 +10,6 @@
       @onTextFieldInput="onInputTextField"
     />
     <NkdTextField
-      type="email"
-      name="email"
-      placeholder="email"
-      @onTextFieldInput="onInputTextField"
-    />
-    <NkdTextField
       type="password"
       name="password"
       placeholder="password"

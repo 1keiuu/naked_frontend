@@ -42,8 +42,8 @@ export default defineComponent({
     const onInviteBtnClick = () => {
       context.root.$axios
         .post('api/v1/users/invite', {
-          invite: {
-            user_email: userEmail.value,
+          user: {
+            email: userEmail.value,
           },
         })
         .then((res) => {

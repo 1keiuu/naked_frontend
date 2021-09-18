@@ -50,6 +50,7 @@ export default defineComponent({
         })
         .then((response) => {
           context.root.$auth.setUser(response.data.user)
+          // tokenは使わなくなった
           context.root.$auth.setUserToken(response.data.user.token)
         })
         .catch((error) => {
