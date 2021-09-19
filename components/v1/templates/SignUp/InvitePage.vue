@@ -30,23 +30,33 @@ export default defineComponent({
       throw new Error(`${SignUpStoreKey} is not provided`)
     }
     // SignUpStore.setEmail(route.query.email)
-    SignUpStore.setEmail(context.root.$route.query.email)
-    console.log(context.root.$route.query.email)
+    SignUpStore.setToken(context.root.$route.query.token)
 
     const onSubmitButtonClick = async () => {
+      // context.root.$router.push('/login')
       errorMessages.splice(0, errorMessages.length)
 
       await context.root.$axios
         .post('/api/v1/users/invite_update', {
           user: {
-            email: SignUpStore.email,
+            token: SignUpStore.token,
             password: SignUpStore.password,
             name: SignUpStore.userName,
           },
         })
         .then((response) => {
           context.root.$auth.setUser(response.data.user)
-          context.root.$auth.setUserToken(response.data.user.token)
+          context.root.$router.push('/login')
+          console.log('hello')
+          // context.root.$auth.setUserToken(response.data.user.token)
+          // context.root.$auth.loginWith('local', {
+          //   data: {
+          //     user: {
+          //       email: SignUpStore.email,
+          //       password: SignUpStore.password,
+          //     },
+          //   },
+          // })
         })
         .catch((error) => {
           console.log(error.response)

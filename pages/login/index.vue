@@ -12,6 +12,7 @@ import auth from '@/middleware/auth'
 
 export default defineComponent({
   auth: 'guest',
+  // auth.jsは使っていない
   middleware: [auth],
   components: {
     LogInProvider,

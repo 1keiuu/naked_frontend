@@ -5,7 +5,8 @@ export default function SignUpStore() {
       email: '',
       password: '',
       userName: '',
-      companyName: ''
+      companyName: '',
+      token: ''
   })
 
   return {
@@ -21,6 +22,9 @@ export default function SignUpStore() {
     get companyName() {
       return state.companyName
     },
+    get token() {
+      return state.token
+    },
     setEmail(payload:string) {
       state.email = payload
     },
@@ -32,6 +36,9 @@ export default function SignUpStore() {
     },
     setCompanyName(payload:string) {
       state.companyName = payload
+    },
+    setToken(payload:string) {
+      state.token = payload
     },
     reSetEmail() {
       state.email = ''

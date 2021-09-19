@@ -18,7 +18,7 @@
             :isCounter="true"
       @onTextFieldInput="onInputTextField"
     />
-    <NkdButton title="新規登録" type="submit" />
+    <NkdButton title="新規登録" type="submit"  @click="onButtonClick"/>
   </form>
 </template>
 
@@ -58,6 +58,11 @@ export default defineComponent({
       context.emit('recieveClickEvent')
     }
 
+    const onButtonClick = () => {
+      context.root.$router.push('/login')
+      console.log('hello')
+    }
+
     const onInputTextField = (type: string, val: string) => {
       if (type == 'email') {
         SignUpStore.setEmail(val)
@@ -78,6 +83,7 @@ export default defineComponent({
       lengthRestrictions,
       onNkdButtonClick,
       onInputTextField,
+      onButtonClick,
     }
   },
 })
