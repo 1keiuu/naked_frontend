@@ -59,10 +59,10 @@ export default defineComponent({
       type: Boolean,
       requied: true,
     },
-    avatarUrl: {
-      type: String,
-      required: false,
-    },
+    // avatarUrl: {
+    //   type: String,
+    //   required: false,
+    // },
   },
   components: {
     HeaderItemList,
@@ -70,13 +70,22 @@ export default defineComponent({
     NkdHeaderTask,
   },
 
-  setup(_props, context) {
+  setup(props, context) {
     const state = reactive({
       username: '',
     })
 
+    const avatarUrl = ref()
+
     const tasksStore = inject(TasksStoreKey)
     const usersStore = inject(UsersStoreKey)
+
+    if (props.loggedIn) {
+      avatarUrl.value =
+        context.root.$auth.user.avatar == null
+          ? ref(context.root.$auth.user.avatar_url)
+          : ref(context.root.$auth.user.avatar)
+    }
 
     tasksStore.setCurrentTask(null)
 
@@ -155,6 +164,7 @@ export default defineComponent({
       trigger,
       user,
       tasksStore,
+      avatarUrl,
     }
   },
 })

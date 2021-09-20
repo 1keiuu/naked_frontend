@@ -68,6 +68,13 @@ export default defineComponent({
         ? ref(context.root.$auth.user.avatar_url)
         : ref(props?.report?.user.avatar_url)
 
+    if (!avatarUrl.value) {
+      avatarUrl.value =
+        props?.report?.user == null
+          ? context.root.$auth.user.avatar
+          : props?.report?.user.avatar
+    }
+
     const userName =
       props?.report?.user == null
         ? ref(context.root.$auth.user.name)

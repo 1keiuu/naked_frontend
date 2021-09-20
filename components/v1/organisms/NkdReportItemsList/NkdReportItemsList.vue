@@ -23,7 +23,6 @@ export default defineComponent({
     },
   },
   setup(props, context) {
-    console.log(props.reports)
     const onCreateReportBtnClick = () => {
       context.emit('onCreateReportBtnClick')
     }
