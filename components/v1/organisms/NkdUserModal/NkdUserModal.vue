@@ -75,15 +75,12 @@ export default defineComponent({
       const target = userPageStore?.selectedUser
       if (!target) return
       target.avatar_url = url.value
+      target.avatar = url.value
       target.name = userName.value
-      // console.log()
-      console.log(url.value)
-      console.log(file.value)
       const params = {
         name: userName.value,
         avatar: file.value,
       }
-      console.log(params)
 
       let formData = new FormData()
 
