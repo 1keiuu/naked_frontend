@@ -46,17 +46,30 @@ export default defineComponent({
         })
         .then((response) => {
           context.root.$auth.setUser(response.data.user)
-          context.root.$router.push('/login')
-          console.log('hello')
-          // context.root.$auth.setUserToken(response.data.user.token)
-          // context.root.$auth.loginWith('local', {
-          //   data: {
-          //     user: {
-          //       email: SignUpStore.email,
-          //       password: SignUpStore.password,
-          //     },
-          //   },
-          // })
+          context.root.$auth.setUserToken(response.data.user.token)
+          context.root.$auth
+            .loginWith('local', {
+              data: {
+                user: {
+                  email: response.data.user.email,
+                  password: SignUpStore.password,
+                },
+              },
+            })
+            .then((response) => {
+              context.root.$auth.setUser(response.data.user)
+              console.log(context.root.$auth.state.loggedIn)
+            })
+            .catch((error) => {
+              console.log(error.response)
+              if (!error.response.data.message) {
+                errorMessages.push('新規登録に失敗しました')
+                return
+              }
+              error.response.data.message.forEach((message: string) => {
+                errorMessages.push(message)
+              })
+            })
         })
         .catch((error) => {
           console.log(error.response)

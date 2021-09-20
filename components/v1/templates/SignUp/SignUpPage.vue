@@ -37,6 +37,26 @@ export default defineComponent({
     const onSubmitButtonClick = async () => {
       errorMessages.splice(0, errorMessages.length)
 
+      // await context.root.$auth
+      //   .loginWith('local', {
+      //     data: {
+      //       user: { email: SignUpStore.email, password: SignUpStore.password },
+      //     },
+      //   })
+      //   .then((response) => {
+      //     context.root.$auth.setUser(response.data.user)
+      //   })
+      //   .catch((error) => {
+      //     console.log(error.response)
+      //     if (!error.response.data.message) {
+      //       errorMessages.push('ログインに失敗しました')
+      //       return
+      //     }
+      //     error.response.data.message.forEach((message: string) => {
+      //       errorMessages.push(message)
+      //     })
+      //   })
+
       await context.root.$axios
         .post('/api/v1/users/signup', {
           user: {
@@ -52,6 +72,28 @@ export default defineComponent({
           context.root.$auth.setUser(response.data.user)
           // tokenは使わなくなった
           context.root.$auth.setUserToken(response.data.user.token)
+          context.root.$auth
+            .loginWith('local', {
+              data: {
+                user: {
+                  email: SignUpStore.email,
+                  password: SignUpStore.password,
+                },
+              },
+            })
+            .then((response) => {
+              context.root.$auth.setUser(response.data.user)
+            })
+            .catch((error) => {
+              console.log(error.response)
+              if (!error.response.data.message) {
+                errorMessages.push('新規登録に失敗しました')
+                return
+              }
+              error.response.data.message.forEach((message: string) => {
+                errorMessages.push(message)
+              })
+            })
         })
         .catch((error) => {
           console.log(error.response)
