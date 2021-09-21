@@ -21,6 +21,8 @@ import UserStore from '~/store/Users/Users'
 import UsersStoreKey from '../../storeKeys/UsersStoreKey'
 import UserPageStore from '~/store/Users/UserPage'
 import UserPageStoreKey from '../../storeKeys/UserPageStoreKey'
+import MeetPageStore from '~/store/Meets/MeetPage'
+import MeetPageStoreKey from '../../storeKeys/MeetPageStoreKey'
 
 export default defineComponent({
   setup(_props, context) {
@@ -32,6 +34,7 @@ export default defineComponent({
     provide(RecordsStoreKey, RecordStore())
     provide(UsersStoreKey, UserStore())
     provide(UserPageStoreKey, UserPageStore())
+    provide(MeetPageStoreKey, MeetPageStore())
     return {}
   },
 })
