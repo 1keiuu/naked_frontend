@@ -49,7 +49,7 @@ export default defineComponent({
       meetPageStore?.stopCreateMeet()
 
       context.root.$axios
-        .post('/api/v1/meets', {
+        .post('/api/v1/meetings', {
           description: meetDescription.value,
           user_ids: meetPageStore?.selectedUsers.map((user: any) => user.id),
         })
