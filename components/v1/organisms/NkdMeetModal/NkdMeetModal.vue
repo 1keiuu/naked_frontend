@@ -52,6 +52,8 @@ export default defineComponent({
         .post('/api/v1/meetings', {
           description: meetDescription.value,
           user_ids: meetPageStore?.selectedUsers.map((user: any) => user.id),
+          visitor_id: meetPageStore?.selectedUsers[0].id,
+          visited_id: meetPageStore?.selectedUsers[1].id,
         })
         .then((res) => {
           const meet = res.data.meet
