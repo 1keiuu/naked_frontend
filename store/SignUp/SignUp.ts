@@ -4,7 +4,9 @@ export default function SignUpStore() {
   const state = reactive({
       email: '',
       password: '',
-      name: ''
+      userName: '',
+      companyName: '',
+      token: ''
   })
 
   return {
@@ -14,8 +16,14 @@ export default function SignUpStore() {
     get password() {
       return state.password
     },
-    get name() {
-      return state.name
+    get userName() {
+      return state.userName
+    },
+    get companyName() {
+      return state.companyName
+    },
+    get token() {
+      return state.token
     },
     setEmail(payload:string) {
       state.email = payload
@@ -23,8 +31,14 @@ export default function SignUpStore() {
     setPassword(payload:string) {
       state.password = payload
     },
-    setName(payload:string) {
-      state.name = payload
+    setUserName(payload:string) {
+      state.userName = payload
+    },
+    setCompanyName(payload:string) {
+      state.companyName = payload
+    },
+    setToken(payload:string) {
+      state.token = payload
     },
     reSetEmail() {
       state.email = ''
@@ -32,8 +46,11 @@ export default function SignUpStore() {
     reSetPassword() {
       state.password = ''
     },
-    reSetName() {
-      state.name = ''
+    reSetUserName() {
+      state.userName = ''
+    },
+    reSetCompanyName() {
+      state.companyName = ''
     },
   }
 }

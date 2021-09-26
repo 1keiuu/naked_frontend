@@ -1,27 +1,12 @@
 <template>
   <form @submit.prevent="onNkdButtonClick()" class="flex flex-col w-full">
     <NkdTextField
-      type="companyName"
-      name="companyName"
-      placeholder="companyName"
-      :value="SignUpStore.companyName"
-      :maxLength="lengthRestrictions['companyName']"
-      :isCounter="true"
-      @onTextFieldInput="onInputTextField"
-    />
-    <NkdTextField
       type="userName"
       name="userName"
       placeholder="userName"
       :value="SignUpStore.userName"
       :maxLength="lengthRestrictions['userName']"
       :isCounter="true"
-      @onTextFieldInput="onInputTextField"
-    />
-    <NkdTextField
-      type="email"
-      name="email"
-      placeholder="email"
       @onTextFieldInput="onInputTextField"
     />
     <NkdTextField
@@ -33,7 +18,7 @@
             :isCounter="true"
       @onTextFieldInput="onInputTextField"
     />
-    <NkdButton title="新規登録" type="submit" />
+    <NkdButton title="新規登録" type="submit"  @click="onButtonClick"/>
   </form>
 </template>
 
@@ -73,6 +58,11 @@ export default defineComponent({
       context.emit('recieveClickEvent')
     }
 
+    const onButtonClick = () => {
+      context.root.$router.push('/login')
+      console.log('hello')
+    }
+
     const onInputTextField = (type: string, val: string) => {
       if (type == 'email') {
         SignUpStore.setEmail(val)
@@ -93,6 +83,7 @@ export default defineComponent({
       lengthRestrictions,
       onNkdButtonClick,
       onInputTextField,
+      onButtonClick,
     }
   },
 })

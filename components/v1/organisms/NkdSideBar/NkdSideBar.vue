@@ -15,6 +15,13 @@
         :item="item"
       />
     </div>
+    <div class="nkd-sidebar__new-user w-56">
+      <NkdSideBarItem
+        v-for="(item, i) in listBottomItems"
+        :key="'item' + i"
+        :item="item"
+      />
+    </div>
   </nav>
 </template>
 
@@ -38,7 +45,10 @@ export default defineComponent({
       { title: 'マイタスク', to: '/tasks', icon: 'task' },
       { title: '分析', to: '/graph', icon: 'graph' },
     ])
-    return { listItems }
+    const listBottomItems = reactive<SideBarItem[]>([
+      { title: 'ユーザーの追加', to: '/users', icon: 'plus' },
+    ])
+    return { listItems, listBottomItems }
   },
 })
 </script>
@@ -48,6 +58,11 @@ export default defineComponent({
   height: inherit;
   &.--active {
     display: block;
+  }
+  &__new-user {
+    position: absolute; /*←絶対位置*/
+    bottom: 0; /*下に固定*/
+    margin-bottom: 50px;
   }
 }
 </style>

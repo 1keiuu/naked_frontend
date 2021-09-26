@@ -2,12 +2,7 @@
   <div
     class="min-h-screen logIn-page px-8 sm:px-16 lg:px-32 xl:px-64 py-24 flex flex-col justify-center"
   >
-    <NkdSignUpForm @recieveClickEvent="onSubmitButtonClick" />
-    <a
-      href="https://slack.com/oauth/v2/authorize?user_scope=identity.basic,identity.email,identity.avatar&client_id=1242468374582.1564775291025"
-      ><img src="https://api.slack.com/img/sign_in_with_slack.png"
-    /></a>
-    <nuxt-link to="/login">アカウントをお持ちの方</nuxt-link>
+    <NkdInviteForm @recieveClickEvent="onSubmitButtonClick" />
     <p
       class="text-red-500 text-center"
       v-for="(message, i) in errorMessages"
@@ -21,68 +16,49 @@
 <script lang="ts">
 import { defineComponent, reactive, inject } from '@vue/composition-api'
 import SignUpStoreKey from '../../storeKeys/SignUpStoreKey'
-import NkdSignUpForm from '../../organisms/NkdSignUpForm/NkdSignUpForm.vue'
+import NkdInviteForm from '../../organisms/NkdInviteForm/NkdInviteForm.vue'
 
 export default defineComponent({
   components: {
-    NkdSignUpForm,
+    NkdInviteForm,
   },
   setup(_props, context) {
     const errorMessages = reactive<string[]>([])
     const SignUpStore = inject(SignUpStoreKey)
+
     if (!SignUpStore) {
       throw new Error(`${SignUpStoreKey} is not provided`)
     }
+    // SignUpStore.setEmail(route.query.email)
+    SignUpStore.setToken(context.root.$route.query.token)
 
     const onSubmitButtonClick = async () => {
+      // context.root.$router.push('/login')
       errorMessages.splice(0, errorMessages.length)
 
-      // await context.root.$auth
-      //   .loginWith('local', {
-      //     data: {
-      //       user: { email: SignUpStore.email, password: SignUpStore.password },
-      //     },
-      //   })
-      //   .then((response) => {
-      //     context.root.$auth.setUser(response.data.user)
-      //   })
-      //   .catch((error) => {
-      //     console.log(error.response)
-      //     if (!error.response.data.message) {
-      //       errorMessages.push('ログインに失敗しました')
-      //       return
-      //     }
-      //     error.response.data.message.forEach((message: string) => {
-      //       errorMessages.push(message)
-      //     })
-      //   })
-
       await context.root.$axios
-        .post('/api/v1/users/signup', {
+        .post('/api/v1/users/invite_update', {
           user: {
-            email: SignUpStore.email,
+            token: SignUpStore.token,
             password: SignUpStore.password,
             name: SignUpStore.userName,
-          },
-          company: {
-            name: SignUpStore.companyName,
           },
         })
         .then((response) => {
           context.root.$auth.setUser(response.data.user)
-          // tokenは使わなくなった
           context.root.$auth.setUserToken(response.data.user.token)
           context.root.$auth
             .loginWith('local', {
               data: {
                 user: {
-                  email: SignUpStore.email,
+                  email: response.data.user.email,
                   password: SignUpStore.password,
                 },
               },
             })
             .then((response) => {
               context.root.$auth.setUser(response.data.user)
+              console.log(context.root.$auth.state.loggedIn)
             })
             .catch((error) => {
               console.log(error.response)
