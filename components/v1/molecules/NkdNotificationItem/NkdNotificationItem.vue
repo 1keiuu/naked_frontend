@@ -83,7 +83,7 @@ export default defineComponent({
   &__inner {
     flex: 1;
     white-space: pre-line;
-    font-size: 20px;
+    font-size: 17px;
   }
 
   // .notification-card:hover {

@@ -25,8 +25,8 @@ export default defineComponent({
   components: { NkdTDoughnutSubHeader },
   setup(props, context) {
     const contents = reactive([
-      { id: 1, title: '記録', route: '/meets' },
-      { id: 2, title: '通知', route: '/meets/notification' },
+      { id: 1, title: '通知', route: '/meets/notification' },
+      { id: 2, title: '記録', route: '/meets' },
     ])
     const currentPage = context.root.$route.path
     const changeContent = (id: number, route: string) => {

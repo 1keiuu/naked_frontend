@@ -17,6 +17,7 @@ import {
   inject,
 } from '@vue/composition-api'
 import NkdNotificationsList from '../../organisms/NkdNotificationsList/NkdNotificationsList.vue'
+import MeetPageStoreKey from '@/components/v1/storeKeys/MeetPageStoreKey'
 
 export default defineComponent({
   props: {},
@@ -24,10 +25,13 @@ export default defineComponent({
   setup(props, context) {
     // const taskPageStore = inject(TaskPageStoreKey)
     const notifications = ref()
+    const meetPageStore = inject(MeetPageStoreKey)
+
     context.root.$axios
       .get('/api/v1/notifications')
       .then((res) => {
         notifications.value = res.data.notifications
+        meetPageStore?.setNotificationCheck(false)
       })
       .catch((e) => {
         console.error(e)

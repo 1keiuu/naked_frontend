@@ -6,11 +6,15 @@ export default function meetPageStore() {
         isCreatingMeet: false,
         isUpdatingMeet: false,
         selectedUsers: <User[]>[],
+        isNotificationUnCheck: false
     })
     
     return {
         get selectedUsers() {
             return state.selectedUsers
+        },
+        setNotificationCheck(payload:any) {
+            state.isNotificationUnCheck = payload
         },
         setSelectUsers(palyload: Array<User>) {
             state.selectedUsers = palyload
@@ -34,9 +38,15 @@ export default function meetPageStore() {
         get isUpdatingMeet() {
             return state.isUpdatingMeet
         },
+        get isNotificationUnCheck() {
+            return state.isNotificationUnCheck
+        },
+        checkNotification() {
+            state.isNotificationUnCheck = false
+        },
         startCreateMeet() {
             state.isCreatingMeet = true
-        }, 
+        },
         stopCreateMeet() {
             state.isCreatingMeet = false
         },
