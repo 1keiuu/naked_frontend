@@ -21,7 +21,9 @@
           </div>
         </div>
         <div class="box__follow-card">
-          <NkdFollowItem :user="user"/>
+          <!-- <NkdFollowItem :user="user"/> -->
+          <NkdMeetItem :user="user"/>
+
         </div>
       </div>
     </div>
@@ -38,6 +40,7 @@ import {
   onMounted,
 } from '@vue/composition-api'
 
+import NkdMeetItem from '@/components/v1/molecules/NkdMeetItem/NkdMeetItem.vue'
 import NkdFollowItem from '@/components/v1/molecules/NkdFollowItem/NkdFollowItem.vue'
 
 export default defineComponent({
@@ -46,6 +49,7 @@ export default defineComponent({
   },
   components: {
     NkdFollowItem,
+    NkdMeetItem,
   },
   setup(_props, context) {
     const onUserClick = (userId: any) => {
