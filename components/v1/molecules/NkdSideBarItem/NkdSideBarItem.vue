@@ -5,7 +5,7 @@
     >
       <NkdSideBarIcon :type="item.icon" color="grey"/>
       <p class="ml-3 text-white text-sm ">{{ item.title }}</p>
-      <NkdSideBarIcon v-if="meetPageStore.isNotificationUnCheck && item.icon == 'meeting'" type="circle" class="circle-icon"/>
+      <!-- <NkdSideBarIcon v-if="meetPageStore.isNotificationUnCheck && item.icon == 'meeting'" type="circle" class="circle-icon"/> -->
     </div>
   </nuxt-link>
 </template>
@@ -28,32 +28,8 @@ export default defineComponent({
   components: {
     NkdSideBarIcon,
   },
-  setup(props, context) {
-    const meetPageStore = inject(MeetPageStoreKey)
-    if (props.item?.icon == 'meeting') {
-      context.root.$axios
-        .get('/api/v1/notifications/notification_check')
-        .then((res) => {
-          meetPageStore?.setNotificationCheck(res.data.uncheck)
-        })
-        .catch((e) => {
-          console.error(e)
-        })
-    }
-    return {
-      meetPageStore,
-    }
-  },
 })
 </script>
 
 <style scoped lang="scss">
-.circle-icon {
-  // position: absolute;
-  // padding-left: 1rem;
-  // padding-top: 0rem;
-  width: 10px;
-  height: 10px;
-  margin-left: 5px;
-}
 </style>

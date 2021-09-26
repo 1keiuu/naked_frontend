@@ -81,6 +81,8 @@ export default {
     },
   },
 
+  performance: { hints: false },
+
   auth: {
     cookie: true,
     redirect: {
