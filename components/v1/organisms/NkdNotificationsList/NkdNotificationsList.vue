@@ -1,11 +1,9 @@
 <template>
   <div>
     <NkdNotificationItem
-      v-for="task in tasks"
-      :key="'task' + task.id"
-      :task="task"
-      :type="type"
-      @onInputBlur="dispatchEvent"
+      v-for="notification in notifications"
+      :key="'notification' + notification.id"
+      :notification="notification"
     />
   </div>
 </template>
@@ -18,7 +16,7 @@ export default defineComponent({
     NkdNotificationItem,
   },
   props: {
-    tasks: {
+    notifications: {
       type: Array,
     },
   },
