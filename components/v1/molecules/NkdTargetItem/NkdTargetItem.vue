@@ -3,13 +3,16 @@
     <div class="target-card__header">
       今月の目標
     </div>
-    <div class="target-card__inner">
-      3 / 4
+    <div class="target-card__inner" v-if="targetCount">
+      3 / {{targetCount}}
+    </div>
+    <div class="target-card__inner" v-else>
+      なし
     </div>
     <div class="target-card__supplement">
       （実施回数/目標回数）
     </div>
-    <div class="target-card__trash">
+    <div class="target-card__pencil" @click="onClickCreateTarget">
       <NkdIcon type="pencil" color="rgb(149 150 152)"/>
     </div>
   </div>
@@ -24,9 +27,7 @@ import {
   computed,
 } from '@vue/composition-api'
 import NkdIcon from '@/components/v1/atoms/NkdIcon/NkdIcon.vue'
-import ReportPageStoreKey from '@/components/v1/storeKeys/ReportPageStoreKey'
-import TasksStoreKey from '@/components/v1/storeKeys/TasksStoreKey'
-import moment from 'moment'
+import MeetPageStoreKey from '@/components/v1/storeKeys/MeetPageStoreKey'
 
 export default defineComponent({
   components: { NkdIcon },
@@ -36,7 +37,15 @@ export default defineComponent({
     },
   },
   setup(props, context) {
-    return {}
+    const targetCount = ref()
+    const meetPageStore = inject(MeetPageStoreKey)
+    if (props.target) {
+      targetCount.value = props.target.target_count
+    }
+    const onClickCreateTarget = () => {
+      meetPageStore?.startUpdateTarget()
+    }
+    return { targetCount, onClickCreateTarget }
   },
 })
 </script>
@@ -69,7 +78,7 @@ export default defineComponent({
     font-size: 15px;
     padding-top: 30px;
   }
-  &__trash {
+  &__pencil {
     position: absolute;
     top: -8px;
     right: -8px;

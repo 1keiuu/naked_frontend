@@ -58,7 +58,6 @@ export default defineComponent({
     },
   },
   setup(props, context) {
-    console.log(props.value)
     const onInput = (e: KeyboardEvent) => {
       context.emit(
         'onTextFieldInput',

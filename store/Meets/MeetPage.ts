@@ -5,6 +5,8 @@ export default function meetPageStore() {
     const state = reactive({
         isCreatingMeet: false,
         isUpdatingMeet: false,
+        isUpdatingTarget: false,
+        selectedTarget: <Target>{},
         selectedUsers: <User[]>[],
         isNotificationUnCheck: false
     })
@@ -13,11 +15,17 @@ export default function meetPageStore() {
         get selectedUsers() {
             return state.selectedUsers
         },
+        get selectedTarget() {
+            return state.selectedTarget
+        },
         setNotificationCheck(payload:any) {
             state.isNotificationUnCheck = payload
         },
         setSelectUsers(palyload: Array<User>) {
             state.selectedUsers = palyload
+        },
+        setSelectTarget(payload: any) {
+            state.selectedTarget = payload
         },
         appendToSelectedUsers(payload: any) {
           state.selectedUsers.push(payload)
@@ -38,6 +46,9 @@ export default function meetPageStore() {
         get isUpdatingMeet() {
             return state.isUpdatingMeet
         },
+        get isUpdatingTarget() {
+            return state.isUpdatingTarget
+        },
         get isNotificationUnCheck() {
             return state.isNotificationUnCheck
         },
@@ -55,6 +66,12 @@ export default function meetPageStore() {
         }, 
         stopUpdateMeet() {
             state.isUpdatingMeet = false
+        },
+        startUpdateTarget() {
+            state.isUpdatingTarget = true
+        }, 
+        stopUpdateTarget() {
+            state.isUpdatingTarget = false
         },
   }
 }
