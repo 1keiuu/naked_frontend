@@ -1,5 +1,5 @@
 <template>
-  <div v-if="reportPageStore.isCreatingReport">
+  <div v-if="reportPageStore.isCreatingReport" class="overflow-scroll">
     <div class="report-header" @click="clickCloseClick">
       <NkdIcon type="close" color="black" class="report-header__close"/>
     </div>

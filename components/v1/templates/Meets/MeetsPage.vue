@@ -1,15 +1,6 @@
 <template>
   <div class="mt-16 pt-12 pl-56 h-screen overflow-scroll">
-      <!-- <NkdDoughnutGraph
-        v-if="loaded"
-        :options = "options"
-        :labels = "taskTitles"
-        :data = "timeRationals"
-        :backgroundColor = "taskColors"
-      />
-      <GraphToday
-        :today="tasksStore.todayTasks"
-      /> -->
+      <NkdTargetItem/>
   </div>
 </template>
 
@@ -23,29 +14,13 @@ import {
   onMounted,
   inject,
 } from '@vue/composition-api'
-import NkdDoughnutGraph from '@/components/v1/organisms/NkdDoughnutGraph/NkdDoughnutGraph.vue'
-import TasksStoreKey from '@/components/v1/storeKeys/TasksStoreKey'
-import TaskPageStoreKey from '@/components/v1/storeKeys/TaskPageStoreKey'
-import GraphToday from '@/components/v1/templates/Graph/Contents/GraphToday.vue'
+import NkdTargetItem from '@/components/v1/molecules/NkdTargetItem/NkdTargetItem.vue'
 
 export default defineComponent({
   props: {},
-  components: { NkdDoughnutGraph, GraphToday },
+  components: { NkdTargetItem },
   setup(props, context) {
-    const tasksStore = inject(TasksStoreKey)
-    const taskPageStore = inject(TaskPageStoreKey)
-    const timeRationals = ref([])
-    const taskTitles = ref([])
-    const taskColors = ref([])
-    const loaded = ref(false)
-
-    return {
-      loaded,
-      taskTitles,
-      timeRationals,
-      taskColors,
-      tasksStore,
-    }
+    return {}
   },
 })
 </script>
