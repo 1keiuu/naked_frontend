@@ -21,8 +21,8 @@
       </div>
     </nuxt-link>
     <img
-      :src="avatarUrl"
-      v-if="avatarUrl"
+      :src="userPageStore.currentUser.avatar"
+      v-if="userPageStore.currentUser.avatar"
       id="avatar"
       @click="isItemListActive = !isItemListActive"
       class="rounded-full h-12 mr-2 cursor-pointer w-12 object-cover"
@@ -58,6 +58,7 @@ import NkdHeaderTask from '../../molecules/NkdHeaderTask/NkdHeaderTask.vue'
 import TasksStoreKey from '@/components/v1/storeKeys/TasksStoreKey'
 import UsersStoreKey from '@/components/v1/storeKeys/UsersStoreKey'
 import MeetPageStoreKey from '@/components/v1/storeKeys/MeetPageStoreKey'
+import UserPageStoreKey from '@/components/v1/storeKeys/UserPageStoreKey'
 
 export default defineComponent({
   name: 'NkdHeader',
@@ -82,16 +83,13 @@ export default defineComponent({
       username: '',
     })
 
-    const avatarUrl = ref()
-
+    const userPageStore = inject(UserPageStoreKey)
     const tasksStore = inject(TasksStoreKey)
     const usersStore = inject(UsersStoreKey)
 
-    if (props.loggedIn) {
-      avatarUrl.value =
-        context.root.$auth.user.avatar == null
-          ? ref(context.root.$auth.user.avatar_url)
-          : ref(context.root.$auth.user.avatar)
+    if (props.loggedIn && context.root.$auth.user.avatar) {
+      //ref(avatar)の形にはしない、avatarを変えた時にリアルタイム反映される
+      userPageStore?.setCurrentUser(context.root.$auth.user)
     }
 
     const meetPageStore = inject(MeetPageStoreKey)
@@ -181,8 +179,8 @@ export default defineComponent({
       trigger,
       user,
       tasksStore,
-      avatarUrl,
       meetPageStore,
+      userPageStore,
     }
   },
 })

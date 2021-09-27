@@ -25,17 +25,13 @@ export default defineComponent({
   components: { NkdTDoughnutSubHeader },
   setup(props, context) {
     const contents = reactive([
-      { id: 1, title: '個人', route: '/meets' },
-      { id: 2, title: 'チーム', route: '/meets/team' },
+      { id: 1, title: '通知', route: '/meets/notification' },
     ])
     const currentPage = context.root.$route.path
     const changeContent = (id: number, route: string) => {
       switch (route) {
-        case '/meets':
-          context.root.$router.push('/meets')
-          break
-        case '/meets/team':
-          context.root.$router.push('/meets/team')
+        case '/meets/notification':
+          context.root.$router.push('/meets/notification')
           break
       }
     }

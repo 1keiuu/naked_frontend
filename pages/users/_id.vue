@@ -41,7 +41,6 @@ export default defineComponent({
     context.root.$axios
       .get(`api/v1/users/${userId}`)
       .then((res) => {
-        console.log(res.data)
         userPageStore?.selectUser(res.data.user)
         reportsStore.setReports(res.data.reports)
         loaded.value = true
