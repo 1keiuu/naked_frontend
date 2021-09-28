@@ -3,8 +3,8 @@
     <div class="target-card__header">
       今月の目標
     </div>
-    <div class="target-card__inner" v-if="targetCount">
-      3 / {{targetCount}}
+    <div class="target-card__inner" v-if="meetPageStore.selectedTarget">
+      3 / {{meetPageStore.selectedTarget.target_count}}
     </div>
     <div class="target-card__inner" v-else>
       なし
@@ -31,21 +31,14 @@ import MeetPageStoreKey from '@/components/v1/storeKeys/MeetPageStoreKey'
 
 export default defineComponent({
   components: { NkdIcon },
-  props: {
-    target: {
-      type: Object,
-    },
-  },
+  props: {},
   setup(props, context) {
-    const targetCount = ref()
     const meetPageStore = inject(MeetPageStoreKey)
-    if (props.target) {
-      targetCount.value = props.target.target_count
-    }
+    // targetCountは使っていない
     const onClickCreateTarget = () => {
       meetPageStore?.startUpdateTarget()
     }
-    return { targetCount, onClickCreateTarget }
+    return { onClickCreateTarget, meetPageStore }
   },
 })
 </script>

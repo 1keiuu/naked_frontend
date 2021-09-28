@@ -2,7 +2,7 @@
   <div class="task-page w-full h-full">
     <MeetsHeader
     />
-    <MeetsPage :target="meetPageStore.selectedTarget"/>
+    <MeetsPage/>
     <div class="show-card" :class="{ '--active': meetPageStore.isUpdatingTarget }">
       <div class="show-card__modal" :class="{ '--active': meetPageStore.isUpdatingTarget }">
         <NkdTargetModal :target="meetPageStore.selectedTarget" v-if="loaded"/>
@@ -39,6 +39,7 @@ export default defineComponent({
     context.root.$axios
       .get('api/v1/targets')
       .then((res) => {
+        // nkdtargetItemで使う
         meetPageStore?.setSelectTarget(res.data.target)
         loaded.value = true
       })

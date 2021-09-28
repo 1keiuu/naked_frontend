@@ -1,6 +1,6 @@
 <template>
   <div class="mt-16 pt-12 pl-56 h-screen overflow-scroll">
-      <NkdTargetItem :target="selectTarget"/>
+      <NkdTargetItem/>
   </div>
 </template>
 
@@ -17,17 +17,9 @@ import {
 import NkdTargetItem from '@/components/v1/molecules/NkdTargetItem/NkdTargetItem.vue'
 
 export default defineComponent({
-  props: {
-    target: {
-      type: Object,
-    },
-  },
+  props: {},
   components: { NkdTargetItem },
-  setup(props, context) {
-    const selectTarget = ref()
-    selectTarget.value = props.target
-    return { selectTarget }
-  },
+  setup(props, context) {},
 })
 </script>
 

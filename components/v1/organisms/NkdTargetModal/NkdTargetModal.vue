@@ -93,10 +93,11 @@ export default defineComponent({
     }
 
     const updateTargetCount = (obj: any) => {
-      console.log(obj)
       // if (!props.target || !obj.target_count) return
       if (obj.target_count.length > 3)
         return alert('目標回数は3桁以内で入力してください')
+      // if (typeof obj.target_count == 'string')
+      //   return alert('数値を入力してください')
       const target = meetPageStore?.selectedTarget
       // 変更ない場合は弾く
       if (target) {
@@ -106,7 +107,6 @@ export default defineComponent({
         targetCount.value = obj.target_count
       }
       // target.target_count = obj.target_count
-      console.log(targetCount.value)
     }
 
     return {
