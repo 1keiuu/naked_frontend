@@ -3,8 +3,8 @@
     <div class="target-card__header">
       今月の目標
     </div>
-    <div class="target-card__inner" v-if="meetPageStore.selectedTarget">
-      3 / {{meetPageStore.selectedTarget.target_count}}
+    <div class="target-card__inner" v-if="meetPageStore.selectedTarget" :class="{ '--active': meetingCount >= meetPageStore.selectedTarget.target_count }">
+      {{meetingCount}} / {{meetPageStore.selectedTarget.target_count}}
     </div>
     <div class="target-card__inner" v-else>
       なし
@@ -34,11 +34,21 @@ export default defineComponent({
   props: {},
   setup(props, context) {
     const meetPageStore = inject(MeetPageStoreKey)
+    const meetingCount = ref(0)
     // targetCountは使っていない
     const onClickCreateTarget = () => {
       meetPageStore?.startUpdateTarget()
     }
-    return { onClickCreateTarget, meetPageStore }
+    context.root.$axios
+      .get('api/v1/targets/meeting_count')
+      .then((res) => {
+        // nkdtargetItemで使う
+        meetingCount.value = res.data.meeting_count
+      })
+      .catch((e) => {
+        console.error(e)
+      })
+    return { onClickCreateTarget, meetPageStore, meetingCount }
   },
 })
 </script>
@@ -66,6 +76,9 @@ export default defineComponent({
     padding-top: 24px;
     padding-left: 24px;
     font-size: 20px;
+    &.--active {
+      color: red;
+    }
   }
   &__supplement {
     font-size: 15px;
