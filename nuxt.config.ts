@@ -70,6 +70,8 @@ export default {
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {
     extend(config: any, isDev: boolean, isClient: boolean) {
+      // warningが出るので追記
+      config.performance.maxAssetSize = 500000
       if (isDev && isClient) {
         config.module.rules.push({
           enforce: 'pre',
@@ -80,8 +82,6 @@ export default {
       }
     },
   },
-
-  performance: { hints: false },
 
   auth: {
     cookie: true,
