@@ -17,30 +17,31 @@ import { HorizontalBar } from 'vue-chartjs'
 
 export default defineComponent({
   props: {
-    // labels: Array,
-    // data: Array,
-    // backgroundColor: Array,
+    labels: Array,
+    totalData: Array,
+    monthData: Array,
     options: Object,
   },
   components: { HorizontalBar },
   extends: HorizontalBar,
   setup(props, context) {
     const horizontal = ref()
-    console.log(props.options)
+    // propsのまま代入すると出ない
+    const users = ref(props.labels)
     //refの関係上graphpageでdatasetsを設定するとグラフが表示されない
     const datasets = reactive({
-      labels: ['Aさん', 'Bさん', 'Cさん', 'Dさん'],
+      labels: users.value,
       // 表示するデータ
       datasets: [
         {
-          data: [3, 5, 2, 6],
+          data: props.totalData,
           label: '総実施回数',
           borderColor: 'red',
           backgroundColor: '#f19b9b',
           minBarLength: 0,
         },
         {
-          data: [2, 2, 1, 1],
+          data: props.monthData,
           label: '今月の実施回数',
           borderColor: 'blue',
           backgroundColor: '#a6a6ec',

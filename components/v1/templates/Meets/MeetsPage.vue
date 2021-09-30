@@ -3,6 +3,9 @@
       <NkdTargetItem/>
       <NkdHorizontalBar
         :options="options"
+        :labels = "users"
+        :totalData = "totalArray"
+        :monthData = "monthArray"
       />
   </div>
 </template>
@@ -24,6 +27,22 @@ export default defineComponent({
   props: {},
   components: { NkdTargetItem, NkdHorizontalBar },
   setup(props, context) {
+    const users = ref([])
+    const totalArray = ref([])
+    const monthArray = ref([])
+    const loaded = ref(false)
+    context.root.$axios
+      .get('/api/v1/meetings/user_meet')
+      .then((res) => {
+        users.value = res.data.users
+        totalArray.value = res.data.total_array
+        monthArray.value = res.data.month_array
+        loaded.value = true
+      })
+      .catch((e) => {
+        console.error(e)
+      })
+
     const options = reactive({
       // デザインを崩さないため
       responsive: false,
@@ -50,6 +69,10 @@ export default defineComponent({
     })
     return {
       options,
+      users,
+      totalArray,
+      monthArray,
+      loaded,
     }
   },
 })
