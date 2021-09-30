@@ -41,9 +41,7 @@ export default defineComponent({
       type: Boolean,
       required: false,
     },
-    value: {
-      type: String,
-    },
+    value: {},
     name: {
       type: String,
       required: true,
@@ -58,7 +56,6 @@ export default defineComponent({
     },
   },
   setup(props, context) {
-    console.log(props.value)
     const onInput = (e: KeyboardEvent) => {
       context.emit(
         'onTextFieldInput',

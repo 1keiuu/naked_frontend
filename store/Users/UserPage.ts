@@ -6,14 +6,21 @@ export default function userPageStore() {
         isCreatingUser: false,
         isUpdatingUser: false,
         selectedUser: <User>{},
+        currentUser: <User>{},
     })
     
     return {
         get selectedUser() {
             return state.selectedUser
         },
+        get currentUser() {
+            return state.currentUser
+        },
         selectUser(payload:any) {
             state.selectedUser = payload
+        },
+        setCurrentUser(payload:any) {
+            state.currentUser = payload
         },
         // レポートの作成/更新中のフラグ
         get isCreatingUser() {

@@ -1,8 +1,8 @@
 <template>
   <div class="task-page w-full h-full">
-    <NotificationsHeader
+    <MeetsHeader
     />
-    <NotificationsPage/>
+    <MeetsPage/>
   </div>
 </template>
 <script lang="ts">
@@ -15,14 +15,14 @@ import {
   onMounted,
   inject,
 } from '@vue/composition-api'
-import NotificationsPage from '@/components/v1/templates/Meets/NotificationsPage.vue'
-import NotificationsHeader from '@/components/v1/templates/Notifications/NotificationsHeader.vue'
+import MeetsPage from '@/components/v1/templates/Meets/MeetsPage.vue'
+import MeetsHeader from '@/components/v1/templates/Meets/MeetsHeader.vue'
 
 export default defineComponent({
   props: {},
   components: {
-    NotificationsPage,
-    NotificationsHeader,
+    MeetsPage,
+    MeetsHeader,
   },
   setup(props, context) {},
 })

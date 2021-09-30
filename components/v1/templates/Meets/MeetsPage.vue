@@ -1,15 +1,12 @@
 <template>
   <div class="mt-16 pt-12 pl-56 h-screen overflow-scroll">
-      <!-- <NkdDoughnutGraph
-        v-if="loaded"
-        :options = "options"
-        :labels = "taskTitles"
-        :data = "timeRationals"
-        :backgroundColor = "taskColors"
+      <NkdTargetItem/>
+      <NkdHorizontalBar
+        :options="options"
+        :labels = "users"
+        :totalData = "totalArray"
+        :monthData = "monthArray"
       />
-      <GraphToday
-        :today="tasksStore.todayTasks"
-      /> -->
   </div>
 </template>
 
@@ -23,28 +20,59 @@ import {
   onMounted,
   inject,
 } from '@vue/composition-api'
-import NkdDoughnutGraph from '@/components/v1/organisms/NkdDoughnutGraph/NkdDoughnutGraph.vue'
-import TasksStoreKey from '@/components/v1/storeKeys/TasksStoreKey'
-import TaskPageStoreKey from '@/components/v1/storeKeys/TaskPageStoreKey'
-import GraphToday from '@/components/v1/templates/Graph/Contents/GraphToday.vue'
+import NkdTargetItem from '@/components/v1/molecules/NkdTargetItem/NkdTargetItem.vue'
+import NkdHorizontalBar from '@/components/v1/organisms/NkdHorizontalBar/NkdHorizontalBar.vue'
 
 export default defineComponent({
   props: {},
-  components: { NkdDoughnutGraph, GraphToday },
+  components: { NkdTargetItem, NkdHorizontalBar },
   setup(props, context) {
-    const tasksStore = inject(TasksStoreKey)
-    const taskPageStore = inject(TaskPageStoreKey)
-    const timeRationals = ref([])
-    const taskTitles = ref([])
-    const taskColors = ref([])
+    const users = ref([])
+    const totalArray = ref([])
+    const monthArray = ref([])
     const loaded = ref(false)
+    context.root.$axios
+      .get('/api/v1/meetings/user_meet')
+      .then((res) => {
+        users.value = res.data.users
+        totalArray.value = res.data.total_array
+        monthArray.value = res.data.month_array
+        loaded.value = true
+      })
+      .catch((e) => {
+        console.error(e)
+      })
 
+    const options = reactive({
+      // デザインを崩さないため
+      responsive: false,
+      title: {
+        display: true,
+        fontSize: 20,
+        text: '1on1の実施状況',
+      },
+      // これでlabelを出すか選択できる
+      // legend: {
+      //   display: false,
+      // },
+      // ゼロから始めたい
+      scales: {
+        xAxes: [
+          // Ｘ軸のオプション
+          {
+            ticks: {
+              min: 0,
+            },
+          },
+        ],
+      },
+    })
     return {
+      options,
+      users,
+      totalArray,
+      monthArray,
       loaded,
-      taskTitles,
-      timeRationals,
-      taskColors,
-      tasksStore,
     }
   },
 })

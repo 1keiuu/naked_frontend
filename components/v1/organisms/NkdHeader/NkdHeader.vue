@@ -14,9 +14,15 @@
       v-if="tasksStore.currentTask !== null"
       :task="tasksStore.currentTask"
     />
+    <nuxt-link to="/meets/notification" class="notification">
+      <div>
+        <NkdIcon type="notification" class="notification"/>
+        <NkdIcon v-if="meetPageStore.isNotificationUnCheck" type="circle" class="circle-icon"/>
+      </div>
+    </nuxt-link>
     <img
-      :src="avatarUrl"
-      v-if="avatarUrl"
+      :src="userPageStore.currentUser.avatar"
+      v-if="userPageStore.currentUser.avatar"
       id="avatar"
       @click="isItemListActive = !isItemListActive"
       class="rounded-full h-12 mr-2 cursor-pointer w-12 object-cover"
@@ -51,6 +57,8 @@ import NkdIcon from '@/components/v1/atoms/NkdIcon/NkdIcon.vue'
 import NkdHeaderTask from '../../molecules/NkdHeaderTask/NkdHeaderTask.vue'
 import TasksStoreKey from '@/components/v1/storeKeys/TasksStoreKey'
 import UsersStoreKey from '@/components/v1/storeKeys/UsersStoreKey'
+import MeetPageStoreKey from '@/components/v1/storeKeys/MeetPageStoreKey'
+import UserPageStoreKey from '@/components/v1/storeKeys/UserPageStoreKey'
 
 export default defineComponent({
   name: 'NkdHeader',
@@ -75,17 +83,24 @@ export default defineComponent({
       username: '',
     })
 
-    const avatarUrl = ref()
-
+    const userPageStore = inject(UserPageStoreKey)
     const tasksStore = inject(TasksStoreKey)
     const usersStore = inject(UsersStoreKey)
 
-    if (props.loggedIn) {
-      avatarUrl.value =
-        context.root.$auth.user.avatar == null
-          ? ref(context.root.$auth.user.avatar_url)
-          : ref(context.root.$auth.user.avatar)
+    if (props.loggedIn && context.root.$auth.user.avatar) {
+      //ref(avatar)の形にはしない、avatarを変えた時にリアルタイム反映される
+      userPageStore?.setCurrentUser(context.root.$auth.user)
     }
+
+    const meetPageStore = inject(MeetPageStoreKey)
+    context.root.$axios
+      .get('/api/v1/notifications/notification_check')
+      .then((res) => {
+        meetPageStore?.setNotificationCheck(res.data.uncheck)
+      })
+      .catch((e) => {
+        console.error(e)
+      })
 
     tasksStore.setCurrentTask(null)
 
@@ -164,7 +179,8 @@ export default defineComponent({
       trigger,
       user,
       tasksStore,
-      avatarUrl,
+      meetPageStore,
+      userPageStore,
     }
   },
 })
@@ -200,5 +216,20 @@ export default defineComponent({
     border: none;
     font-size: 20px;
   }
+}
+.notification {
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+}
+
+.circle-icon {
+  position: absolute;
+  padding-right: 4.9rem;
+  right: 12px;
+  padding-top: 1px;
+  top: 20px;
+  width: 10px;
+  height: 10px;
 }
 </style>

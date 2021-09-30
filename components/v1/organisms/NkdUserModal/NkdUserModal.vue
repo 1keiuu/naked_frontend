@@ -76,7 +76,12 @@ export default defineComponent({
       if (!target) return
       target.avatar_url = url.value
       target.avatar = url.value
+      // context.root.$auth.user.avatar = url.value
       target.name = userName.value
+      const currentUser = userPageStore?.currentUser
+      if (!currentUser) return
+      currentUser.avatar = url.value
+      currentUser.name = userName.value
       const params = {
         name: userName.value,
         avatar: file.value,

@@ -41,7 +41,7 @@ export default defineComponent({
   setup(props, context) {
     const listItems = reactive<SideBarItem[]>([
       { title: 'ホーム', to: '/', icon: 'home' },
-      { title: '1on1の記録•通知', to: '/meets/notification', icon: 'meeting' },
+      { title: '1on1の記録', to: '/meets', icon: 'meeting' },
       { title: 'マイタスク', to: '/tasks', icon: 'task' },
       { title: '分析', to: '/graph', icon: 'graph' },
     ])
